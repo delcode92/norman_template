@@ -101,14 +101,13 @@ const ActiveProjects = () => {
                                             </div>
                                         </td> */}
                                         <td className="align-middle">2024-02-20 12:12:20</td>
-                                        <td className="align-middle"><span className={`badge bg-${item.priorityBadgeBg}`}>{item.priority}</span></td>
+                                        <td className="align-middle"><span className={`badge bg-${item.priorityBadgeBg} bg-purple p-2`}>{item.priority}</span></td>
                                         <td className="align-middle">
                                             <div className="avatar-group">
                                                 {item.members.map((avatar, avatarIndex) => {
                                                     return (
                                                         <span className="avatar avatar-sm" key={avatarIndex}>
                                                             <Image alt="avatar" src={avatar.image} className="rounded-circle" />
-                                                            {/* <div className="rounded-circle">M</div> */}
                                                         </span>
                                                     )
                                                 })}

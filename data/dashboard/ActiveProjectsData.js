@@ -2,8 +2,8 @@ var data = [
     {
         id:1,
         projectName : "Dropbox Design System",
-        priority : "Medium",
-        priorityBadgeBg : 'warning',
+        priority : "114",
+         priorityBadgeBg : 'info',
         hours: 34,
         progress: 15,
         brandLogo:'/images/brand/dropbox-logo.svg',
@@ -17,22 +17,22 @@ var data = [
      {
          id:2,
          projectName : "Slack Team UI Design",
-         priority : "High",
-         priorityBadgeBg : 'danger',
+         priority : "114",
+         priorityBadgeBg : 'info',
          hours: 47,
          progress: 35,
          brandLogo:'/images/brand/slack-logo.svg',
          brandLogoBg : 'bg-white',
          members:[
              {image:'images/avatar/avatar-4.jpg'},
-             {image:'images/avatar/avatar-5.jpg'},
-             {image:'images/avatar/avatar-6.jpg'}
+            //  {image:'images/avatar/avatar-5.jpg'},
+            //  {image:'images/avatar/avatar-6.jpg'}
          ] 
       },
       {
          id:3,
          projectName : "GitHub Satellite",
-         priority : "Low",
+         priority : "114",
          priorityBadgeBg : 'info',
          hours: 120,
          progress: 75,
@@ -47,8 +47,8 @@ var data = [
       {
          id:4,
          projectName : "3D Character Modelling",
-         priority : "Medium",
-         priorityBadgeBg : 'warning',
+         priority : "114",
+         priorityBadgeBg : 'info',
          hours: 89,
          progress: 63,
          brandLogo:'/images/brand/3dsmax-logo.svg',
@@ -62,8 +62,8 @@ var data = [
       {
          id:3,
          projectName : "Webapp Design System",
-         priority : "Track",
-         priorityBadgeBg : 'success',
+         priority : "114",
+         priorityBadgeBg : 'info',
          hours: 108,
          progress: 100,
          brandLogo:'/images/brand/layers-logo.svg',
@@ -77,7 +77,7 @@ var data = [
       {
          id:4,
          projectName : "Github Event Design",
-         priority : "Low",
+         priority : "114",
          priorityBadgeBg : 'info',
          hours: 120,
          progress: 75,
