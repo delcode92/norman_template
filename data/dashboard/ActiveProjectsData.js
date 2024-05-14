@@ -11,7 +11,7 @@ var data = [
         members:[
          {image:'images/avatar/avatar-1.jpg'},
          {image:'images/avatar/avatar-2.jpg'},
-         {image:'images/avatar/avatar-3.jpg'}
+        //  {image:'images/avatar/avatar-3.jpg'}
         ] 
      },
      {
@@ -25,7 +25,7 @@ var data = [
          brandLogoBg : 'bg-white',
          members:[
              {image:'images/avatar/avatar-4.jpg'},
-            //  {image:'images/avatar/avatar-5.jpg'},
+             {image:'images/avatar/avatar-5.jpg'},
             //  {image:'images/avatar/avatar-6.jpg'}
          ] 
       },
@@ -41,7 +41,7 @@ var data = [
          members:[
              {image:'images/avatar/avatar-7.jpg'},
              {image:'images/avatar/avatar-8.jpg'},
-             {image:'images/avatar/avatar-9.jpg'}
+            //  {image:'images/avatar/avatar-9.jpg'}
          ] 
       },
       {
@@ -56,7 +56,7 @@ var data = [
          members:[
              {image:'images/avatar/avatar-10.jpg'},
              {image:'images/avatar/avatar-11.jpg'},
-             {image:'images/avatar/avatar-12.jpg'}
+            //  {image:'images/avatar/avatar-12.jpg'}
          ] 
       },
       {
@@ -71,7 +71,7 @@ var data = [
          members:[
              {image:'images/avatar/avatar-13.jpg'},
              {image:'images/avatar/avatar-14.jpg'},
-             {image:'images/avatar/avatar-15.jpg'}
+            //  {image:'images/avatar/avatar-15.jpg'}
          ] 
       },
       {
@@ -86,7 +86,7 @@ var data = [
          members:[
              {image:'images/avatar/avatar-16.jpg'},
              {image:'images/avatar/avatar-17.jpg'},
-             {image:'images/avatar/avatar-18.jpg'}
+            //  {image:'images/avatar/avatar-18.jpg'}
          ] 
       }
 ];

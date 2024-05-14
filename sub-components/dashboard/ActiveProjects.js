@@ -3,8 +3,8 @@
 // import node module libraries
 import React from "react";
 import Link from 'next/link';
-import { ProgressBar, Col, Row, Card, Table, Image , Dropdown, Pagination } from 'react-bootstrap';
-import { MoreVertical } from 'react-feather';
+import { ProgressBar, Col, Row, Card, Table, Image , Dropdown, Pagination, Form, Button } from 'react-bootstrap';
+import { MoreVertical, Filter } from 'react-feather';
 
 // import required data files
 import ActiveProjectsData from "data/dashboard/ActiveProjectsData";
@@ -24,6 +24,62 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
 ));
 
 CustomToggle.displayName = 'CustomToggle';
+
+const ActionFilter = (id_log) => {
+    
+    const handleSelect = (eventKey) => {
+        console.log("id===>", id_log['idLog']);
+        console.log("Selected event key:", eventKey);
+      };
+
+    return (
+        <Dropdown onSelect={handleSelect}>
+            <Dropdown.Toggle as={CustomToggle}>
+                <Filter size="15px" className="text-muted" />
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu show className="log-filter">
+                <Dropdown.Header>Filter By:</Dropdown.Header>  
+                <Form className="dropdown-form p-4">  
+                    {/* 
+                        1. sort by (radio newest-latest)
+                        2. date
+                        3. no perkara 
+                        4. words
+                    */}
+                    {/* <Form.Group className="mb-3">
+                    </Form.Group> */}
+
+                    <Form.Group className="mb-3" controlId="">
+                        <Form.Label>Sort By:  &nbsp;&nbsp;&nbsp;&nbsp;</Form.Label>
+                        <Form.Check inline type="radio" name="group1" label="latest"/>
+                        <Form.Check inline type="radio" name="group1" label="oldest"/>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formDate">
+                        <Form.Label>DateTime:</Form.Label>
+                        <Form.Control type="datetime-local"/>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formNoPerkara">
+                        <Form.Label>No Perkara:</Form.Label>
+                        <Form.Control type="text" placeholder="..." />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formNoTxt">
+                        <Form.Label>Search Text:</Form.Label>
+                        <Form.Control type="text" placeholder="..." />
+                    </Form.Group>
+                    
+                    <Button variant="primary" type="submit">Filter</Button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <Button variant="success" type="submit">Reset</Button>
+                </Form> 
+            </Dropdown.Menu>
+
+        </Dropdown>
+    );
+};
 
 const ActionMenu = (id_log) => {
 
@@ -69,7 +125,17 @@ const ActiveProjects = () => {
             <Col md={12} xs={12}>
                 <Card>
                     <Card.Header className="bg-white  py-4">
-                        <h4 className="mb-0">Log Activity</h4>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <h4 className="mb-0">Log Activity</h4>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="d-flex justify-content-end">
+                                    <ActionFilter/>
+                                </div>
+                            </div>
+                        </div>
+
                     </Card.Header>
                     <Table responsive className="text-nowrap mb-0">
                         <thead className="table-light">
@@ -117,9 +183,10 @@ const ActiveProjects = () => {
                                             </div>
                                         </td>
                                         <td className="align-middle text-dark">
-                                            <div className="float-start me-3">{item.progress}%</div>
+                                            {/* <div className="float-start me-3">{item.progress}%</div> */}
                                             <div className="mt-2">
-                                                <ProgressBar now={item.progress} style={{ height: '5px' }} />
+                                                {/* <ProgressBar now={item.progress} style={{ height: '5px' }} /> */}
+                                                <p>lorem ipsum .... </p>
                                             </div>
                                         </td>
                                         <td className="align-middle"> <ActionMenu idLog={index}/> </td>
