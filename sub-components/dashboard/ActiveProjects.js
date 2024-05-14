@@ -25,9 +25,16 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
 
 CustomToggle.displayName = 'CustomToggle';
 
-const ActionMenu = () => {
+const ActionMenu = (id_log) => {
+
+    
+    const handleSelect = (eventKey) => {
+        console.log("id===>", id_log['idLog']);
+        console.log("Selected event key:", eventKey);
+      };
+
     return (
-        <Dropdown>
+        <Dropdown onSelect={handleSelect}>
             <Dropdown.Toggle as={CustomToggle}>
                 <MoreVertical size="15px" className="text-muted" />
             </Dropdown.Toggle>
@@ -67,11 +74,11 @@ const ActiveProjects = () => {
                     <Table responsive className="text-nowrap mb-0">
                         <thead className="table-light">
                             <tr>
-                                <th>No</th>
-                                <th>Waktu</th>
-                                <th>ID Perkara</th>
-                                <th>Asisten</th>
-                                <th>Log</th>
+                                <th>NO</th>
+                                <th>WAKTU</th>
+                                <th>ID PERKARA</th>
+                                <th>ASISTEN PENDAMPING</th>
+                                <th>LOG</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -101,12 +108,13 @@ const ActiveProjects = () => {
                                                     return (
                                                         <span className="avatar avatar-sm" key={avatarIndex}>
                                                             <Image alt="avatar" src={avatar.image} className="rounded-circle" />
+                                                            {/* <div className="rounded-circle">M</div> */}
                                                         </span>
                                                     )
                                                 })}
-                                                <span className="avatar avatar-sm avatar-primary">
-                                                    <span className="avatar-initials rounded-circle fs-6">+5</span>
-                                                </span>
+                                                {/* <span className="avatar avatar-sm avatar-primary">
+                                                    <span className="avatar-initials rounded-circle fs-6">+2</span>
+                                                </span> */}
                                             </div>
                                         </td>
                                         <td className="align-middle text-dark">
@@ -115,7 +123,7 @@ const ActiveProjects = () => {
                                                 <ProgressBar now={item.progress} style={{ height: '5px' }} />
                                             </div>
                                         </td>
-                                        <td className="align-middle"><ActionMenu/></td>
+                                        <td className="align-middle"> <ActionMenu idLog={index}/> </td>
                                     </tr>
                                 )
                             })}

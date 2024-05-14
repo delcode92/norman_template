@@ -37,6 +37,7 @@ const Home = () => {
                             </div>
                         </div>
                     </Col>
+
                     {ProjectsStatsData.map((item, index) => {
                         return (
                             <Col xl={3} lg={6} md={12} xs={12} className="mt-6" key={index}>
@@ -44,6 +45,7 @@ const Home = () => {
                             </Col>
                         )
                     })}
+                    
                 </Row>
 
                 {/* Active Projects  */}
