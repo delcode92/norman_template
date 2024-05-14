@@ -2,7 +2,7 @@
 // import node module libraries
 import { Fragment } from "react";
 import Link from 'next/link';
-import { Container, Col, Row } from 'react-bootstrap';
+import { Container, Col, Row, Image } from 'react-bootstrap';
 
 // import widget/custom components
 import { StatRightTopIcon } from "widgets";
@@ -20,7 +20,7 @@ import ProjectsStatsData from "data/dashboard/ProjectsStatsData";
 const Home = () => {
     return (
         <Fragment>
-            <div className="bg-primary pt-10 pb-21"></div>
+            <div className="bg-cobalt-blue pt-10 pb-21"></div>
             <Container fluid className="mt-n22 px-6">
                 <Row>
                     <Col lg={12} md={12} xs={12}>
@@ -28,7 +28,8 @@ const Home = () => {
                         <div>
                             <div className="d-flex justify-content-between align-items-center">
                                 <div className="mb-2 mb-lg-0">
-                                    <h3 className="mb-0  text-white">Projects</h3>
+                                    <Image src="/images/brand/logo/norman_logo.png" alt="" />
+                                    {/* <h3 className="mb-0  text-white">Projects</h3> */}
                                 </div>
                                 <div>
                                     <Link href="#" className="btn btn-white">Create New Project</Link>
