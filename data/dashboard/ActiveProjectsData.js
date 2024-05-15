@@ -1,3 +1,5 @@
+// import {useEffect, useState} from 'react';
+
 var data = [
     {
         id:1,
@@ -92,6 +94,30 @@ var data = [
 ];
 
 const ActiveProjectsData = ()=>{
+   
+   // const [dataTable, setDataTable] = useState([{id:'', log_time: '', no_perkara: '', namaAsisten: 'John', log_text: '', status: 'Active'}]);
+
+   // useEffect(() => {
+
+   //    const intervalId = setInterval(() => {
+      
+   //      fetch("https://www.tangkapdata2.my.id/get_log")
+   //      .then(
+   //        response => response.json()
+  
+   //        )
+   //      .then(
+   //          datas => {
+   //            setDataTable(datas);
+   //          }
+   //         )
+           
+   //        }, 5000);
+          
+   //      }, []);
+  
+   // console.log(dataTable);
+
     return data;
 }
 

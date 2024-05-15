@@ -18,14 +18,14 @@ export const ProjectsStats = [
         title : "Klien",
         value : 132,
         icon: <People size={18}/>,
-        statInfo: '<span className="text-dark me-2">28</span> Completed' 
+        statInfo: '<span className="text-dark me-2">&nbsp;</span> ' 
      },
      {
         id:3,
         title : "Log perkara",
         value : 12,
         icon: <ListTask size={18}/>,
-        statInfo: '<span className="text-dark me-2">1</span> Completed' 
+        statInfo: '<span className="text-dark me-2">&nbsp;</span> ' 
      },
    //   {
    //      id:4,
