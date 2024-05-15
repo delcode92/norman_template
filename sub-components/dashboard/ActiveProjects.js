@@ -25,20 +25,15 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
 
 CustomToggle.displayName = 'CustomToggle';
 
-const ActionFilter = (id_log) => {
-    
-    const handleSelect = (eventKey) => {
-        console.log("id===>", id_log['idLog']);
-        console.log("Selected event key:", eventKey);
-      };
+const ActionFilter = () => {
 
     return (
-        <Dropdown onSelect={handleSelect}>
+        <Dropdown>
             <Dropdown.Toggle as={CustomToggle}>
                 <Filter size="15px" className="text-muted" />
             </Dropdown.Toggle>
 
-            <Dropdown.Menu show className="log-filter">
+            <Dropdown.Menu className="log-filter">
                 <Dropdown.Header>Filter By:</Dropdown.Header>  
                 <Form className="dropdown-form p-4">  
                     {/* 
