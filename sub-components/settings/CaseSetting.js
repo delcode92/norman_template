@@ -1,14 +1,14 @@
 // import node module libraries
-import { Col, Row, Form, Card, Button, Image } from 'react-bootstrap';
+import { Col, Row, Form, Card, Button, FloatingLabel, Image } from 'react-bootstrap';
 
 // import widget as custom components
 import { FormSelect, DropFiles } from 'widgets';
 
 // import hooks
-import useMounted from 'hooks/useMounted';
+// import useMounted from 'hooks/useMounted';
 
 const CaseSetting = () => {
-  const hasMounted = useMounted();
+  // const hasMounted = useMounted();
   const countryOptions = [
     { value: 'India', label: 'India' },
     { value: 'US', label: 'US' },
@@ -30,10 +30,41 @@ const CaseSetting = () => {
           <Card.Body>
             
             <div>
+
               <div className="mb-6">
+                  <h4 className="mb-1">Client information</h4>
+                </div>
+
+                {/* NAMA PENGGUGAT */}
+                <Row className="mb-3">
+                  <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="nm_penggugat">Nama Penggugat</Form.Label>
+                  <Col md={8} xs={12}>
+                    <Form.Control type="text" placeholder="penggugat" id="nm_penggugat" required />
+                  </Col>
+                </Row>
+
+                {/* HP */}
+                <Row className="mb-3">
+                  <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="hp_penggugat">HP</Form.Label>
+                  <Col md={8} xs={12}>
+                    <Form.Control type="text" placeholder="hp" id="hp_penggugat" required />
+                  </Col>
+                </Row>
+
+                {/* ALAMAT */}
+                <Row className="mb-3">
+                  <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="alamat_penggugat">Alamat</Form.Label>
+                  <Col md={8} xs={12}>
+                    <Form.Control type="text" placeholder="alamat" id="alamat_penggugat" required />
+                  </Col>
+                </Row>
+
+
+              <div className="mt-8 mb-6">
                 <h4 className="mb-1">Basic information</h4>
               </div>
-              {hasMounted && 
+              
+              {/* START FORM */}
               <Form>
 
                 {/* NO PERKARA */}
@@ -51,22 +82,36 @@ const CaseSetting = () => {
                     <Form.Control type="text" placeholder="judul" id="judul_perkara" required />
                   </Col>
                 </Row>
+                
+                {/* JENIS PERKARA */}
+                <Row className="mb-3">
+                <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="jenis_perkara">Jenis Perkara</Form.Label>
+                  <Col md={8} xs={12}>
+                    <Form.Select>
+                      <option>-- jenis perkara --</option>
+                      <option value="perdata">Perdata</option>
+                      <option value="pidana">Pidana</option>
+                    </Form.Select>
+                  </Col>
+                </Row>
 
                 {/* DESKRIPSI */}
                 <Row className="mb-3">
                 <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="deskripsi_perkara">Deskripsi</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="text" placeholder="deskripsi perkara" id="deskripsi_perkara" required />
-                  </Col>
-                </Row>
+                    
+                    <FloatingLabel controlId="deskripsi_perkara" label="Comments">
+                      <Form.Control
+                        as="textarea"
+                        placeholder="deskripsi perkara"
+                        style={{ height: '100px' }}
+                      />
+                    </FloatingLabel>
 
-                {/* NAMA PENGGUGAT */}
-                <Row className="mb-3">
-                <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="nm_penggugat">Nama Penggugat</Form.Label>
-                  <Col md={8} xs={12}>
-                    <Form.Control type="text" placeholder="penggugat" id="nm_penggugat" required />
+                    {/* <Form.Control type="text" placeholder="deskripsi perkara" id="deskripsi_perkara" required /> */}
                   </Col>
                 </Row>
+                {/* END FORM */}
 
                 {/* NAMA TERGUGAT */}
                 <Row className="mb-3">
@@ -76,6 +121,8 @@ const CaseSetting = () => {
                   </Col>
                 </Row>
 
+                
+                
 
 
                 {/* Zip code */}
@@ -88,7 +135,7 @@ const CaseSetting = () => {
 
                 </Row>
               </Form>
-              }
+            
             </div>
           </Card.Body>
         </Card>
