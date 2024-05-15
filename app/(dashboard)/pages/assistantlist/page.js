@@ -1,25 +1,25 @@
-'use client'
-// import node module libraries
-import { Container } from 'react-bootstrap';
+// 'use client'
+// // import node module libraries
+// import { Container } from 'react-bootstrap';
 
-// import widget as custom components
-import { PageHeading } from 'widgets'
+// // import widget as custom components
+// import { PageHeading } from 'widgets'
 
-// import sub components
-import AssistantTable from 'sub-components/tables/AssistantTable';
+// // import sub components
+// import AssistantTable from 'sub-components/tables/AssistantTable';
 
-const Settings = () => {
-  return (
-    <Container fluid className="p-6">
+// const Settings = () => {
+//   return (
+//     <Container fluid className="p-6">
 
-      {/* Page Heading */}
-      <PageHeading heading="Assistant Lists"/>
+//       {/* Page Heading */}
+//       <PageHeading heading="Assistant Lists"/>
 
-      {/* General Settings */}
-      <AssistantTable />
+//       {/* General Settings */}
+//       <AssistantTable />
 
-    </Container>
-  )
-}
+//     </Container>
+//   )
+// }
 
-export default Settings
+// export default Settings
