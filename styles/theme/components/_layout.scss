@@ -135,6 +135,9 @@
     }
   }
 
+.no-caret::after {
+  display: none !important;
+}
 
 
 

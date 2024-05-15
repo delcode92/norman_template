@@ -141,22 +141,22 @@ export const DashboardMenu = [
 	},
 	{
 		id: uuid(),
-		title: 'Docs',
-		icon: 'clipboard',
-		link: '/documentation'
+		title: 'Assistant',
+		icon: 'user-plus',
+		link: '/pages/settings'
 	},
 	{
 		id: uuid(),
-		title: 'Changelog',
-		icon: 'git-pull-request',
-		link: '/changelog'
+		title: 'Case',
+		icon: 'briefcase',
+		link: '/pages/addcase'
 	},
-	{
-		id: uuid(),
-		title: 'Download',
-		icon: 'download',
-		link: 'https://codescandy.gumroad.com/l/dashui-nextjs'
-	}
+	// {
+	// 	id: uuid(),
+	// 	title: 'Download',
+	// 	icon: 'download',
+	// 	link: 'https://codescandy.gumroad.com/l/dashui-nextjs'
+	// }
 ];
 
 export default DashboardMenu;

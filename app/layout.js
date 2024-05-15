@@ -2,9 +2,9 @@
 import 'styles/theme.scss';
 
 export const metadata = {
-    title: 'Dash UI - Next.Js Admin Dashboard Template',
-    description: 'Dash UI - Next JS admin dashboard template is free and available on GitHub. Create your stunning web apps with our Free Next js template. An open-source admin dashboard built using the new router, server components, and everything new in Next.js 13.',
-    keywords: 'Dash UI, Next.js 13, Admin dashboard, admin template, web apps, bootstrap 5, admin theme'
+    title: 'Nourman Dashboard Template',
+    description: 'log app for nourman law firm',
+    keywords: 'log app, law, firm, log, app'
 }
 
 export default function RootLayout({ children }) {

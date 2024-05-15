@@ -3,17 +3,18 @@
 import { Container } from 'react-bootstrap';
 
 // import widget as custom components
-import { PageHeading } from 'widgets'
+// import PageHeadingWithButton from 'widgets';
+import { PageHeading, PageHeadingWithButton } from 'widgets'
 
 // import sub components
-import { Notifications, DeleteAccount, GeneralSetting, EmailSetting, Preferences } from 'sub-components'
+import {GeneralSetting} from 'sub-components'
 
 const Settings = () => {
   return (
     <Container fluid className="p-6">
 
       {/* Page Heading */}
-      <PageHeading heading="General" />
+      <PageHeadingWithButton heading="Add Assistant" btn_txt="Asistant List" />
 
       {/* General Settings */}
       <GeneralSetting />
@@ -28,7 +29,7 @@ const Settings = () => {
       {/* <Notifications /> */}
 
       {/* Delete Your Account */}
-      <DeleteAccount />
+      {/* <DeleteAccount /> */}
 
     </Container>
   )

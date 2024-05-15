@@ -9,8 +9,8 @@ var data = [
         brandLogo:'/images/brand/dropbox-logo.svg',
         brandLogoBg : 'bg-white',
         members:[
-         {image:'images/avatar/avatar-1.jpg'},
-         {image:'images/avatar/avatar-2.jpg'},
+         {image:'https://res.cloudinary.com/ddjjyf2fw/image/upload/v1715739043/nourman_log_app/avatar-1.jpg'},
+         {image:'https://res.cloudinary.com/ddjjyf2fw/image/upload/v1715739040/nourman_log_app/avatar-3.jpg'},
         //  {image:'images/avatar/avatar-3.jpg'}
         ] 
      },
@@ -24,8 +24,8 @@ var data = [
          brandLogo:'/images/brand/slack-logo.svg',
          brandLogoBg : 'bg-white',
          members:[
-             {image:'images/avatar/avatar-4.jpg'},
-             {image:'images/avatar/avatar-5.jpg'},
+            {image:'https://res.cloudinary.com/ddjjyf2fw/image/upload/v1715739043/nourman_log_app/avatar-1.jpg'},
+            {image:'https://res.cloudinary.com/ddjjyf2fw/image/upload/v1715739040/nourman_log_app/avatar-3.jpg'},
             //  {image:'images/avatar/avatar-6.jpg'}
          ] 
       },
@@ -39,8 +39,8 @@ var data = [
          brandLogo:'/images/brand/github-logo.svg',
          brandLogoBg : 'bg-white',
          members:[
-             {image:'images/avatar/avatar-7.jpg'},
-             {image:'images/avatar/avatar-8.jpg'},
+            {image:'https://res.cloudinary.com/ddjjyf2fw/image/upload/v1715739043/nourman_log_app/avatar-1.jpg'},
+            {image:'https://res.cloudinary.com/ddjjyf2fw/image/upload/v1715739040/nourman_log_app/avatar-3.jpg'},
             //  {image:'images/avatar/avatar-9.jpg'}
          ] 
       },
@@ -54,8 +54,8 @@ var data = [
          brandLogo:'/images/brand/3dsmax-logo.svg',
          brandLogoBg : 'bg-white',
          members:[
-             {image:'images/avatar/avatar-10.jpg'},
-             {image:'images/avatar/avatar-11.jpg'},
+            {image:'https://res.cloudinary.com/ddjjyf2fw/image/upload/v1715739043/nourman_log_app/avatar-1.jpg'},
+            {image:'https://res.cloudinary.com/ddjjyf2fw/image/upload/v1715739040/nourman_log_app/avatar-3.jpg'},
             //  {image:'images/avatar/avatar-12.jpg'}
          ] 
       },
@@ -69,8 +69,8 @@ var data = [
          brandLogo:'/images/brand/layers-logo.svg',
          brandLogoBg : 'bg-primary',
          members:[
-             {image:'images/avatar/avatar-13.jpg'},
-             {image:'images/avatar/avatar-14.jpg'},
+            {image:'https://res.cloudinary.com/ddjjyf2fw/image/upload/v1715739043/nourman_log_app/avatar-1.jpg'},
+            {image:'https://res.cloudinary.com/ddjjyf2fw/image/upload/v1715739040/nourman_log_app/avatar-3.jpg'},
             //  {image:'images/avatar/avatar-15.jpg'}
          ] 
       },
@@ -84,8 +84,8 @@ var data = [
          brandLogo:'/images/brand/github-logo.svg',
          brandLogoBg : 'bg-white',
          members:[
-             {image:'images/avatar/avatar-16.jpg'},
-             {image:'images/avatar/avatar-17.jpg'},
+            {image:'https://res.cloudinary.com/ddjjyf2fw/image/upload/v1715739043/nourman_log_app/avatar-1.jpg'},
+            {image:'https://res.cloudinary.com/ddjjyf2fw/image/upload/v1715739040/nourman_log_app/avatar-3.jpg'},
             //  {image:'images/avatar/avatar-18.jpg'}
          ] 
       }
