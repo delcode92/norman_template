@@ -5,7 +5,7 @@ import { ProgressBar, Col, Row, Card, Table, Image , Dropdown, Pagination, Form,
 import { MoreVertical, Filter } from 'react-feather';
 
 // import required data files
-import CaseData from "data/dashboard/CaseData";
+import AstData from "data/dashboard/AstData";
 
 // import hooks
 // import useMounted from 'hooks/useMounted';
@@ -117,7 +117,7 @@ const AssistantTable = () => {
                     <Card.Header className="bg-white  py-4">
                         <div className="row">
                             <div className="col-md-6">
-                                <h4 className="mb-0">Tabel Perkara</h4>
+                                <h4 className="mb-0">Tabel Asisten</h4>
                             </div>
                             <div className="col-md-6">
                                 <div className="d-flex justify-content-end">
@@ -131,41 +131,28 @@ const AssistantTable = () => {
                         <thead className="table-light">
                             <tr>
                                 <th>NO</th>
-                                <th>NO PERKARA</th>
-                                <th>JNS PERKARA</th>
-                                <th>JUDUL</th>
-                                <th>PENGGUGAT</th>
-                                <th>TERGUGAT</th>
-                                <th>DESKRIPSI</th>
-                                <th>WAKTU DIBUAT</th>
-                                <th>WAKTU SELESAI</th>
+                                <th>Nama</th>
+                                <th>EMAIL</th>
+                                <th>HP</th>
+                                <th>ALAMAT</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {CaseData.map((item, index) => {
+                            {AstData.map((item, index) => {
                                 return (
                                     <tr key={index}>
                                         <td className="align-middle"> {index+1} </td>
-                                        <td className="align-middle"><span className="badge bg-info bg-purple p-2">{item.noPerkara}</span></td>
-                                        <td className="align-middle">{item.jnsPerkara}</td>
-                                        <td className="align-middle">{item.judul}</td>
-                                        <td className="align-middle text-dark">{item.penggugat}</td>
-                                        <td className="align-middle">{item.tergugat}</td>
-                                        <td className="align-middle">{item.deskripsi}</td>
-                                        <td className="align-middle">{item.waktuDibuat}</td>
-                                        <td className="align-middle">{item.waktuSelesai}</td>
+                                        <td className="align-middle">{item.nama}</td>
+                                        <td className="align-middle">{item.email}</td>
+                                        <td className="align-middle">{item.hp}</td>
+                                        <td className="align-middle">{item.addr}</td>
                                         <td className="align-middle"> <ActionMenu idLog={index}/> </td>
                                     </tr>
                                 )
                             })}
                         </tbody>
                     </Table>
-                    
-                    <Card.Footer className="bg-white">
-                        <Paginations/>
-                        {/* <Link href="#" className="link-primary">View All Projects</Link> */}
-                    </Card.Footer>
 
                 </Card>
             </Col>
