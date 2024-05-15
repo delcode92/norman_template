@@ -32,7 +32,7 @@ const Home = () => {
                                     {/* <h3 className="mb-0  text-white">Projects</h3> */}
                                 </div>
                                 <div>
-                                    <Link href="#" className="btn btn-danger">Add Case</Link>
+                                    <Link href="/pages/addcase" className="btn btn-danger">Add Case</Link>
                                 </div>
                             </div>
                         </div>

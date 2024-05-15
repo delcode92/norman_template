@@ -14,7 +14,7 @@ const Settings = () => {
     <Container fluid className="p-6">
 
       {/* Page Heading */}
-      <PageHeadingWithButton heading="Add Assistant" btn_txt="Asistant List" />
+      <PageHeadingWithButton heading="Add Assistant" btn_txt="Assistant List" />
 
       {/* General Settings */}
       <GeneralSetting />

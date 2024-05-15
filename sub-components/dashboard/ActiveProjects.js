@@ -91,13 +91,13 @@ const ActionMenu = (id_log) => {
             </Dropdown.Toggle>
             <Dropdown.Menu align={'end'}>
                 <Dropdown.Item eventKey="1">
-                    Action
+                    View Detail
                 </Dropdown.Item>
                 <Dropdown.Item eventKey="2">
-                    Another action
+                    Edit
                 </Dropdown.Item>
                 <Dropdown.Item eventKey="3">
-                    Something else here
+                    Delete
                 </Dropdown.Item>
             </Dropdown.Menu>
         </Dropdown>

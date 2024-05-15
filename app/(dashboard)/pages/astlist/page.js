@@ -6,20 +6,20 @@ import { Container } from 'react-bootstrap';
 import { PageHeading } from 'widgets'
 
 // import sub components
-import CaseTable from 'sub-components/tables/CaseTable';
+import AssistantTable from 'sub-components/tables/AssistantTable';
 
-const CaseList = () => {
+const AstList = () => {
   return (
     <Container fluid className="p-6">
 
       {/* Page Heading */}
-      <PageHeading heading="Case Lists"/>
+      <PageHeading heading="Assistant Lists"/>
 
       {/* General Settings */}
-      <CaseTable />
+      <AssistantTable />
 
     </Container>
   )
 }
 
-export default CaseList
+export default AstList

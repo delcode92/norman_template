@@ -5,7 +5,7 @@ import { ProgressBar, Col, Row, Card, Table, Image , Dropdown, Pagination, Form,
 import { MoreVertical, Filter } from 'react-feather';
 
 // import required data files
-import ActiveProjectsData from "data/dashboard/ActiveProjectsData";
+import CaseData from "data/dashboard/CaseData";
 
 // import hooks
 // import useMounted from 'hooks/useMounted';
@@ -84,13 +84,13 @@ const ActionMenu = (id_log) => {
           </Dropdown.Toggle>
           <Dropdown.Menu align={'end'}>
               <Dropdown.Item eventKey="1">
-                  Action
+                  View Detail
               </Dropdown.Item>
               <Dropdown.Item eventKey="2">
-                  Another action
+                  Edit
               </Dropdown.Item>
               <Dropdown.Item eventKey="3">
-                  Something else here
+                  Delete
               </Dropdown.Item>
           </Dropdown.Menu>
       </Dropdown>
@@ -143,34 +143,18 @@ const CaseTable = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {ActiveProjectsData.map((item, index) => {
+                            {CaseData.map((item, index) => {
                                 return (
                                     <tr key={index}>
                                         <td className="align-middle"> {index+1} </td>
-                                        <td className="align-middle">2024-02-20 12:12:20</td>
-                                        <td className="align-middle"><span className={`badge bg-${item.priorityBadgeBg} bg-purple p-2`}>{item.priority}</span></td>
-                                        <td className="align-middle">
-                                            <div className="avatar-group">
-                                                {item.members.map((avatar, avatarIndex) => {
-                                                    return (
-                                                        <span className="avatar avatar-sm" key={avatarIndex}>
-                                                            <Image alt="avatar" src={avatar.image} className="rounded-circle" />
-                                                        </span>
-                                                    )
-                                                })}
-                                            </div>
-                                        </td>
-                                        <td className="align-middle text-dark">
-                                            {/* <div className="float-start me-3">{item.progress}%</div> */}
-                                            <div className="mt-2">
-                                                {/* <ProgressBar now={item.progress} style={{ height: '5px' }} /> */}
-                                                <p>lorem ipsum .... </p>
-                                            </div>
-                                        </td>
-                                        <td className="align-middle">....</td>
-                                        <td className="align-middle">....</td>
-                                        <td className="align-middle">....</td>
-                                        <td className="align-middle">....</td>
+                                        <td className="align-middle"><span className="badge bg-info bg-purple p-2">{item.noPerkara}</span></td>
+                                        <td className="align-middle">{item.jnsPerkara}</td>
+                                        <td className="align-middle">{item.judul}</td>
+                                        <td className="align-middle text-dark">{item.penggugat}</td>
+                                        <td className="align-middle">{item.tergugat}</td>
+                                        <td className="align-middle">{item.deskripsi}</td>
+                                        <td className="align-middle">{item.waktuDibuat}</td>
+                                        <td className="align-middle">{item.waktuSelesai}</td>
                                         <td className="align-middle"> <ActionMenu idLog={index}/> </td>
                                     </tr>
                                 )

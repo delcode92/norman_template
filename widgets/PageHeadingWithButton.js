@@ -9,7 +9,7 @@ const PageHeadingWithButton = props => {
     target_link = "/pages/caselist";
   }
   else if(btn_txt.toLowerCase() == "assistant list"){
-    target_link = "/pages/assistant_list";
+    target_link = "/pages/astlist";
   }
 
   return (

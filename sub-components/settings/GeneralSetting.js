@@ -113,6 +113,34 @@ const GeneralSetting = () => {
                 </Row>
 
                 <div className="mt-8 mb-6">
+                  <h4 className="mb-1">Login Information</h4>
+                </div>
+
+                {/* USERNAME */}
+                <Row className="mb-3">
+                  <Form.Label className="col-sm-4" htmlFor="uname">User Name</Form.Label>
+                  <Col md={8} xs={12}>
+                    <Form.Control type="text" placeholder="username" id="uname" required />
+                  </Col>
+                </Row>
+
+                {/* PASS */}
+                <Row className="mb-3">
+                  <Form.Label className="col-sm-4" htmlFor="pass">Password</Form.Label>
+                  <Col md={8} xs={12}>
+                    <Form.Control type="password" placeholder="password" id="pass" required />
+                  </Col>
+                </Row>
+                
+                {/* RETYPE PASS */}
+                <Row className="mb-3">
+                  <Form.Label className="col-sm-4" htmlFor="repass">Retype Password</Form.Label>
+                  <Col md={8} xs={12}>
+                    <Form.Control type="password" placeholder="retype password" id="repass" required />
+                  </Col>
+                </Row>
+
+                <div className="mt-8 mb-6">
                   <h4 className="mb-1">Case Assignment</h4>
                 </div>
 
