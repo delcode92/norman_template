@@ -1,5 +1,5 @@
 // import node module libraries
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Col, Row, Form, Card, Button, FloatingLabel, Alert } from 'react-bootstrap';
 
 // import widget as custom components

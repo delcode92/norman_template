@@ -24,10 +24,12 @@ const ActiveProjects =  () => {
             
               await fetch("https://www.tangkapdata2.my.id/get_log")
               .then(
+                // must I use response code below ?
                 response => response.json()
         
                 )
               .then(
+                // why not just immediatley this code ?
                   datas => {
                     setDataTable(datas);
                   }
