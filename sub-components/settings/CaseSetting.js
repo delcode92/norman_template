@@ -1,20 +1,51 @@
 // import node module libraries
+import React, { useState, useEffect } from "react";
 import { Col, Row, Form, Card, Button, FloatingLabel, Image } from 'react-bootstrap';
 
 // import widget as custom components
-import { FormSelect, DropFiles } from 'widgets';
+// import { FormSelect, DropFiles } from 'widgets';
 
 // import hooks
 // import useMounted from 'hooks/useMounted';
 
 const CaseSetting = () => {
-  // const hasMounted = useMounted();
-  const countryOptions = [
-    { value: 'India', label: 'India' },
-    { value: 'US', label: 'US' },
-    { value: 'UK', label: 'UK' },
-    { value: 'UAE', label: 'UAE' }
-  ];
+  const [NamaPenggugat, setNamaPenggugat] = useState('');
+  const [HP, setHP] = useState('');
+  const [Alamat, setAlamat] = useState('');
+  const [NoPerkara, setNoPerkara] = useState('');
+  const [Judul, setJudul] = useState('');
+  const [Jenis, setJenis] = useState('');
+  const [Deskripsi, setDeskripsi] = useState('');
+  const [NamaTergugat, setNamaTergugat] = useState('');
+
+  const handleNamaPenggugat = (event) => setNamaPenggugat(event.target.value); 
+  const handleHP = (event) => setHP(event.target.value); 
+  const handleAlamat = (event) => setAlamat(event.target.value); 
+  const handleNoPerkara = (event) => setNoPerkara(event.target.value); 
+  const handleJudul = (event) => setJudul(event.target.value); 
+  const handleJenis = (event) => setJenis(event.target.value); 
+  const handleDeskripsi = (event) => setDeskripsi(event.target.value); 
+  const handleNamaTergugat = (event) => setNamaTergugat(event.target.value); 
+
+
+
+  const handleSave = () => {
+    // save data to client table
+   
+    /*
+    const response = await fetch('https://www.tangkapdata2.my.id/save_log_edit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ logID, logTxt }),
+            }).then(
+                setUpdateStat(true)
+            );
+    */
+
+    // save data to perkara table
+  }
 
   return (
     <Row className="mb-8">
@@ -39,7 +70,7 @@ const CaseSetting = () => {
                 <Row className="mb-3">
                   <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="nm_penggugat">Nama Penggugat</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="text" placeholder="penggugat" id="nm_penggugat" required />
+                    <Form.Control type="text" placeholder="penggugat" id="nm_penggugat" onChange={handleNamaPenggugat} required />
                   </Col>
                 </Row>
 
@@ -47,7 +78,7 @@ const CaseSetting = () => {
                 <Row className="mb-3">
                   <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="hp_penggugat">HP</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="text" placeholder="hp" id="hp_penggugat" required />
+                    <Form.Control type="text" placeholder="hp" id="hp_penggugat" onChange={handleHP} required />
                   </Col>
                 </Row>
 
@@ -55,7 +86,7 @@ const CaseSetting = () => {
                 <Row className="mb-3">
                   <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="alamat_penggugat">Alamat</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="text" placeholder="alamat" id="alamat_penggugat" required />
+                    <Form.Control type="text" placeholder="alamat" id="alamat_penggugat" onChange={handleAlamat} required />
                   </Col>
                 </Row>
 
@@ -71,7 +102,7 @@ const CaseSetting = () => {
                 <Row className="mb-3">
                 <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="no_perkara">No Perkara</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="text" placeholder="no perkara" id="no_perkara" required />
+                    <Form.Control type="text" placeholder="no perkara" id="no_perkara" onChange={handleNoPerkara} required />
                   </Col>
                 </Row>
                 
@@ -79,7 +110,7 @@ const CaseSetting = () => {
                 <Row className="mb-3">
                 <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="judul_perkara">Judul Perkara</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="text" placeholder="judul" id="judul_perkara" required />
+                    <Form.Control type="text" placeholder="judul" id="judul_perkara" onChange={handleJudul} required />
                   </Col>
                 </Row>
                 
@@ -87,7 +118,8 @@ const CaseSetting = () => {
                 <Row className="mb-3">
                 <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="jenis_perkara">Jenis Perkara</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Select>
+                    {/* how to create onselect on this component below ? */}
+                    <Form.Select onChange={handleJenis}>
                       <option>-- jenis perkara --</option>
                       <option value="perdata">Perdata</option>
                       <option value="pidana">Pidana</option>
@@ -104,6 +136,7 @@ const CaseSetting = () => {
                       <Form.Control
                         as="textarea"
                         placeholder="deskripsi perkara"
+                        onChange={handleDeskripsi}
                         style={{ height: '100px' }}
                       />
                     </FloatingLabel>
@@ -117,7 +150,7 @@ const CaseSetting = () => {
                 <Row className="mb-3">
                 <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="nm_tergugat">Nama Tergugat</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="text" placeholder="tergugat" id="nm_tergugat" required />
+                    <Form.Control type="text" placeholder="tergugat" id="nm_tergugat" onChange={handleNamaTergugat} required />
                   </Col>
                 </Row>
 
@@ -128,7 +161,7 @@ const CaseSetting = () => {
                 {/* Zip code */}
                 <Row className="align-items-center">
                   <Col md={{ offset: 4, span: 8 }} xs={12} className="mt-4">
-                    <Button variant="primary" type="submit">
+                    <Button variant="primary" type="button" onClick={handleSave}>
                       Save Changes
                     </Button>
                   </Col>

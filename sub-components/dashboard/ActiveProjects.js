@@ -3,7 +3,7 @@
 // import node module libraries
 import React, { useState, useEffect } from "react";
 import Link from 'next/link';
-import { Col, Row, Card, Table, Modal , Dropdown, Pagination, Form, Button, FloatingLabel } from 'react-bootstrap';
+import { Col, Row, Card, Table, Modal , Dropdown, Pagination, Form, Button, FloatingLabel, Alert } from 'react-bootstrap';
 import { MoreVertical, Filter } from 'react-feather';
 
 // import required data files
@@ -17,12 +17,9 @@ const ActiveProjects =  () => {
     // const [text, setText] = useState('');
     const [logID, setLogID] = useState('');
     const [logTxt, setLogTxt] = useState('');
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const [updateStat, setUpdateStat] = useState(false);
 
     useEffect(() => {
-
         const intervalId = setInterval( async () => {
             
               await fetch("https://www.tangkapdata2.my.id/get_log")
@@ -39,7 +36,35 @@ const ActiveProjects =  () => {
                 }, 5000);
         }, []);
 
-        
+    const handleClose = () => {
+        setUpdateStat(false);
+        setShow(false);
+    }
+    const handleShow = () => setShow(true);
+
+    // I have nextJS code like below why handleClose() not being executed after POST data ?
+    const handleSaveEdit = async () => {
+        // SAVE EDITED LOG
+        // console.log("POST DATA==>");
+        // console.log("Log ID==>", logID);
+        // console.log("Log TXT==>", logTxt);
+
+        const response = await fetch('https://www.tangkapdata2.my.id/save_log_edit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ logID, logTxt }),
+            }).then(
+                setUpdateStat(true)
+            );
+
+        // CLOSE MODAL
+        // handleClose();
+        // console.log("end of exec");
+
+    }
+
     const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
         (<Link
             href=""
@@ -108,16 +133,18 @@ const ActiveProjects =  () => {
     };
     
     const ActionMenu = (id_log) => {
-    
-        
         const handleSelect = async (eventKey) => {
             
             setLogID( id_log['idLog'] );
-
-            // console.log("id===>", id_log['idLog']);
+           
+            console.log("id===>", id_log['idLog']);
             // console.log("Selected event key:", eventKey);
+            
+            // VIEW DETAIL
             if(eventKey==1){
-                
+            }
+            // EDIT 
+            else if(eventKey==2){
                 
                 // SHOW MODAL   
                 handleShow();
@@ -129,6 +156,18 @@ const ActiveProjects =  () => {
                                     setLogTxt( data[0]['log_text'] );
                                     // console.log("masuk: ", ); 
                                 } );
+            }
+            // DELETE
+            else if(eventKey==3){
+                if(confirm("DELETE ??? ")){
+                    const response = await fetch('https://www.tangkapdata2.my.id/delete_log', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({ logID:id_log['idLog'] }),
+                                    })
+                }
             }
           };
     
@@ -180,8 +219,8 @@ const ActiveProjects =  () => {
                     <Modal.Title>Edit Log Activity</Modal.Title>
                 </Modal.Header>
                 
-                <Modal.Body  style={{height:'300px'}}>
-                    {/* I have next js code below, how to set editable textarea value, using useState ? */}
+                <Modal.Body  style={{height:'250px'}}>
+                    {updateStat && <Alert variant="success">DATA SAVED!</Alert>}
                     <Form>
                         <Row className="mb-3">
                             <Form.Label className="col-sm-2 col-form-label form-label" htmlFor="log">Log Activity</Form.Label>
@@ -205,7 +244,7 @@ const ActiveProjects =  () => {
                     <Button variant="secondary" onClick={handleClose} >
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleClose} >
+                    <Button variant="primary" onClick={handleSaveEdit} >
                         Save Changes
                     </Button>
                 </Modal.Footer>
@@ -242,7 +281,7 @@ const ActiveProjects =  () => {
                                 return (
                                     <tr key={index}>
                                         <td className="align-middle"> {index+1} </td>
-                                        <td className="align-middle">{item.log_time}</td>
+                                        <td className="align-middle">{new Date(item.log_time).toLocaleString()}</td>
                                         <td className="align-middle"><span className="badge bg-info bg-purple p-2">{item.no_perkara}</span></td>
                                         <td className="align-middle">
                                             <div className="avatar-group">
