@@ -132,8 +132,8 @@ const CaseSetting = () => {
                       Save Changes
                     </Button>
                   </Col>
-
                 </Row>
+       
               </Form>
             
             </div>

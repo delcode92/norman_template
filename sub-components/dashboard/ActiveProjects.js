@@ -3,7 +3,7 @@
 // import node module libraries
 import React, { useState, useEffect } from "react";
 import Link from 'next/link';
-import { Col, Row, Card, Table, Modal , Dropdown, Pagination, Form, Button, Fragment } from 'react-bootstrap';
+import { Col, Row, Card, Table, Modal , Dropdown, Pagination, Form, Button, FloatingLabel } from 'react-bootstrap';
 import { MoreVertical, Filter } from 'react-feather';
 
 // import required data files
@@ -12,49 +12,34 @@ import { MoreVertical, Filter } from 'react-feather';
 
 const ActiveProjects =  () => {
 
-    const longContent =`<p>Cras mattis consectetur purus sit amet fermentum.
-        Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-        laoreet rutrum faucibus dolor auctor.</p>
-      <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-        consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-      <p>Cras mattis consectetur purus sit amet fermentum.   Cras justo odio, dapibus ac facilisis in, egestas
-        eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-        laoreet rutrum faucibus dolor auctor.</p>
-      <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-        consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
-        eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-        laoreet rutrum faucibus dolor auctor.</p>
-      <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-        consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
-        eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-        laoreet rutrum faucibus dolor auctor.</p>
-      <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-        consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
-        eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl  consectetur et. Vivamus sagittis lacus vel augue
-        laoreet rutrum faucibus dolor auctor.</p>
-      <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-        consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
-        eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-        laoreet rutrum faucibus dolor auctor.</p>
-      <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-        consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>`
-   
     const [show, setShow] = useState(false);
     const [dataTable, setDataTable] = useState([{id:'', log_time: '', no_perkara: '', namaAsisten: 'John', log_text: '', status: 'Active'}]);
-    
+    // const [text, setText] = useState('');
+    const [logID, setLogID] = useState('');
+    const [logTxt, setLogTxt] = useState('');
+
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-   
+
+    useEffect(() => {
+
+        const intervalId = setInterval( async () => {
+            
+              await fetch("https://www.tangkapdata2.my.id/get_log")
+              .then(
+                response => response.json()
+        
+                )
+              .then(
+                  datas => {
+                    setDataTable(datas);
+                  }
+                 )
+                 
+                }, 5000);
+        }, []);
+
+        
     const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
         (<Link
             href=""
@@ -125,12 +110,25 @@ const ActiveProjects =  () => {
     const ActionMenu = (id_log) => {
     
         
-        const handleSelect = (eventKey) => {
-            console.log("id===>", id_log['idLog']);
-            console.log("Selected event key:", eventKey);
+        const handleSelect = async (eventKey) => {
+            
+            setLogID( id_log['idLog'] );
+
+            // console.log("id===>", id_log['idLog']);
+            // console.log("Selected event key:", eventKey);
             if(eventKey==1){
+                
+                
+                // SHOW MODAL   
                 handleShow();
-                // Modals();
+                
+                // SET TEXT AREA VALUE
+                await fetch("https://www.tangkapdata2.my.id/get_log_edit/" + id_log['idLog'] )
+                                .then( response => response.json() )
+                                .then( data => { 
+                                    setLogTxt( data[0]['log_text'] );
+                                    // console.log("masuk: ", ); 
+                                } );
             }
           };
     
@@ -163,39 +161,45 @@ const ActiveProjects =  () => {
             <Pagination.Next>Next</Pagination.Next>
         </Pagination>)
     }
-
     
-    useEffect(() => {
+    // console.log(dataTable);
 
-    const intervalId = setInterval( async () => {
-        
-          await fetch("https://www.tangkapdata2.my.id/get_log")
-          .then(
-            response => response.json()
-    
-            )
-          .then(
-              datas => {
-                setDataTable(datas);
-              }
-             )
-             
-            }, 5000);
-    }, []);
+    // MODAL HANDLE TEXTAREA
+    const handleChange = (event) => {
+        setLogTxt(event.target.value);
+    };
 
-    console.log(dataTable);
 
     return (
         
         <Row className="mt-6">
-            {/* <Modals/> */}
-      
+            
+            {/* MODAL */}
             <Modal className="modal-dialog-scrollable" size="lg" show={show} onHide={handleClose}  >
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal title</Modal.Title>
+                    <Modal.Title>Edit Log Activity</Modal.Title>
                 </Modal.Header>
                 
-                <Modal.Body  style={{height:'500px'}} dangerouslySetInnerHTML={{__html: longContent}}></Modal.Body>
+                <Modal.Body  style={{height:'300px'}}>
+                    {/* I have next js code below, how to set editable textarea value, using useState ? */}
+                    <Form>
+                        <Row className="mb-3">
+                            <Form.Label className="col-sm-2 col-form-label form-label" htmlFor="log">Log Activity</Form.Label>
+                            <Col md={10} xs={12}>
+                                <FloatingLabel controlId="log">
+                                    <Form.Control
+                                        as="textarea"
+                                        placeholder="..."
+                                        style={{ height: '100px' }}
+                                        value={logTxt} // Bind the state to the value prop
+                                        onChange={handleChange} //
+                                    />
+                                </FloatingLabel>
+                            </Col>
+                        </Row>
+                    </Form>
+
+                </Modal.Body>
                 
                 <Modal.Footer >
                     <Button variant="secondary" onClick={handleClose} >
@@ -206,21 +210,6 @@ const ActiveProjects =  () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-
-            {/* <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
-                <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Close
-                </Button>
-                <Button variant="primary" onClick={handleClose}>
-                    Save Changes
-                </Button>
-                </Modal.Footer>
-            </Modal> */}
 
             <Col md={12} xs={12}>
                 <Card>

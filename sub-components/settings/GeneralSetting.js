@@ -81,6 +81,7 @@ const GeneralSetting = () => {
                     <Form.Control type="text" placeholder="Last name" id="lastName" required />
                   </Col>
                 </Row>
+
                 {/* row */}
                 <Row className="mb-3">
                 <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="email">Email</Form.Label>
@@ -88,6 +89,7 @@ const GeneralSetting = () => {
                     <Form.Control type="email" placeholder="Email" id="email" required />
                   </Col>
                 </Row>
+                
                 {/* row */}
                 <Row className="mb-3">
                   <Form.Label className="col-sm-4" htmlFor="phone">Phone</Form.Label>
