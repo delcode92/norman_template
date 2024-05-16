@@ -1,6 +1,6 @@
 // import node module libraries
 import React, { useState, useEffect } from "react";
-import { Col, Row, Form, Card, Button, FloatingLabel, Image } from 'react-bootstrap';
+import { Col, Row, Form, Card, Button, FloatingLabel, Alert } from 'react-bootstrap';
 
 // import widget as custom components
 // import { FormSelect, DropFiles } from 'widgets';
@@ -9,6 +9,9 @@ import { Col, Row, Form, Card, Button, FloatingLabel, Image } from 'react-bootst
 // import useMounted from 'hooks/useMounted';
 
 const CaseSetting = () => {
+  const [insertStat, setinsertStat] = useState(false);
+
+  const [NIK, setNIK] = useState('');
   const [NamaPenggugat, setNamaPenggugat] = useState('');
   const [HP, setHP] = useState('');
   const [Alamat, setAlamat] = useState('');
@@ -18,6 +21,7 @@ const CaseSetting = () => {
   const [Deskripsi, setDeskripsi] = useState('');
   const [NamaTergugat, setNamaTergugat] = useState('');
 
+  const handleNIK = (event) => setNIK(event.target.value); 
   const handleNamaPenggugat = (event) => setNamaPenggugat(event.target.value); 
   const handleHP = (event) => setHP(event.target.value); 
   const handleAlamat = (event) => setAlamat(event.target.value); 
@@ -29,22 +33,33 @@ const CaseSetting = () => {
 
 
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    
+    var idClient = '';
+
     // save data to client table
-   
-    /*
-    const response = await fetch('https://www.tangkapdata2.my.id/save_log_edit', {
+    const responseClient = await fetch('https://www.tangkapdata2.my.id/save_client', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ logID, logTxt }),
-            }).then(
-                setUpdateStat(true)
-            );
-    */
+            body: JSON.stringify({ NIK, NamaPenggugat, HP, Alamat }),
+            });
+    
+    const data = await responseClient.json();
+    idClient = data['lastClientID'];
 
     // save data to perkara table
+    const responsePerkara = await fetch('https://www.tangkapdata2.my.id/save_perkara', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ idClient, NoPerkara, Judul, Jenis, Deskripsi, NamaPenggugat, NamaTergugat }),
+            }).then(
+                setinsertStat(true)
+            );
+
   }
 
   return (
@@ -59,12 +74,21 @@ const CaseSetting = () => {
         <Card>
           {/* card body */}
           <Card.Body>
+          {insertStat && <Alert variant="success">DATA SAVED!</Alert>}
             
             <div>
 
               <div className="mb-6">
                   <h4 className="mb-1">Client information</h4>
                 </div>
+
+                {/* NIK */}
+                <Row className="mb-3">
+                  <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="nik">NIK</Form.Label>
+                  <Col md={8} xs={12}>
+                    <Form.Control type="text" placeholder="nik" id="nik" onChange={handleNIK} required />
+                  </Col>
+                </Row>
 
                 {/* NAMA PENGGUGAT */}
                 <Row className="mb-3">
