@@ -142,7 +142,7 @@ const GeneralSetting = () => {
                   </Col>
                 </Row>
 
-                <div className="mt-8 mb-6">
+                {/* <div className="mt-8 mb-6">
                   <h4 className="mb-1">Case Assignment</h4>
                 </div>
 
@@ -151,7 +151,7 @@ const GeneralSetting = () => {
                   <Col md={8} xs={12}>
                     <AutocompleteDropdown items={CasesNumber} />
                   </Col>
-                </Row>
+                </Row> */}
 
                 {/* Address Line Two */}
                 {/* <Row className="mb-3">
