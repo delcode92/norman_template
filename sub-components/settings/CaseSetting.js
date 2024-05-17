@@ -1,5 +1,5 @@
 // import node module libraries
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Col, Row, Form, Card, Button, FloatingLabel, Alert } from 'react-bootstrap';
 
 // import widget as custom components
@@ -7,6 +7,10 @@ import { Col, Row, Form, Card, Button, FloatingLabel, Alert } from 'react-bootst
 
 // import hooks
 // import useMounted from 'hooks/useMounted';
+
+import CasesNumber from "data/dashboard/CaseNumber";
+import AutocompleteDropdown from 'widgets/AutocompleteDropdown';
+
 
 const CaseSetting = () => {
   const [insertStat, setinsertStat] = useState(false);
@@ -18,8 +22,10 @@ const CaseSetting = () => {
   const [NoPerkara, setNoPerkara] = useState('');
   const [Judul, setJudul] = useState('');
   const [Jenis, setJenis] = useState('');
+  const [IdPendamping, setAstPendamping] = useState('');
   const [Deskripsi, setDeskripsi] = useState('');
   const [NamaTergugat, setNamaTergugat] = useState('');
+  const [dataTable, setDataTable] = useState([{id:'', id_user: '', nama: '', email: '', hp: '', addr: '' }]);
 
   const handleNIK = (event) => setNIK(event.target.value); 
   const handleNamaPenggugat = (event) => setNamaPenggugat(event.target.value); 
@@ -28,10 +34,19 @@ const CaseSetting = () => {
   const handleNoPerkara = (event) => setNoPerkara(event.target.value); 
   const handleJudul = (event) => setJudul(event.target.value); 
   const handleJenis = (event) => setJenis(event.target.value); 
+  const handlePendamping = (event) => setAstPendamping(event.target.value); 
   const handleDeskripsi = (event) => setDeskripsi(event.target.value); 
   const handleNamaTergugat = (event) => setNamaTergugat(event.target.value); 
 
-
+  useEffect(  () => {
+    fetch("https://www.tangkapdata2.my.id/get_assistant")
+        .then( response => response.json() )
+        .then(
+            data => {
+            setDataTable(data);
+            }
+        )
+  });
 
   const handleSave = async () => {
     
@@ -55,7 +70,7 @@ const CaseSetting = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ idClient, NoPerkara, Judul, Jenis, Deskripsi, NamaPenggugat, NamaTergugat }),
+            body: JSON.stringify({ idClient, IdPendamping, NoPerkara, Judul, Jenis, Deskripsi, NamaPenggugat, NamaTergugat }),
             }).then(
                 setinsertStat(true)
             );
@@ -179,7 +194,25 @@ const CaseSetting = () => {
                 </Row>
 
                 
-                
+                <div className="mt-8 mb-6">
+                  <h4 className="mb-1">Asisten Pendamping</h4>
+                </div>
+
+                <Row className="mb-3">
+                  <Form.Label className="col-sm-4" htmlFor="pendamping">Pendamping</Form.Label>
+                  <Col md={8} xs={12}>
+                    <Form.Select onChange={handlePendamping}>
+                      <option>-- pilih asisten --</option>
+
+                      {dataTable.map((item, index) => {
+                            return (
+                              <option key={index} value={item.id}>{item.nama}</option>
+                            )
+                        })}
+                    
+                    </Form.Select>
+                  </Col>
+                </Row>
 
 
                 {/* Zip code */}

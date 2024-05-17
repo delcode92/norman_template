@@ -4,7 +4,7 @@ import { Col, Row, Form, Card, Button, Image, Alert } from 'react-bootstrap';
 
 // import widget as custom components
 // import { FormSelect, DropFiles } from 'widgets';
-import CasesNumber from "data/dashboard/CaseNumber";
+// import CasesNumber from "data/dashboard/CaseNumber";
 
 // import hooks
 import useMounted from 'hooks/useMounted';
@@ -17,7 +17,7 @@ const GeneralSetting = () => {
   const [insertStat, setinsertStat] = useState(false);
 
   // ASSISTANT BIO
-  const [FullName, setFullName] = useState('');
+  const [FirstName, setFirstName] = useState('');
   const [LastName, setLastName] = useState('');
   const [Email, setEmail] = useState('');
   const [Phone, setPhone] = useState('');
@@ -28,7 +28,7 @@ const GeneralSetting = () => {
   const [Pass, setPass] = useState('');
   const [RetypePass, setRetypePass] = useState('');
 
-  const handleFullName = (event) => setNIK(event.target.value); 
+  const handleFirstName = (event) => setFirstName(event.target.value); 
   const handleLastName = (event) => setLastName(event.target.value); 
   const handleEmail = (event) => setEmail(event.target.value); 
   const handlePhone = (event) => setPhone(event.target.value); 
@@ -37,6 +37,47 @@ const GeneralSetting = () => {
   const handleUsername = (event) => setUsername(event.target.value)
   const handlePass = (event) => setPass(event.target.value)
   const handleRetypePass = (event) => setRetypePass(event.target.value)
+
+  const handleSave = async () => {
+    
+    var IdUser = '';
+    var Name = FirstName +" "+ LastName;
+
+    // save data to user
+    const responseUsers = await fetch('https://www.tangkapdata2.my.id/save_user_assistant', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ Username, Pass }),
+            });
+    
+    const data = await responseUsers.json();
+    IdUser = data['lastUserID'];
+
+    // save data to perkara table
+    const responseAssistant = await fetch('https://www.tangkapdata2.my.id/save_assistant_bio', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ IdUser, Name, Email, Phone, Addr }),
+            }).then(
+                setinsertStat(true)
+            );
+
+
+    // CLEAR FORM
+    // setFirstName(""); 
+    // setLastName(""); 
+    // setEmail(""); 
+    // setPhone(""); 
+    // setAddr("")
+    // setUsername("")
+    // setPass("")
+    // setRetypePass("")
+
+  }
 
   return (
     <Row className="mb-8">
@@ -95,9 +136,9 @@ const GeneralSetting = () => {
               {hasMounted && 
               <Form>
                 <Row className="mb-3">
-                  <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="fullName">Full name</Form.Label>
+                  <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="FirstName">Full name</Form.Label>
                   <Col sm={4} className="mb-3 mb-lg-0">
-                    <Form.Control type="text" placeholder="First name" id="fullName" onChange={handleFullName} required />
+                    <Form.Control type="text" placeholder="First name" id="FirstName" onChange={handleFirstName} required />
                   </Col>
                   <Col sm={4}>
                     <Form.Control type="text" placeholder="Last name" id="lastName" onChange={handleLastName} required />
@@ -193,8 +234,8 @@ const GeneralSetting = () => {
                   </Col> */}
 
                   <Col md={{ offset: 4, span: 8 }} xs={12} className="mt-4">
-                    <Button variant="primary" type="submit">
-                      Save Changes
+                    <Button variant="primary" onClick={handleSave}>
+                      Save
                     </Button>
                   </Col>
 

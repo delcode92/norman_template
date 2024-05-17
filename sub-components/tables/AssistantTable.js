@@ -137,13 +137,13 @@ const AssistantTable = () => {
                             </div>
                             <div className="col-md-6">
                                 <div className="d-flex justify-content-end">
-                                    <ActionFilter/>
+                                    {/* <ActionFilter/> */}
                                 </div>
                             </div>
                         </div>
 
                     </Card.Header>
-                    <Table responsive className="text-nowrap mb-0">
+                    <Table responsive className="text-nowrap mt-5 mb-12">
                         <thead className="table-light">
                             <tr>
                                 <th>NO</th>
