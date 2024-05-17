@@ -1,5 +1,6 @@
 // import node module libraries
-import { Col, Row, Form, Card, Button, Image } from 'react-bootstrap';
+import React, { useState } from "react";
+import { Col, Row, Form, Card, Button, Image, Alert } from 'react-bootstrap';
 
 // import widget as custom components
 // import { FormSelect, DropFiles } from 'widgets';
@@ -8,16 +9,34 @@ import CasesNumber from "data/dashboard/CaseNumber";
 // import hooks
 import useMounted from 'hooks/useMounted';
 
-import AutocompleteDropdown from 'widgets/AutocompleteDropdown';
+// import AutocompleteDropdown from 'widgets/AutocompleteDropdown';
 
 const GeneralSetting = () => {
   const hasMounted = useMounted();
-  const countryOptions = [
-    { value: 'India', label: 'India' },
-    { value: 'US', label: 'US' },
-    { value: 'UK', label: 'UK' },
-    { value: 'UAE', label: 'UAE' }
-  ];
+
+  const [insertStat, setinsertStat] = useState(false);
+
+  // ASSISTANT BIO
+  const [FullName, setFullName] = useState('');
+  const [LastName, setLastName] = useState('');
+  const [Email, setEmail] = useState('');
+  const [Phone, setPhone] = useState('');
+  const [Addr, setAddr] = useState('');
+
+  // ASSITANT LOGIN INFO
+  const [Username, setUsername] = useState('');
+  const [Pass, setPass] = useState('');
+  const [RetypePass, setRetypePass] = useState('');
+
+  const handleFullName = (event) => setNIK(event.target.value); 
+  const handleLastName = (event) => setLastName(event.target.value); 
+  const handleEmail = (event) => setEmail(event.target.value); 
+  const handlePhone = (event) => setPhone(event.target.value); 
+  const handleAddr = (event) => setAddr(event.target.value)
+  
+  const handleUsername = (event) => setUsername(event.target.value)
+  const handlePass = (event) => setPass(event.target.value)
+  const handleRetypePass = (event) => setRetypePass(event.target.value)
 
   return (
     <Row className="mb-8">
@@ -30,7 +49,10 @@ const GeneralSetting = () => {
       <Col xl={9} lg={8} md={12} xs={12}>
         <Card>
           {/* card body */}
+          
           <Card.Body>
+          {insertStat && <Alert variant="success">DATA SAVED!</Alert>}
+
             <div className=" mb-6">
               <h4 className="mb-1">General Settings</h4>
             </div>
@@ -75,10 +97,10 @@ const GeneralSetting = () => {
                 <Row className="mb-3">
                   <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="fullName">Full name</Form.Label>
                   <Col sm={4} className="mb-3 mb-lg-0">
-                    <Form.Control type="text" placeholder="First name" id="fullName" required />
+                    <Form.Control type="text" placeholder="First name" id="fullName" onChange={handleFullName} required />
                   </Col>
                   <Col sm={4}>
-                    <Form.Control type="text" placeholder="Last name" id="lastName" required />
+                    <Form.Control type="text" placeholder="Last name" id="lastName" onChange={handleLastName} required />
                   </Col>
                 </Row>
 
@@ -86,7 +108,7 @@ const GeneralSetting = () => {
                 <Row className="mb-3">
                 <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="email">Email</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="email" placeholder="Email" id="email" required />
+                    <Form.Control type="email" placeholder="Email" id="email" onChange={handleEmail} required />
                   </Col>
                 </Row>
                 
@@ -94,7 +116,7 @@ const GeneralSetting = () => {
                 <Row className="mb-3">
                   <Form.Label className="col-sm-4" htmlFor="phone">Phone</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="text" placeholder="Enter Phone" id="phone" />
+                    <Form.Control type="text" placeholder="Enter Phone" id="phone" onChange={handlePhone} />
                   </Col>
                 </Row>
 
@@ -110,7 +132,7 @@ const GeneralSetting = () => {
                 <Row className="mb-3">
                   <Form.Label className="col-sm-4" htmlFor="addressLine">Address</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="text" placeholder="Enter Address" id="addressLine" required />
+                    <Form.Control type="text" placeholder="Enter Address" id="addressLine" onChange={handleAddr} required />
                   </Col>
                 </Row>
 
@@ -122,7 +144,7 @@ const GeneralSetting = () => {
                 <Row className="mb-3">
                   <Form.Label className="col-sm-4" htmlFor="uname">User Name</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="text" placeholder="username" id="uname" required />
+                    <Form.Control type="text" placeholder="username" id="uname" onChange={handleUsername} required />
                   </Col>
                 </Row>
 
@@ -130,7 +152,7 @@ const GeneralSetting = () => {
                 <Row className="mb-3">
                   <Form.Label className="col-sm-4" htmlFor="pass">Password</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="password" placeholder="password" id="pass" required />
+                    <Form.Control type="password" placeholder="password" id="pass" onChange={handlePass} required />
                   </Col>
                 </Row>
                 
@@ -138,7 +160,7 @@ const GeneralSetting = () => {
                 <Row className="mb-3">
                   <Form.Label className="col-sm-4" htmlFor="repass">Retype Password</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="password" placeholder="retype password" id="repass" required />
+                    <Form.Control type="password" placeholder="retype password" id="repass" onChange={handleRetypePass} required />
                   </Col>
                 </Row>
 
