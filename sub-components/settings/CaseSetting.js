@@ -168,10 +168,10 @@ const CaseSetting = () => {
 
                 {/* DESKRIPSI */}
                 <Row className="mb-3">
-                <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="deskripsi_perkara">Deskripsi</Form.Label>
+                <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="deskripsi_perkara">Deskripsi Perkara</Form.Label>
                   <Col md={8} xs={12}>
                     
-                    <FloatingLabel controlId="deskripsi_perkara" label="Comments">
+                    <FloatingLabel controlId="deskripsi_perkara" label="deskripsi">
                       <Form.Control
                         as="textarea"
                         placeholder="deskripsi perkara"

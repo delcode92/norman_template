@@ -12,7 +12,7 @@ import { MoreVertical, Filter } from 'react-feather';
 
 const CaseTable = () => {
 
-  const [dataTable, setDataTable] = useState([{id:'', id_client: '', no_perkara: '', jns_perkara: '', judul: '', deskripsi: '', nm_penggugat:'', nm_tergugat:'', tgl_dibuat_perkara:'', tgl_selesai_perkara:'-'}]);
+  const [dataTable, setDataTable] = useState([{id:'', id_client: '', no_perkara: '',  jns_perkara: '', judul: '', deskripsi: '', nm_penggugat:'', nm_tergugat:'', tgl_dibuat_perkara:'', tgl_selesai_perkara:'-'}]);
   
   // const hasMounted = useMounted();
   useEffect(  () => {
@@ -21,8 +21,8 @@ const CaseTable = () => {
         .then( response => response.json() )
         .then(
             data => {
-            console.log("data ===>");
-            console.log(data);
+            // console.log("data ===>");
+            // console.log(data);
             setDataTable(data);
             }
         )
