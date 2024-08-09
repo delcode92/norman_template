@@ -147,6 +147,12 @@ export const DashboardMenu = [
 	},
 	{
 		id: uuid(),
+		title: 'Tester',
+		icon: 'user-plus',
+		link: '/pages/test'
+	},
+	{
+		id: uuid(),
 		title: 'Case',
 		icon: 'briefcase',
 		link: '/pages/addcase'

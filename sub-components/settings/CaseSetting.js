@@ -2,14 +2,18 @@
 import React, { useState, useEffect } from "react";
 import { Col, Row, Form, Card, Button, FloatingLabel, Alert } from 'react-bootstrap';
 
+// import JnsPerkara from '../../app/(dashboard)/components/jns_perkara/page';
+
+
 // import widget as custom components
 // import { FormSelect, DropFiles } from 'widgets';
 
 // import hooks
 // import useMounted from 'hooks/useMounted';
 
-import CasesNumber from "data/dashboard/CaseNumber";
-import AutocompleteDropdown from 'widgets/AutocompleteDropdown';
+// import CasesNumber from "data/dashboard/CaseNumber";
+import JnsPerkara from 'sub-components/jns_perkara/jns_perkara';
+// import CurrentPlan from 'sub-components/billing/CurrentPlan';
 
 
 const CaseSetting = () => {
@@ -39,13 +43,13 @@ const CaseSetting = () => {
   const handleNamaTergugat = (event) => setNamaTergugat(event.target.value); 
 
   useEffect(  () => {
-    fetch("https://www.tangkapdata2.my.id/get_assistant")
-        .then( response => response.json() )
-        .then(
-            data => {
-            setDataTable(data);
-            }
-        )
+    // fetch("https://www.tangkapdata2.my.id/get_assistant")
+    //     .then( response => response.json() )
+    //     .then(
+    //         data => {
+    //         setDataTable(data);
+    //         }
+    //     )
   });
 
   const handleSave = async () => {
@@ -157,12 +161,17 @@ const CaseSetting = () => {
                 <Row className="mb-3">
                 <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="jenis_perkara">Jenis Perkara</Form.Label>
                   <Col md={8} xs={12}>
+                    
                     {/* how to create onselect on this component below ? */}
-                    <Form.Select onChange={handleJenis}>
+                    {/* <Form.Select onChange={handleJenis}>
                       <option>-- jenis perkara --</option>
                       <option value="perdata">Perdata</option>
                       <option value="pidana">Pidana</option>
-                    </Form.Select>
+                    </Form.Select> */}
+                    {/* <CurrentPlan/> */}
+                    
+                    <JnsPerkara/>
+
                   </Col>
                 </Row>
 
