@@ -1,0 +1,102 @@
+based on this structure below,  
+create postgre SQL query so it will be saved as json, I want the column name as `jenis_perkara`:
+
+- pengadilan negeri
+
+   - perdata umum
+      - perdata gugatan
+          - perbuatan melawan hukum
+          - Ganti Rugi
+          - Wanprestasi
+          - Perceraian
+          - Harta Bersama
+          - lain-lain
+      
+      - perdata gugatan sederhana
+          - perbuatan melawan hukum
+          - Wanprestasi
+          - lain-lain
+
+      - perdata permohonan
+         - pengampunan
+         - perbaikan kesalahan dalam akta kelahiran
+         - Pengangkatan Wali Bagi Anak
+         - Akta Kematian
+         - Permohonan Ganti Nama
+         - Wali dan Izin Jual
+         - lain-lain
+
+   - perdata khusus
+      - HKI
+      - Partai Politik
+      - Kepailitan & PKPU
+      - Pengadilan Hubungan Industrial 
+          - Perselisihan Pemutusan Hubungan Kerja Massal
+          - Perselisihan Pemutusan Hubungan Kerja Sepihak
+          - Perselisihan Hak Pekerja Yang Sudah Diperjanjikan Tidak Dipenuhi
+          - Pemutusan Hubungan Kerja Tanpa Memperhatikan Hak Pekerja
+          - Perselisihan Pemutusan Hubungan Kerja Karena Pekerja Melakukan Tindak Pidana
+          - Perselisihan Hubungan Kerja Karena Pekerja Indisipliner
+          - Perselisihan Hak Pekerja Karena Upah Tidak Dibayar
+          - lain-lain
+          - KPPU
+    
+   - Pidana
+       - Pencurian
+       - Imigrasi
+       - Penggelapan
+       - Perlindungan Anak
+       - Kejahatan Terhadap Nyawa
+       - Penipuan
+       - Kesehatan
+       - Pengeroyokan
+       - Penganiayaan
+       - Pidana Pra Peradilan
+       - Sah atau tidaknya penghentian penyidikan
+       - Sah atau tidaknya penetapan tersangka
+       - Sah atau tidaknya penangkapan
+       - Sah atau tidaknya penahanan
+       - Perkara Lalu Lintas
+       - lain-lain
+
+- pengadilan tata usaha negara
+   - perkara
+       - perdata gugatan
+           - Tender
+           - Pertanahan
+           - Kepala Desa dan Perangkat Desa
+           - Kepegawaian
+           - Perizinan
+           - Tindakan Administrasi Pemerintah/Tindakan Faktual
+           - Partai Politik
+           - lain-lain
+       - Permohonan UU AP
+           - Permohonan Fiktif Positif
+           - Lain-Lain
+
+       - Gugatan Keberatan (KIP)
+           - Keterbukaan Informasi Publik (KIP)
+           - Lain-Lain
+
+
+- mahkamah syariyah
+   - jinayat
+       - Praperadilan Jinayat
+           - Sah atau tidaknya penangkapan
+           - Lain-Lain
+
+    - Registrasi Perkara Jinayat
+        - Maisir
+        - Khamar
+        - Pelecehan Seksual
+        - Pemerkosaan
+        - Ikhtilath
+        - Khalwat
+        - Zina
+        - Lain-Lain
+
+
+   - jinayat anak
+       - Register Perkara Jinayat Anak
+           - Pemerkosaan
+           - Lain-Lain

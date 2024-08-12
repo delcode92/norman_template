@@ -1,0 +1,108 @@
+'{
+    "pengadilan_negeri": {
+        "perdata_umum": {
+            "perdata_gugatan": [
+                "perbuatan_melawan_hukum",
+                "ganti_rugi",
+                "wanprestasi",
+                "perceraian",
+                "harta_bersama",
+                "lain_lain"
+            ],
+            "perdata_gugatan_sederhana": [
+                "perbuatan_melawan_hukum",
+                "wanprestasi",
+                "lain_lain"
+            ],
+            "perdata_permohonan": [
+                "pengampunan",
+                "perbaikan_kesalahan_dalam_akta_kelahiran",
+                "pengangkatan_wali_bagi_anak",
+                "akta_kematian",
+                "permohonan_ganti_nama",
+                "wali_dan_izin_jual",
+                "lain_lain"
+            ]
+        },
+        "perdata_khusus": []
+            "hki",
+            "partai_politik",
+            "kepailitan_dan_pkpu",
+            {"pengadilan_hubungan_industrial": [
+                "perselisihan_pemutusan_hubungan_kerja_massal",
+                "perselisihan_pemutusan_hubungan_kerja_sepihak",
+                "perselisihan_hak_pekerja_yang_sudah_diperjanjikan_tidak_dipenuhi",
+                "pemutusan_hubungan_kerja_tanpa_memperhatikan_hak_pekerja",
+                "perselisihan_pemutusan_hubungan_kerja_karena_pekerja_melakukan_tindak_pidana",
+                "perselisihan_hubungan_kerja_karena_pekerja_indisipliner",
+                "perselisihan_hak_pekerja_karena_upah_tidak_dibayar",
+                "lain_lain",
+                "kppu"
+            ]}
+        ],
+        "pidana": [
+            "pencurian",
+            "imigrasi",
+            "penggelapan",
+            "perlindungan_anak",
+            "kejahatan_terhadap_nyawa",
+            "penipuan",
+            "kesehatan",
+            "pengeroyokan",
+            "penganiayaan",
+            "pidana_pra_peradilan",
+            "sah_atau_tidaknya_penghentian_penyidikan",
+            "sah_atau_tidaknya_penetapan_tersangka",
+            "sah_atau_tidaknya_penangkapan",
+            "sah_atau_tidaknya_penahanan",
+            "perkara_lalu_lintas",
+            "lain_lain"
+        ]
+    },
+    "pengadilan_tata_usaha_negara": {
+        "perkara": {
+            "perdata_gugatan": [
+                "tender",
+                "pertanahan",
+                "kepala_desa_dan_perangkat_desa",
+                "kepegawaian",
+                "perizinan",
+                "tindakan_administrasi_pemerintah_tindakan_faktual",
+                "partai_politik",
+                "lain_lain"
+            ],
+            "permohonan_uu_ap": [
+                "permohonan_fiktif_positif",
+                "lain_lain"
+            ],
+            "gugatan_keberatan_kip": [
+                "keterbukaan_informasi_publik_kip",
+                "lain_lain"
+            ]
+        }
+    },
+    "mahkamah_syariyah": {
+        "jinayat": {
+            "praperadilan_jinayat": [
+                "sah_atau_tidaknya_penangkapan",
+                "lain_lain"
+            ]
+        },
+        "registrasi_perkara_jinayat": [
+            "maisir",
+            "khamar",
+            "pelecehan_seksual",
+            "pemerkosaan",
+            "ikhtilath",
+            "khalwat",
+            "zina",
+            "lain_lain"
+        ],
+        "jinayat_anak": {
+            "register_perkara_jinayat_anak": [
+                "pemerkosaan",
+                "lain_lain"
+            ]
+        }
+    }
+}'
