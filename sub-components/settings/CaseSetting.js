@@ -20,8 +20,10 @@ const CaseSetting = () => {
   const [insertStat, setinsertStat] = useState(false);
 
   const [NIK, setNIK] = useState('');
+  const [KTP, setKTP] = useState('');
   const [NamaPenggugat, setNamaPenggugat] = useState('');
   const [HP, setHP] = useState('');
+  const [Email, setEmail] = useState('');
   const [Alamat, setAlamat] = useState('');
   const [NoPerkara, setNoPerkara] = useState('');
   const [Judul, setJudul] = useState('');
@@ -29,11 +31,17 @@ const CaseSetting = () => {
   const [IdPendamping, setAstPendamping] = useState('');
   const [Deskripsi, setDeskripsi] = useState('');
   const [NamaTergugat, setNamaTergugat] = useState('');
+
+  const [mandiri, setMandiri] = useState(false);
+  const [penghubung, setPenghubung] = useState(false);
+  
   const [dataTable, setDataTable] = useState([{id:'', id_user: '', nama: '', email: '', hp: '', addr: '' }]);
 
   const handleNIK = (event) => setNIK(event.target.value); 
+  const handleKTP = (event) => setKTP(event.target.value); 
   const handleNamaPenggugat = (event) => setNamaPenggugat(event.target.value); 
   const handleHP = (event) => setHP(event.target.value); 
+  const handleEmail = (event) => setEmail(event.target.value); 
   const handleAlamat = (event) => setAlamat(event.target.value); 
   const handleNoPerkara = (event) => setNoPerkara(event.target.value); 
   const handleJudul = (event) => setJudul(event.target.value); 
@@ -41,6 +49,9 @@ const CaseSetting = () => {
   const handlePendamping = (event) => setAstPendamping(event.target.value); 
   const handleDeskripsi = (event) => setDeskripsi(event.target.value); 
   const handleNamaTergugat = (event) => setNamaTergugat(event.target.value); 
+  
+
+
 
   useEffect(  () => {
     // fetch("https://www.tangkapdata2.my.id/get_assistant")
@@ -51,6 +62,14 @@ const CaseSetting = () => {
     //         }
     //     )
   });
+
+  const handleMandiri = ()=>{
+    setPenghubung(false)
+  }
+
+  const handlePenghubung = ()=>{
+    setPenghubung(true)
+  }
 
   const handleSave = async () => {
     
@@ -108,6 +127,14 @@ const CaseSetting = () => {
                     <Form.Control type="text" placeholder="nik" id="nik" onChange={handleNIK} required />
                   </Col>
                 </Row>
+                
+                {/* KTP */}
+                <Row className="mb-3">
+                  <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="ktp">File KTP</Form.Label>
+                  <Col md={8} xs={12}>
+                    <Form.Control type="file"  id="file_ktp" onChange={handleKTP} required />
+                  </Col>
+                </Row>
 
                 {/* NAMA PENGGUGAT */}
                 <Row className="mb-3">
@@ -125,6 +152,14 @@ const CaseSetting = () => {
                   </Col>
                 </Row>
 
+                {/* EMAIL */}
+                <Row className="mb-3">
+                  <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="email_penggugat">Email</Form.Label>
+                  <Col md={8} xs={12}>
+                    <Form.Control type="text" placeholder="hp" id="hp_penggugat" onChange={handleEmail} required />
+                  </Col>
+                </Row>
+
                 {/* ALAMAT */}
                 <Row className="mb-3">
                   <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="alamat_penggugat">Alamat</Form.Label>
@@ -132,10 +167,49 @@ const CaseSetting = () => {
                     <Form.Control type="text" placeholder="alamat" id="alamat_penggugat" onChange={handleAlamat} required />
                   </Col>
                 </Row>
+                
+                {/* darimana anda mengetahui */}
+                
+                <Row className="mb-3">
+                  <Form.Label className="col-sm-4 col-form-label form-label">Darimana anda tahu perusahaan ini ?</Form.Label>
+                </Row>
 
+                {/* I want to create 
+                nama -> nm_penghubung inline 
+                no kontak -> kontak_penghubung inline 
+                
+                but now it  display on row style not inline side by side
+                */}
+                <Row className="mb-3">
+                  <Col md={8} xs={12}>
+
+                    <Form.Check id="customRadioInline1" className="form-check-inline" >
+                      <Form.Check.Input type="radio" name="stat_tahu" onChange={handleMandiri} />
+                      <Form.Check.Label>mandiri</Form.Check.Label>
+                    </Form.Check>
+                    <Form.Check id="customRadioInline2" className="form-check-inline"  >
+                      <Form.Check.Input type="radio" name="stat_tahu" onChange={handlePenghubung}/>
+                      <Form.Check.Label>penghubung</Form.Check.Label>
+                    </Form.Check>
+
+                    {penghubung && (
+                      <Row className="mt-2" id="row_penghubung">
+                        <Col xs={6}>
+                          <Form.Label className="col-form-label">nama:</Form.Label>
+                          <Form.Control type="text" id="nm_penghubung" />
+                        </Col>
+                        <Col xs={6}>
+                          <Form.Label className="col-form-label">no kontak:</Form.Label>
+                          <Form.Control type="text" id="kontak_penghubung" />
+                        </Col>
+                      </Row>
+                    )}
+
+                  </Col>
+                </Row>
 
               <div className="mt-8 mb-6">
-                <h4 className="mb-1">Basic information</h4>
+                <h4 className="mb-1">Perkara Info</h4>
               </div>
               
               {/* START FORM */}
