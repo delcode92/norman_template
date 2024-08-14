@@ -26,6 +26,7 @@ const CaseSetting = () => {
   const [Email, setEmail] = useState('');
   const [Alamat, setAlamat] = useState('');
   const [NoPerkara, setNoPerkara] = useState('');
+  const [RegID, setRegID] = useState('');
   const [Judul, setJudul] = useState('');
   const [Jenis, setJenis] = useState('');
   const [IdPendamping, setAstPendamping] = useState('');
@@ -36,6 +37,12 @@ const CaseSetting = () => {
   const [penghubung, setPenghubung] = useState(false);
   
   const [dataTable, setDataTable] = useState([{id:'', id_user: '', nama: '', email: '', hp: '', addr: '' }]);
+ 
+  // based on your solution above, modify that program so it can search based on value below and show the key
+  // but it could go otherwise for eaxample {"perkara 1": "R123"}, doesn't matter, just create the most effective wat  
+  const data_reg_id = {
+    "R123":"perkara 1", "R112":"perkara 2", "R122":"perkara 3", "R110":"perkara 4", "R445":"perkara 5",
+  };
 
   const handleNIK = (event) => setNIK(event.target.value); 
   const handleKTP = (event) => setKTP(event.target.value); 
@@ -44,6 +51,7 @@ const CaseSetting = () => {
   const handleEmail = (event) => setEmail(event.target.value); 
   const handleAlamat = (event) => setAlamat(event.target.value); 
   const handleNoPerkara = (event) => setNoPerkara(event.target.value); 
+  const handleRegID = (event) => setRegID(event.target.value); 
   const handleJudul = (event) => setJudul(event.target.value); 
   const handleJenis = (event) => setJenis(event.target.value); 
   const handlePendamping = (event) => setAstPendamping(event.target.value); 
@@ -215,6 +223,14 @@ const CaseSetting = () => {
               {/* START FORM */}
               <Form>
 
+                {/* Reg ID */}
+                <Row className="mb-3">
+                <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="reg_id">Reg ID</Form.Label>
+                  <Col md={8} xs={12}>
+                    <Form.Control type="text" placeholder="reg id" id="reg_id" onChange={handleNoPerkara} required />
+                  </Col>
+                </Row>
+                
                 {/* NO PERKARA */}
                 <Row className="mb-3">
                 <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="no_perkara">No Perkara</Form.Label>
