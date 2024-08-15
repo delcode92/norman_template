@@ -13,6 +13,7 @@ import { Col, Row, Form, Card, Button, FloatingLabel, Alert } from 'react-bootst
 
 // import CasesNumber from "data/dashboard/CaseNumber";
 import JnsPerkara from 'sub-components/jns_perkara/jns_perkara';
+import RegistrasiID from 'sub-components/reg_id/reg_id';
 // import CurrentPlan from 'sub-components/billing/CurrentPlan';
 
 
@@ -38,12 +39,6 @@ const CaseSetting = () => {
   
   const [dataTable, setDataTable] = useState([{id:'', id_user: '', nama: '', email: '', hp: '', addr: '' }]);
  
-  // based on your solution above, modify that program so it can search based on value below and show the key
-  // but it could go otherwise for eaxample {"perkara 1": "R123"}, doesn't matter, just create the most effective wat  
-  const data_reg_id = {
-    "R123":"perkara 1", "R112":"perkara 2", "R122":"perkara 3", "R110":"perkara 4", "R445":"perkara 5",
-  };
-
   const handleNIK = (event) => setNIK(event.target.value); 
   const handleKTP = (event) => setKTP(event.target.value); 
   const handleNamaPenggugat = (event) => setNamaPenggugat(event.target.value); 
@@ -227,7 +222,7 @@ const CaseSetting = () => {
                 <Row className="mb-3">
                 <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="reg_id">Reg ID</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="text" placeholder="reg id" id="reg_id" onChange={handleNoPerkara} required />
+                      <RegistrasiID/>
                   </Col>
                 </Row>
                 

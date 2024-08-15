@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
+import {Form, ListGroup}  from 'react-bootstrap';
 
-const AutocompleteInput = ({ data, searchByValue = true }) => {
+const RegistrasiID = ({ data, searchByValue = true }) => {
   const [inputValue, setInputValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
 
@@ -39,29 +40,28 @@ const AutocompleteInput = ({ data, searchByValue = true }) => {
   };
 
   return (
-    <div className="relative w-64">
-      <input
+    <div className="position-relative">
+      <Form.Control
         type="text"
         value={inputValue}
         onChange={handleInputChange}
         placeholder={searchByValue ? "Type a perkara..." : "Type a registration ID..."}
-        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       {suggestions.length > 0 && (
-        <ul className="absolute w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
+        <ListGroup className="position-absolute w-100 mt-1">
           {suggestions.map((suggestion, index) => (
-            <li
+            <ListGroup.Item 
               key={index}
+              action
               onClick={() => handleSuggestionClick(suggestion)}
-              className="px-3 py-2 cursor-pointer hover:bg-gray-100"
             >
-              <span className="font-semibold">{suggestion.displayTerm}</span>: {suggestion.searchTerm}
-            </li>
+              <span className="fw-bold">{suggestion.displayTerm}</span>: {suggestion.searchTerm}
+            </ListGroup.Item>
           ))}
-        </ul>
+        </ListGroup>
       )}
     </div>
   );
 };
 
-export default AutocompleteInput;
+export default RegistrasiID;
