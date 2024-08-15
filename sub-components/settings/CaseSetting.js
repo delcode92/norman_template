@@ -18,6 +18,8 @@ import RegistrasiID from 'sub-components/reg_id/reg_id';
 
 
 const CaseSetting = () => {
+
+  const [perkaraOrder, setPerkaraOrder] = useState('');
   const [insertStat, setinsertStat] = useState(false);
 
   const [NIK, setNIK] = useState('');
@@ -75,7 +77,8 @@ const CaseSetting = () => {
   }
 
   const handleSave = async () => {
-    
+    console.log(perkaraOrder);
+    /*
     var idClient = '';
 
     // save data to client table
@@ -100,6 +103,8 @@ const CaseSetting = () => {
             }).then(
                 setinsertStat(true)
             );
+  */
+
 
   }
 
@@ -255,7 +260,7 @@ const CaseSetting = () => {
                     </Form.Select> */}
                     {/* <CurrentPlan/> */}
                     
-                    <JnsPerkara/>
+                    <JnsPerkara perkaraOrder={perkaraOrder} setPerkaraOrder={setPerkaraOrder}/>
 
                   </Col>
                 </Row>

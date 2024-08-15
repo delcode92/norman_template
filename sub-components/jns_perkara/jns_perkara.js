@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Card, Button } from 'react-bootstrap';
+// import { Form, Card, Button } from 'react-bootstrap';
 
-const JnsPerkara = () => {
+const JnsPerkara = ({perkaraOrder, setPerkaraOrder}) => {
+
   const [selectedOptions, setSelectedOptions] = useState({
     court: '',
     category: '',
@@ -16,7 +17,15 @@ const JnsPerkara = () => {
   }, []);
 
   const handleOptionChange = (level, value) => {
+    
+    let po = perkaraOrder + "->" + value;
+    setPerkaraOrder(po);
+    console.log(perkaraOrder);
+
     setSelectedOptions(prevState => {
+
+      
+      
       const newState = { ...prevState, [level]: value };
       const levels = ['court', 'category', 'subCategory', 'case', 'subCase'];
       const index = levels.indexOf(level);
@@ -51,6 +60,10 @@ const JnsPerkara = () => {
               label: 'Perdata Gugatan',
               cases: [
                 { id: 'perbuatan-melawan-hukum', label: 'Perbuatan Melawan Hukum' },
+                { id: 'ganti-rugi', label: 'Ganti Rugi' },
+                { id: 'wanprestasi', label: 'Wanprestasi' },
+                { id: 'perceraian', label: 'Perceraian' },
+                { id: 'harta-bersama', label: 'Harta Bersama' },
                 { id: 'lain-lain', label: 'Lain-lain' }
               ]
             },
@@ -59,6 +72,7 @@ const JnsPerkara = () => {
               label: 'Perdata Gugatan Sederhana',
               cases: [
                 { id: 'perbuatan-melawan-hukum', label: 'Perbuatan Melawan Hukum' },
+                { id: 'wanprestasi', label: 'Wanprestasi' },
                 { id: 'lain-lain', label: 'Lain-lain' }
               ]
             },
@@ -67,7 +81,12 @@ const JnsPerkara = () => {
               label: 'Perdata Permohonan',
               cases: [
                 { id: 'pengampunan', label: 'Pengampunan' },
-                { id: 'perbaikan-kesalahan-akta-kelahiran', label: 'Perbaikan Kesalahan dalam Akta Kelahiran' }
+                { id: 'perbaikan-kesalahan-akta-kelahiran', label: 'Perbaikan Kesalahan dalam Akta Kelahiran' },
+                { id: 'pengangkatan-wali-anak', label: 'Pengangkatan Wali Bagi Anak' },
+                { id: 'akta-kematian', label: 'Akta Kematian' },
+                { id: 'permohonan-ganti-nama', label: 'Permohonan Ganti Nama' },
+                { id: 'wali-dan-izin-jual', label: 'Wali dan Izin Jual' },
+                { id: 'lain-lain', label: 'Lain-lain' }
               ]
             }
           ]
@@ -77,14 +96,45 @@ const JnsPerkara = () => {
           label: 'Perdata Khusus',
           subCategories: [
             { id: 'hki', label: 'HKI' },
+            { id: 'partai-politik', label: 'Partai Politik' },
             { id: 'kepailitan-pkpu', label: 'Kepailitan & PKPU' },
             {
               id: 'pengadilan-hubungan-industrial',
               label: 'Pengadilan Hubungan Industrial',
               cases: [
-                { id: 'phk-massal', label: 'Perselisihan Pemutusan Hubungan Kerja Massal' }
+                { id: 'phk-massal', label: 'Perselisihan Pemutusan Hubungan Kerja Massal' },
+                { id: 'phk-sepihak', label: 'Perselisihan Pemutusan Hubungan Kerja Sepihak' },
+                { id: 'hak-pekerja-tidak-dipenuhi', label: 'Perselisihan Hak Pekerja Yang Sudah Diperjanjikan Tidak Dipenuhi' },
+                { id: 'phk-tanpa-hak-pekerja', label: 'Pemutusan Hubungan Kerja Tanpa Memperhatikan Hak Pekerja' },
+                { id: 'phk-tindak-pidana', label: 'Perselisihan Pemutusan Hubungan Kerja Karena Pekerja Melakukan Tindak Pidana' },
+                { id: 'phk-indisipliner', label: 'Perselisihan Hubungan Kerja Karena Pekerja Indisipliner' },
+                { id: 'upah-tidak-dibayar', label: 'Perselisihan Hak Pekerja Karena Upah Tidak Dibayar' },
+                { id: 'lain-lain', label: 'Lain-lain' }
               ]
-            }
+            },
+            { id: 'kppu', label: 'KPPU' }
+          ]
+        },
+        {
+          id: 'pidana',
+          label: 'Pidana',
+          cases: [
+            { id: 'pencurian', label: 'Pencurian' },
+            { id: 'imigrasi', label: 'Imigrasi' },
+            { id: 'penggelapan', label: 'Penggelapan' },
+            { id: 'perlindungan-anak', label: 'Perlindungan Anak' },
+            { id: 'kejahatan-terhadap-nyawa', label: 'Kejahatan Terhadap Nyawa' },
+            { id: 'penipuan', label: 'Penipuan' },
+            { id: 'kesehatan', label: 'Kesehatan' },
+            { id: 'pengeroyokan', label: 'Pengeroyokan' },
+            { id: 'penganiayaan', label: 'Penganiayaan' },
+            { id: 'pidana-pra-peradilan', label: 'Pidana Pra Peradilan' },
+            { id: 'sah-tidaknya-penghentian-penyidikan', label: 'Sah atau tidaknya penghentian penyidikan' },
+            { id: 'sah-tidaknya-penetapan-tersangka', label: 'Sah atau tidaknya penetapan tersangka' },
+            { id: 'sah-tidaknya-penangkapan', label: 'Sah atau tidaknya penangkapan' },
+            { id: 'sah-tidaknya-penahanan', label: 'Sah atau tidaknya penahanan' },
+            { id: 'perkara-lalu-lintas', label: 'Perkara Lalu Lintas' },
+            { id: 'lain-lain', label: 'Lain-lain' }
           ]
         }
       ]
@@ -93,16 +143,90 @@ const JnsPerkara = () => {
       id: 'pengadilan-tata-usaha-negara',
       label: 'Pengadilan Tata Usaha Negara',
       categories: [
-        { id: 'perdata-umum', label: 'Perdata Umum' },
-        { id: 'perdata-khusus', label: 'Perdata Khusus' }
+        {
+          id: 'perkara',
+          label: 'Perkara',
+          subCategories: [
+            {
+              id: 'perdata-gugatan',
+              label: 'Perdata Gugatan',
+              cases: [
+                { id: 'tender', label: 'Tender' },
+                { id: 'pertanahan', label: 'Pertanahan' },
+                { id: 'kepala-desa-perangkat-desa', label: 'Kepala Desa dan Perangkat Desa' },
+                { id: 'kepegawaian', label: 'Kepegawaian' },
+                { id: 'perizinan', label: 'Perizinan' },
+                { id: 'tindakan-administrasi-pemerintah', label: 'Tindakan Administrasi Pemerintah/Tindakan Faktual' },
+                { id: 'partai-politik', label: 'Partai Politik' },
+                { id: 'lain-lain', label: 'Lain-lain' }
+              ]
+            },
+            {
+              id: 'permohonan-uu-ap',
+              label: 'Permohonan UU AP',
+              cases: [
+                { id: 'permohonan-fiktif-positif', label: 'Permohonan Fiktif Positif' },
+                { id: 'lain-lain', label: 'Lain-Lain' }
+              ]
+            },
+            {
+              id: 'gugatan-keberatan-kip',
+              label: 'Gugatan Keberatan (KIP)',
+              cases: [
+                { id: 'keterbukaan-informasi-publik', label: 'Keterbukaan Informasi Publik (KIP)' },
+                { id: 'lain-lain', label: 'Lain-Lain' }
+              ]
+            }
+          ]
+        }
       ]
     },
     {
       id: 'mahkamah-syariyah',
       label: 'Mahkamah Syariyah',
       categories: [
-        { id: 'perdata-umum', label: 'Perdata Umum' },
-        { id: 'perdata-khusus', label: 'Perdata Khusus' }
+        {
+          id: 'jinayat',
+          label: 'Jinayat',
+          subCategories: [
+            {
+              id: 'praperadilan-jinayat',
+              label: 'Praperadilan Jinayat',
+              cases: [
+                { id: 'sah-tidaknya-penangkapan', label: 'Sah atau tidaknya penangkapan' },
+                { id: 'lain-lain', label: 'Lain-Lain' }
+              ]
+            },
+            {
+              id: 'registrasi-perkara-jinayat',
+              label: 'Registrasi Perkara Jinayat',
+              cases: [
+                { id: 'maisir', label: 'Maisir' },
+                { id: 'khamar', label: 'Khamar' },
+                { id: 'pelecehan-seksual', label: 'Pelecehan Seksual' },
+                { id: 'pemerkosaan', label: 'Pemerkosaan' },
+                { id: 'ikhtilath', label: 'Ikhtilath' },
+                { id: 'khalwat', label: 'Khalwat' },
+                { id: 'zina', label: 'Zina' },
+                { id: 'lain-lain', label: 'Lain-Lain' }
+              ]
+            }
+          ]
+        },
+        {
+          id: 'jinayat-anak',
+          label: 'Jinayat Anak',
+          subCategories: [
+            {
+              id: 'register-perkara-jinayat-anak',
+              label: 'Register Perkara Jinayat Anak',
+              cases: [
+                { id: 'pemerkosaan', label: 'Pemerkosaan' },
+                { id: 'lain-lain', label: 'Lain-Lain' }
+              ]
+            }
+          ]
+        }
       ]
     }
   ];
@@ -158,15 +282,25 @@ const JnsPerkara = () => {
                       ))}
                     </div>
                   )}
+                  
+                  {selectedOptions.category === category.id && category.cases && (
+                    <div className="ms-4">
+                      {category.cases.map((caseOption) => (
+                        <div key={caseOption.id}>
+                          {renderRadioOption('case', caseOption, selectedOptions.case, handleOptionChange)}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
           )}
         </div>
       ))}
-      <Button variant="secondary" onClick={handleReset} className="mt-3">
+      {/* <Button variant="secondary" onClick={handleReset} className="mt-3">
         Reset
-      </Button>
+      </Button> */}
     </div>
   );
 };

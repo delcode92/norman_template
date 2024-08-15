@@ -1,8 +1,7 @@
-based on this structure below,  
-create postgre SQL query so it will be saved as json, I want the column name as `jenis_perkara`:
+
+based on this structure below, update your last solution, so the nested radio button like this structure below: 
 
 - pengadilan negeri
-
    - perdata umum
       - perdata gugatan
           - perbuatan melawan hukum

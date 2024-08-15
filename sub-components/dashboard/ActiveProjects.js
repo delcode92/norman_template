@@ -5,12 +5,21 @@ import React, { useState, useEffect } from "react";
 import Link from 'next/link';
 import { Col, Row, Card, Table, Modal , Dropdown, Pagination, Form, Button, FloatingLabel, Alert } from 'react-bootstrap';
 import { MoreVertical, Filter } from 'react-feather';
+// import { useRouter } from 'next/router';
+
 
 // import required data files
 // import ActiveProjectsData from "data/dashboard/ActiveProjectsData";
 
 
 const ActiveProjects =  () => {
+    // const router = useRouter();
+
+    // Cek Session
+    // var stat = localStorage.getItem('isLoggedIn');
+    // if(stat != 'true'){
+    //     router.push('/login');
+    // }
 
     const [show, setShow] = useState(false);
     const [dataTable, setDataTable] = useState([{id:'', log_time: '', no_perkara: '', namaAsisten: 'John', log_text: '', status: 'Active'}]);
@@ -22,7 +31,7 @@ const ActiveProjects =  () => {
     useEffect(() => {
         const intervalId = setInterval( async () => {
             
-              await fetch("https://www.tangkapdata2.my.id/get_log")
+              await fetch("https://www.tangkapdata2.my.id/get_log/102")
               .then(
                 // must I use response code below ?
                 response => response.json()
