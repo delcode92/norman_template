@@ -32,6 +32,7 @@ const CaseSetting = () => {
   const [RegID, setRegID] = useState('');
   const [Judul, setJudul] = useState('');
   const [Jenis, setJenis] = useState('');
+  const [IdPenasihat, setPenasihat] = useState('');
   const [IdPendamping, setAstPendamping] = useState('');
   const [Deskripsi, setDeskripsi] = useState('');
   const [NamaTergugat, setNamaTergugat] = useState('');
@@ -39,6 +40,7 @@ const CaseSetting = () => {
   const [mandiri, setMandiri] = useState(false);
   const [penghubung, setPenghubung] = useState(false);
   
+  const [dataTablePenasihat, setDataTablePenasihat] = useState([{id:'', id_user: '', nama: '', email: '', hp: '', addr: '' }]);
   const [dataTable, setDataTable] = useState([{id:'', id_user: '', nama: '', email: '', hp: '', addr: '' }]);
  
   const handleNIK = (event) => setNIK(event.target.value); 
@@ -51,6 +53,7 @@ const CaseSetting = () => {
   const handleRegID = (event) => setRegID(event.target.value); 
   const handleJudul = (event) => setJudul(event.target.value); 
   const handleJenis = (event) => setJenis(event.target.value); 
+  const handlePenasihat = (event) => setPenasihat(event.target.value); 
   const handlePendamping = (event) => setAstPendamping(event.target.value); 
   const handleDeskripsi = (event) => setDeskripsi(event.target.value); 
   const handleNamaTergugat = (event) => setNamaTergugat(event.target.value); 
@@ -294,9 +297,25 @@ const CaseSetting = () => {
 
                 
                 <div className="mt-8 mb-6">
-                  <h4 className="mb-1">Asisten Pendamping</h4>
+                  <h4 className="mb-1">Tim Kuasa Hukum</h4>
                 </div>
 
+                <Row className="mb-3">
+                  <Form.Label className="col-sm-4" htmlFor="penasihat_hukum">Penasihat Hukum</Form.Label>
+                  <Col md={8} xs={12}>
+                    <Form.Select onChange={handlePenasihat}>
+                      <option>-- pilih penasihat hukum --</option>
+
+                      {dataTablePenasihat.map((item, index) => {
+                            return (
+                              <option key={index} value={item.id}>{item.nama}</option>
+                            )
+                        })}
+                    
+                    </Form.Select>
+                  </Col>
+                </Row>
+                
                 <Row className="mb-3">
                   <Form.Label className="col-sm-4" htmlFor="pendamping">Pendamping</Form.Label>
                   <Col md={8} xs={12}>
@@ -314,7 +333,7 @@ const CaseSetting = () => {
                 </Row>
 
 
-                {/* Zip code */}
+                {/* Button Save */}
                 <Row className="align-items-center">
                   <Col md={{ offset: 4, span: 8 }} xs={12} className="mt-4">
                     <Button variant="primary" type="button" onClick={handleSave}>
