@@ -28,6 +28,7 @@ import Notifications from 'sub-components/settings/Notifications';
 import Preferences from 'sub-components/settings/Preferences';
 
 import JnsPerkara from 'sub-components/jns_perkara/jns_perkara';
+import AddRegID from 'sub-components/AddRegID/AddRegID';
 
 
 export {
@@ -51,5 +52,6 @@ export {
    Notifications, 
    Preferences,
 
-   JnsPerkara
+   JnsPerkara,
+   AddRegID
 };

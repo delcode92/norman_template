@@ -157,6 +157,12 @@ export const DashboardMenu = [
 		icon: 'briefcase',
 		link: '/pages/addcase'
 	},
+	{
+		id: uuid(),
+		title: 'RegID Perkara',
+		icon: 'briefcase',
+		link: '/pages/addRegID'
+	},
 	// {
 	// 	id: uuid(),
 	// 	title: 'Download',
