@@ -4,10 +4,127 @@ import Link from 'next/link';
 import {  Col, Row, Card, Table, Dropdown, Pagination, Form, Button } from 'react-bootstrap';
 import { MoreVertical, Filter } from 'react-feather';
 
-const RegIDTable = () => {
+let index = 0;
 
-  const [dataTable, setDataTable] = useState([{id:'', id_client: '', no_perkara: '',  jns_perkara: '', judul: '', deskripsi: '', nm_penggugat:'', nm_tergugat:'', tgl_dibuat_perkara:'', tgl_selesai_perkara:'-'}]);
+const RegIDTable = () => {
+  let data = {
+    "reg.1": "pengadilan negeri",
+    "reg.1.1": "perdata umum",
+    "reg.1.1.1": "perdata gugatan",
+    "reg.1.1.1.1": "perbuatan melawan hukum",
+    "reg.1.1.1.1.1": "Ganti Rugi",
+    "reg.1.1.1.1.2": "Wanprestasi",
+    "reg.1.1.1.1.3": "Perceraian",
+    "reg.1.1.1.1.4": "Harta Bersama",
+    "reg.1.1.1.1.5": "lain-lain",
+    "reg.1.1.2": "perdata gugatan sederhana",
+    "reg.1.1.2.1": "perbuatan melawan hukum",
+    "reg.1.1.2.2": "Wanprestasi",
+    "reg.1.1.2.3": "lain-lain",
+    "reg.1.1.3": "perdata permohonan",
+    "reg.1.1.3.1": "pengampunan",
+    "reg.1.1.3.2": "perbaikan kesalahan dalam akta kelahiran",
+    "reg.1.1.3.3": "Pengangkatan Wali Bagi Anak",
+    "reg.1.1.3.4": "Akta Kematian",
+    "reg.1.1.3.5": "Permohonan Ganti Nama",
+    "reg.1.1.3.6": "Wali dan Izin Jual",
+    "reg.1.1.3.7": "lain-lain",
+    "reg.1.2": "perdata khusus",
+    "reg.1.2.1": "HKI",
+    "reg.1.2.2": "Partai Politik",
+    "reg.1.2.3": "Kepailitan & PKPU",
+    "reg.1.2.4": "Pengadilan Hubungan Industrial",
+    "reg.1.2.4.1": "Perselisihan Pemutusan Hubungan Kerja Massal",
+    "reg.1.2.4.2": "Perselisihan Pemutusan Hubungan Kerja Sepihak",
+    "reg.1.2.4.3": "Perselisihan Hak Pekerja Yang Sudah Diperjanjikan Tidak Dipenuhi",
+    "reg.1.2.4.4": "Pemutusan Hubungan Kerja Tanpa Memperhatikan Hak Pekerja",
+    "reg.1.2.4.5": "Perselisihan Pemutusan Hubungan Kerja Karena Pekerja Melakukan Tindak Pidana",
+    "reg.1.2.4.6": "Perselisihan Hubungan Kerja Karena Pekerja Indisipliner",
+    "reg.1.2.4.7": "Perselisihan Hak Pekerja Karena Upah Tidak Dibayar",
+    "reg.1.2.4.8": "lain-lain",
+    "reg.1.2.4.9": "KPPU",
+    "reg.1.3": "Pidana",
+    "reg.1.3.1": "Pencurian",
+    "reg.1.3.2": "Imigrasi",
+    "reg.1.3.3": "Penggelapan",
+    "reg.1.3.4": "Perlindungan Anak",
+    "reg.1.3.5": "Kejahatan Terhadap Nyawa",
+    "reg.1.3.6": "Penipuan",
+    "reg.1.3.7": "Kesehatan",
+    "reg.1.3.8": "Pengeroyokan",
+    "reg.1.3.9": "Penganiayaan",
+    "reg.1.3.10": "Pidana Pra Peradilan",
+    "reg.1.3.10.1": "Sah atau tidaknya penghentian penyidikan",
+    "reg.1.3.10.2": "Sah atau tidaknya penetapan tersangka",
+    "reg.1.3.10.3": "Sah atau tidaknya penangkapan",
+    "reg.1.3.10.4": "Sah atau tidaknya penahanan",
+    "reg.1.3.11": "Perkara Lalu Lintas",
+    "reg.1.3.12": "lain-lain",
+    "reg.2": "pengadilan tata usaha negara",
+    "reg.2.1": "perkara",
+    "reg.2.1.1": "perdata gugatan",
+    "reg.2.1.1.1": "Tender",
+    "reg.2.1.1.2": "Pertanahan",
+    "reg.2.1.1.3": "Kepala Desa dan Perangkat Desa",
+    "reg.2.1.1.4": "Kepegawaian",
+    "reg.2.1.1.5": "Perizinan",
+    "reg.2.1.1.6": "Tindakan Administrasi Pemerintah/Tindakan Faktual",
+    "reg.2.1.1.7": "Partai Politik",
+    "reg.2.1.1.8": "lain-lain",
+    "reg.2.1.2": "Permohonan UU AP",
+    "reg.2.1.2.1": "Permohonan Fiktif Positif",
+    "reg.2.1.2.2": "Lain-Lain",
+    "reg.2.1.3": "Gugatan Keberatan (KIP)",
+    "reg.2.1.3.1": "Keterbukaan Informasi Publik (KIP)",
+    "reg.2.1.3.2": "Lain-Lain",
+    "reg.3": "mahkamah syariyah",
+    "reg.3.1": "jinayat",
+    "reg.3.1.1": "Praperadilan Jinayat",
+    "reg.3.1.1.1": "Sah atau tidaknya penangkapan",
+    "reg.3.1.1.2": "Lain-Lain",
+    "reg.3.2": "Registrasi Perkara Jinayat",
+    "reg.3.2.1": "Maisir",
+    "reg.3.2.2": "Khamar",
+    "reg.3.2.3": "Pelecehan Seksual",
+    "reg.3.2.4": "Pemerkosaan",
+    "reg.3.2.5": "Ikhtilath",
+    "reg.3.2.6": "Khalwat",
+    "reg.3.2.7": "Zina",
+    "reg.3.2.8": "Lain-Lain",
+    "reg.3.3": "jinayat anak",
+    "reg.3.3.1": "Register Perkara Jinayat Anak",
+    "reg.3.3.1.1": "Pemerkosaan",
+    "reg.3.3.1.2": "Lain-Lain"
+  }
   
+  const [rows, setRows] = useState(
+        Object.entries(data).map(([key, value]) => ({
+            regID: key,
+            jnsPerkara: value
+        }))
+    );
+
+//   const [dataTable, setDataTable] = useState([{reg_id:'', jns_perkara: ''}]);
+  const [dataTable, setDataTable] = useState(data);
+  const [inputRegID, setInputRegID] = useState('');
+  const [inputJnsPerkara, setInputJnsPerkara] = useState('');
+  
+
+  // Handle change for a specific row
+  const handleInputChange = (index, field, value) => {
+    const updatedRows = [...rows];
+    updatedRows[index][field] = value;
+    setRows(updatedRows);
+};
+
+//   const handleInputRegID = (e) => {
+//     setInputRegID(e.target.value);
+//   };
+  
+//   const handleInputJnsPerkara = (e) => {
+//     setInputJnsPerkara(e.target.value);
+//   };
+
   // const hasMounted = useMounted();
 //   useEffect(  () => {
 //     // fetch data from table perkara here
@@ -141,27 +258,29 @@ const RegIDTable = () => {
                             <tr>
                                 <th>NO</th>
                                 <th>Reg ID</th>
-                                <th>JNS PERKARA</th>
-                                <th></th>
+                                <th>JENIS PENGADILAN & PERKARA</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {dataTable.map((item, index) => {
-                                return (
-                                    <tr key={index}>
-                                        <td className="align-middle"> {index+1} </td>
-                                        <td className="align-middle"><span className="badge bg-info bg-purple p-2">{item.no_perkara}</span></td>
-                                        <td className="align-middle">{item.jns_perkara}</td>
-                                        {/* <td className="align-middle">{item.judul}</td>
-                                        <td className="align-middle text-dark">{item.nm_penggugat}</td>
-                                        <td className="align-middle">{item.nm_tergugat}</td>
-                                        <td className="align-middle">{item.deskripsi}</td>
-                                        <td className="align-middle">{item.tgl_dibuat_perkara}</td>
-                                <td className="align-middle">{item.tgl_selesai_perkara}</td>*/}
-                                        <td className="align-middle"> <ActionMenu idLog={item.id}/> </td> 
-                                    </tr>
-                                )
-                            })}
+                            {rows.map((row, index) => (
+                                <tr key={index}>
+                                    <td className="align-middle"> {index + 1} </td>
+                                    <td className="align-middle">
+                                        <Form.Control
+                                            type="text"
+                                            value={row.regID}
+                                            onChange={(e) => handleInputChange(index, 'regID', e.target.value)}
+                                        />
+                                    </td>
+                                    <td className="align-middle">
+                                        <Form.Control
+                                            type="text"
+                                            value={row.jnsPerkara}
+                                            onChange={(e) => handleInputChange(index, 'jnsPerkara', e.target.value)}
+                                        />
+                                    </td>
+                                </tr>
+                            ))}
                         </tbody>
                     </Table>
                     
