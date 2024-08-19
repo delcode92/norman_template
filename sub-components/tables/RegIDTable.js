@@ -111,10 +111,29 @@ const RegIDTable = () => {
   
 
   // Handle change for a specific row
-  const handleInputChange = (index, field, value) => {
+  const handleInputChange = async (index, field, value) => {
     const updatedRows = [...rows];
+    const old_key = "";
+    const new_key = ""
+    if(field=="regID"){
+        old_key = updatedRows[index][field];
+        new_key = value;
+    }
     updatedRows[index][field] = value;
-    setRows(updatedRows);
+
+    await fetch(process.env.SERVER_HOST + '/update_regid', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ old_key, new_key, value }),
+    }).then(
+        setRows(updatedRows)
+    );
+
+
+
+
 };
 
 //   const handleInputRegID = (e) => {
