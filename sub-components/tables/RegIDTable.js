@@ -1,5 +1,6 @@
 // import node module libraries
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+
 import Link from 'next/link';
 import {  Col, Row, Card, Table, Dropdown, Pagination, Form, Button } from 'react-bootstrap';
 import { MoreVertical, Filter } from 'react-feather';
@@ -8,9 +9,11 @@ var row_number = 0;
 
 const RegIDTable = () => {
   
+  const inputRef = useRef(null);
   const [dataTable, setDataTable] = useState([]);
   const [inputRegID, setInputRegID] = useState('');
   const [inputJnsPerkara, setInputJnsPerkara] = useState('');
+  const [changedRows, setChangedRows] = useState({});
 
 //   const [rows, setRows] = useState(
 //     Object.entries(dataTable).map(([key, value]) => ({
@@ -19,32 +22,57 @@ const RegIDTable = () => {
 //     }))
 //   );
 
-    // const hasMounted = useMounted();
-    useEffect(  () => {
-        // fetch data from table jns_perkara here
-        fetch( process.env.NEXT_PUBLIC_SERVER_HOST + "/get_jns_perkara")
-            .then( response => response.json() )
-            .then(
-                data => {
 
-                    // console.log("from DB====>");
-                    // console.log(data[0]['list_jns_perkara']);
-                    setDataTable(data);
-
-                    // setRows(Object.entries(data[0]['list_jns_perkara']).map(([key, value]) => ({
-                    //     regID: key,
-                    //     jnsPerkara: value
-                    // })));
-                }
-            )
-
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST + "/get_jns_perkara");
+                const data = await response.json();
+                console.log("from DB====>");
+                console.log(data);
+    
+                setDataTable(data);
+                // setRows(Object.entries(data[0]['list_jns_perkara']).map(([key, value]) => ({
+                //     regID: key,
+                //     jnsPerkara: value
+                // })));
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+    
+        fetchData();
     }, []);
 
   
 
   
   // Handle change for a specific row
-  const handleInputChange = async (index, field, value) => {
+  const [inputs, setInputs] = useState({});
+
+  const handleChange = (id, e) => {
+    const { name, value } = e.target;
+
+    // console.log(name, value);
+
+    setInputs((prevInputs) => ({
+      ...prevInputs,
+    }));
+
+    setChangedRows(prev => ({ ...prev, [id]: true }));
+
+  };
+
+
+
+  
+  const handleInputChange = (id, key, value) => {
+    setDataTable((prevDataTable) =>
+      prevDataTable.map((row) =>
+        row.id === id ? { ...row, [key]: value } : row
+      )
+    );
+  
     // const updatedRows = [...rows];
     // let old_key = "";
     // let new_key = ""
@@ -57,16 +85,24 @@ const RegIDTable = () => {
     
     // console.log("ulr: " + process.env.NEXT_PUBLIC_SERVER_HOST);
 
-    const response = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST + '/update_regid', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ index, field, value }),
-    }).then(
-        // setRows(updatedRows)
-    );
+    // const response = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST + '/update_regid', {
+    // method: 'POST',
+    // headers: {
+    //     'Content-Type': 'application/json',
+    // },
+    // body: JSON.stringify({ id, field, value }),
+    // }).
+    // then(
+    //     response => response.json()
+    // )
+    // .then(
+    //     datas => {
+    //         console.log(datas);
+    //         // setDataTable(datas);
+    //     }
+    // );
 
+    
     // console.log("\n===============")
     // console.log(response);
     // console.log("===============\n")
@@ -203,6 +239,7 @@ const RegIDTable = () => {
                                 <th>NO</th>
                                 <th>Reg ID</th>
                                 <th>JENIS PENGADILAN & PERKARA</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -214,17 +251,30 @@ const RegIDTable = () => {
                                     <td className="align-middle"> {row_number + 1} </td>
                                     <td className="align-middle">
                                         <Form.Control
+                                            key={"regid_"+row.id}
                                             type="text"
-                                            value={dataTable[index]['jns_perkara_reg_id']}
-                                            onChange={(e) => handleInputChange(dataTable[index]['id'], 'regID', e.target.value)}
+
+                                            name={row.id}
+                                            value={inputs["xyz"]}
+                                            onChange={(e)=>handleChange(row.id, e)}
                                         />
                                     </td>
                                     <td className="align-middle">
                                         <Form.Control
+                                            key={"jns_perkara_"+row.id}
                                             type="text"
-                                            value={dataTable[index]['jns_perkara']}
-                                            onChange={(e) => handleInputChange(dataTable[index]['id'], 'jnsPerkara', e.target.value)}
+                                            
+                                            value={row['jns_perkara']}
+                                            onChange={(e) => handleInputChange(row.id, 'jns_perkara', e.target.value)}
+
                                         />
+                                    </td>
+                                    <td>
+                                        {/* change this display show or hide if, one for two input above has triggered by onchange on each component*/}
+                                        <div className={changedRows[row.id] ? '' : 'visually-hidden'}>
+                                            <Button variant="success"  onClick={()=>{}}>save</Button>&nbsp;&nbsp;
+                                            <Button variant="danger"  onClick={()=>{}}>cancle</Button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
