@@ -14,7 +14,7 @@ import {
 } from "react-bootstrap";
 import { MoreVertical, Filter } from "react-feather";
 
-var row_number = 0;
+
 
 const RegIDTable = () => {
     const inputRef = useRef(null);
@@ -38,27 +38,15 @@ const RegIDTable = () => {
                     process.env.NEXT_PUBLIC_SERVER_HOST + "/get_jns_perkara"
                 );
                 const data = await response.json();
-                console.log("from DB====>");
-                console.log(data);
 
                 setDataTable(data);
 
-                // console.log("=========== row ==========")
                 const initialInputs = {};
                 data.forEach(row => {
-                    // console.log(row);
-                    
                     initialInputs[row.id] = { regId: row.jns_perkara_reg_id, jns_perkara: row.jns_perkara };
                 });
-                // console.log(initialInputs);
                 setRowInputs(initialInputs);
-                // console.log("============================")
 
-
-                // setRows(Object.entries(data[0]['list_jns_perkara']).map(([key, value]) => ({
-                //     regID: key,
-                //     jnsPerkara: value
-                // })));
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
@@ -68,7 +56,6 @@ const RegIDTable = () => {
     }, []);
 
     // Handle change for a specific row
-
     const handleChangeRegID = (id, field, e) => {
         const { name, value } = e.target;
         setRowInputs(prev => ({
@@ -89,62 +76,51 @@ const RegIDTable = () => {
         setChangedRows((prev) => ({ ...prev, [id]: true }));
     };
 
-    const handleSave = (id) => {
+    const handleSave = async (id) => {
+        
+        console.log(rowInputs[id]["regId"], rowInputs[id]["jns_perkara"]);
+        let RegID = rowInputs[id]["regId"];
+        let jns_perkara = rowInputs[id]["jns_perkara"];
+
+        const responseClient = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST +'/update_regid', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id, RegID, jns_perkara }),
+        });
+    
+        const data = await responseClient.json();
+        console.log(data);
+
         setChangedRows(prev => ({ ...prev, [id]: false }));
     };
 
     const handleCancel = (id) => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(
+                    process.env.NEXT_PUBLIC_SERVER_HOST + "/get_jns_perkara"
+                );
+                const data = await response.json();
+
+                // setDataTable(data);
+
+                const initialInputs = {};
+                data.forEach(row => {
+                    initialInputs[row.id] = { regId: row.jns_perkara_reg_id, jns_perkara: row.jns_perkara };
+                });
+                setRowInputs(initialInputs);
+
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
+        fetchData();
+
         setChangedRows(prev => ({ ...prev, [id]: false }));
     };
-
-    const handleInputChange = (id, key, value) => {
-        setDataTable((prevDataTable) =>
-            prevDataTable.map((row) =>
-                row.id === id ? { ...row, [key]: value } : row
-            )
-        );
-
-        // const updatedRows = [...rows];
-        // let old_key = "";
-        // let new_key = ""
-
-        // if(field=="regID"){
-        //     old_key = updatedRows[index][field];
-        //     new_key = value;
-        // }
-        // updatedRows[index][field] = value;
-
-        // console.log("ulr: " + process.env.NEXT_PUBLIC_SERVER_HOST);
-
-        // const response = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST + '/update_regid', {
-        // method: 'POST',
-        // headers: {
-        //     'Content-Type': 'application/json',
-        // },
-        // body: JSON.stringify({ id, field, value }),
-        // }).
-        // then(
-        //     response => response.json()
-        // )
-        // .then(
-        //     datas => {
-        //         console.log(datas);
-        //         // setDataTable(datas);
-        //     }
-        // );
-
-        // console.log("\n===============")
-        // console.log(response);
-        // console.log("===============\n")
-    };
-
-    //   const handleInputRegID = (e) => {
-    //     setInputRegID(e.target.value);
-    //   };
-
-    //   const handleInputJnsPerkara = (e) => {
-    //     setInputJnsPerkara(e.target.value);
-    //   };
 
     const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
         <Link
@@ -173,19 +149,6 @@ const RegIDTable = () => {
                 <Dropdown.Menu className="log-filter">
                     <Dropdown.Header>Filter By:</Dropdown.Header>
                     <Form className="dropdown-form p-4">
-                        <Form.Group className="mb-3" controlId="">
-                            <Form.Label>Sort By: &nbsp;&nbsp;&nbsp;&nbsp;</Form.Label>
-                            <Form.Check inline type="radio" name="group1" label="latest" />
-                            <Form.Check inline type="radio" name="group1" label="oldest" />
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formDate">
-                            <Form.Label>DateTime:</Form.Label>
-                            <Form.Control type="datetime-local" />
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formNoPerkara">
-                            <Form.Label>No Perkara:</Form.Label>
-                            <Form.Control type="text" placeholder="..." />
-                        </Form.Group>
                         <Form.Group className="mb-3" controlId="formNoTxt">
                             <Form.Label>Search Text:</Form.Label>
                             <Form.Control type="text" placeholder="..." />
@@ -263,10 +226,9 @@ const RegIDTable = () => {
                         <tbody>
                             {/* {console.log("=========> reg id \n" + dataTable[0]['jns_perkara_reg_id'])}
                             {console.log("=========> jns_perkara \n" + dataTable[0]['jns_perkara'])} */}
-
                             {dataTable.map((row, index) => (
                                 <tr key={dataTable[index]["jns_perkara_reg_id"]}>
-                                    <td className="align-middle"> {row_number + 1} </td>
+                                    <td className="align-middle"> {index+1} </td>
                                     <td className="align-middle">
                                         <Form.Control
                                             key={"regid_" + row.id}
