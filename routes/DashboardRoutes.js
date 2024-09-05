@@ -161,7 +161,7 @@ export const DashboardMenu = [
 		id: uuid(),
 		title: 'RegID Perkara',
 		icon: 'briefcase',
-		link: '/pages/addRegID'
+		link: '/pages/addregid'
 	},
 	// {
 	// 	id: uuid(),

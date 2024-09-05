@@ -17,7 +17,7 @@ const CaseTable = () => {
   // const hasMounted = useMounted();
   useEffect(  () => {
     // fetch data from table perkara here
-    fetch("https://www.tangkapdata2.my.id/get_perkara")
+    fetch(process.env.NEXT_PUBLIC_SERVER_HOST+"/get_perkara")
         .then( response => response.json() )
         .then(
             data => {

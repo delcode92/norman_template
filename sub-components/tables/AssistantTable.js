@@ -18,7 +18,7 @@ const AssistantTable = () => {
   // const hasMounted = useMounted();
   useEffect(  () => {
     // fetch data from table perkara here
-    fetch("https://www.tangkapdata2.my.id/get_assistant")
+    fetch(process.env.NEXT_PUBLIC_SERVER_HOST+"/get_assistant")
         .then( response => response.json() )
         .then(
             data => {

@@ -44,7 +44,7 @@ const GeneralSetting = () => {
     var Name = FirstName +" "+ LastName;
 
     // save data to user
-    const responseUsers = await fetch('https://www.tangkapdata2.my.id/save_user_assistant', {
+    const responseUsers = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST+'/save_user_assistant', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ const GeneralSetting = () => {
     IdUser = data['lastUserID'];
 
     // save data to perkara table
-    const responseAssistant = await fetch('https://www.tangkapdata2.my.id/save_assistant_bio', {
+    const responseAssistant = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST+'/save_assistant_bio', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

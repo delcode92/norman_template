@@ -31,7 +31,7 @@ const ActiveProjects =  () => {
     useEffect(() => {
         const intervalId = setInterval( async () => {
             
-              await fetch("https://www.tangkapdata2.my.id/get_log/102")
+              await fetch(process.env.NEXT_PUBLIC_SERVER_HOST + "/get_log/102")
               .then(
                 // must I use response code below ?
                 response => response.json()
@@ -60,7 +60,7 @@ const ActiveProjects =  () => {
         // console.log("Log ID==>", logID);
         // console.log("Log TXT==>", logTxt);
 
-        const response = await fetch('https://www.tangkapdata2.my.id/save_log_edit', {
+        const response = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST+'/save_log_edit', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -161,7 +161,7 @@ const ActiveProjects =  () => {
                 handleShow();
                 
                 // SET TEXT AREA VALUE
-                await fetch("https://www.tangkapdata2.my.id/get_log_edit/" + id_log['idLog'] )
+                await fetch(process.env.NEXT_PUBLIC_SERVER_HOST+"/get_log_edit/" + id_log['idLog'] )
                                 .then( response => response.json() )
                                 .then( data => { 
                                     setLogTxt( data[0]['log_text'] );
@@ -171,7 +171,7 @@ const ActiveProjects =  () => {
             // DELETE
             else if(eventKey==3){
                 if(confirm("DELETE ??? ")){
-                    const response = await fetch('https://www.tangkapdata2.my.id/delete_log', {
+                    const response = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST+'/delete_log', {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json',

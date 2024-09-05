@@ -271,10 +271,10 @@ const RegIDTable = () => {
                         </tbody>
                     </Table>
 
-                    <Card.Footer className="bg-white">
-                        <Paginations />
+                    {/* <Card.Footer className="bg-white"> */}
+                        {/* <Paginations /> */}
                         {/* <Link href="#" className="link-primary">View All Projects</Link> */}
-                    </Card.Footer>
+                    {/* </Card.Footer> */}
                 </Card>
             </Col>
         </Row>
