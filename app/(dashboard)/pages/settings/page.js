@@ -17,7 +17,7 @@ const Settings = () => {
       <PageHeadingWithButton heading="Add Assistant" btn_txt="Assistant List" />
 
       {/* General Settings */}
-      <GeneralSetting heading="Asisten Pendamping"/>
+      <GeneralSetting heading="Asisten Pendamping" table_name="asisten"/>
 
       {/* Email Settings */}
       {/* // DONE ... <EmailSetting /> */}

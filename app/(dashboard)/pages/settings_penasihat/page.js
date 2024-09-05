@@ -17,7 +17,7 @@ const SettingsPenasihat = () => {
       <PageHeadingWithButton heading="Tambah Penasihat Hukum" btn_txt="Data List" />
 
       {/* General Settings */}
-      <GeneralSetting heading="Penasihat Hukum"/>
+      <GeneralSetting heading="Penasehat Hukum" table_name="penasehat_hukum"/>
 
       {/* Email Settings */}
       {/* // DONE ... <EmailSetting /> */}

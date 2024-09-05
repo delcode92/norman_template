@@ -12,10 +12,12 @@ import useMounted from 'hooks/useMounted';
 // import AutocompleteDropdown from 'widgets/AutocompleteDropdown';
 
 const GeneralSetting = props => {
-  const { heading } = props;
+  const { heading, table_name } = props;
   const hasMounted = useMounted();
 
+  const [show, setShow] = useState(true);
   const [insertStat, setinsertStat] = useState(false);
+  const [insertFail, setinsertFail] = useState(false);
 
   // ASSISTANT BIO
   const [FirstName, setFirstName] = useState('');
@@ -45,35 +47,40 @@ const GeneralSetting = props => {
     var Name = FirstName +" "+ LastName;
 
     // save data to user
-    const responseUsers = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST+'/save_user_assistant', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ Username, Pass }),
-            });
+    // const responseUsers = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST+'/save_ap_picture', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({ }),
+    //         });
     
-    const data = await responseUsers.json();
-    IdUser = data['lastUserID'];
+    // const data = await responseUsers.json();
+    // IdUser = data['lastUserID'];
+    // console.log(Name, Email, Phone, Addr, table_name);
 
     // save data to perkara table
-    const responseAssistant = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST+'/save_assistant_bio', {
+    const response = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST+'/save_ap_bio', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ IdUser, Name, Email, Phone, Addr }),
-            }).then(
-                setinsertStat(true)
-            );
+            body: JSON.stringify({ Name, Email, Phone, Addr, table_name }),
+            });
 
+    if(response.ok){
+      setinsertStat(true)
+    }
+    else{
+      setinsertFail(true) 
+    }
 
     // CLEAR FORM
-    // setFirstName(""); 
-    // setLastName(""); 
-    // setEmail(""); 
-    // setPhone(""); 
-    // setAddr("")
+    setFirstName(""); 
+    setLastName(""); 
+    setEmail(""); 
+    setPhone(""); 
+    setAddr("")
     // setUsername("")
     // setPass("")
     // setRetypePass("")
@@ -93,7 +100,13 @@ const GeneralSetting = props => {
           {/* card body */}
           
           <Card.Body>
-          {insertStat && <Alert variant="success">DATA SAVED!</Alert>}
+          
+          {show && (
+            <>
+              {insertStat && <Alert variant="success" onClose={() => setShow(false)} dismissible>DATA SAVED !</Alert>}
+              {insertFail && <Alert variant="danger" onClose={() => setShow(false)} dismissible>SAVE FAILED !</Alert>}
+		        </>
+          )}
 
             <div className=" mb-6">
               <h4 className="mb-1">General Settings</h4>
@@ -178,33 +191,33 @@ const GeneralSetting = props => {
                   </Col>
                 </Row>
 
-                <div className="mt-8 mb-6">
+                {/* <div className="mt-8 mb-6">
                   <h4 className="mb-1">Login Information</h4>
-                </div>
+                </div> */}
 
                 {/* USERNAME */}
-                <Row className="mb-3">
+                {/* <Row className="mb-3">
                   <Form.Label className="col-sm-4" htmlFor="uname">User Name</Form.Label>
                   <Col md={8} xs={12}>
                     <Form.Control type="text" placeholder="username" id="uname" onChange={handleUsername} required />
                   </Col>
-                </Row>
+                </Row> */}
 
                 {/* PASS */}
-                <Row className="mb-3">
+                {/* <Row className="mb-3">
                   <Form.Label className="col-sm-4" htmlFor="pass">Password</Form.Label>
                   <Col md={8} xs={12}>
                     <Form.Control type="password" placeholder="password" id="pass" onChange={handlePass} required />
                   </Col>
-                </Row>
+                </Row> */}
                 
                 {/* RETYPE PASS */}
-                <Row className="mb-3">
+                {/* <Row className="mb-3">
                   <Form.Label className="col-sm-4" htmlFor="repass">Retype Password</Form.Label>
                   <Col md={8} xs={12}>
                     <Form.Control type="password" placeholder="retype password" id="repass" onChange={handleRetypePass} required />
                   </Col>
-                </Row>
+                </Row> */}
 
                 {/* <div className="mt-8 mb-6">
                   <h4 className="mb-1">Case Assignment</h4>
