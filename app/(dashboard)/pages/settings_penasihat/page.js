@@ -9,15 +9,15 @@ import { PageHeading, PageHeadingWithButton } from 'widgets'
 // import sub components
 import {GeneralSetting} from 'sub-components'
 
-const Settings = () => {
+const SettingsPenasihat = () => {
   return (
     <Container fluid className="p-6">
 
       {/* Page Heading */}
-      <PageHeadingWithButton heading="Add Assistant" btn_txt="Assistant List" />
+      <PageHeadingWithButton heading="Tambah Penasihat Hukum" btn_txt="Data List" />
 
       {/* General Settings */}
-      <GeneralSetting heading="Asisten Pendamping"/>
+      <GeneralSetting heading="Penasihat Hukum"/>
 
       {/* Email Settings */}
       {/* // DONE ... <EmailSetting /> */}
@@ -35,4 +35,4 @@ const Settings = () => {
   )
 }
 
-export default Settings
+export default SettingsPenasihat

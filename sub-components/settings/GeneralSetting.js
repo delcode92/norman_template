@@ -11,7 +11,8 @@ import useMounted from 'hooks/useMounted';
 
 // import AutocompleteDropdown from 'widgets/AutocompleteDropdown';
 
-const GeneralSetting = () => {
+const GeneralSetting = props => {
+  const { heading } = props;
   const hasMounted = useMounted();
 
   const [insertStat, setinsertStat] = useState(false);
@@ -83,7 +84,7 @@ const GeneralSetting = () => {
     <Row className="mb-8">
       <Col xl={3} lg={4} md={12} xs={12}>
         <div className="mb-4 mb-lg-0">
-          <h4 className="mb-1">Asisten Pendamping</h4>
+          <h4 className="mb-1">{heading}</h4>
           <p className="mb-0 fs-5 text-muted">profile settings </p>
         </div>
       </Col>

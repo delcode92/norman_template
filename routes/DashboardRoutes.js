@@ -141,15 +141,15 @@ export const DashboardMenu = [
 	},
 	{
 		id: uuid(),
-		title: 'Assistant',
+		title: 'Penasihat Hukum',
 		icon: 'user-plus',
-		link: '/pages/settings'
+		link: '/pages/settings_penasihat'
 	},
 	{
 		id: uuid(),
-		title: 'Tester',
+		title: 'Assistant',
 		icon: 'user-plus',
-		link: '/pages/test'
+		link: '/pages/settings'
 	},
 	{
 		id: uuid(),
