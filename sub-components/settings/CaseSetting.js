@@ -40,7 +40,14 @@ const CaseSetting = () => {
   const [mandiri, setMandiri] = useState(false);
   const [penghubung, setPenghubung] = useState(false);
   
-  const [dataTablePenasihat, setDataTablePenasihat] = useState([{id:'', id_user: '', nama: '', email: '', hp: '', addr: '' }]);
+  const [dataTablePenasihat, setDataTablePenasihat] = useState(
+    [
+      {id:'1',  nama: 'andi', email: '', hp: '', addr: '' },
+      {id:'2',  nama: 'budi', email: '', hp: '', addr: '' }
+    ]
+  );
+  const [pilihPenasihat, setPilihPenasihat] = useState([]);
+  
   const [dataTable, setDataTable] = useState([{id:'', id_user: '', nama: '', email: '', hp: '', addr: '' }]);
  
   const handleNIK = (event) => setNIK(event.target.value); 
@@ -53,7 +60,16 @@ const CaseSetting = () => {
   const handleRegID = (event) => setRegID(event.target.value); 
   const handleJudul = (event) => setJudul(event.target.value); 
   const handleJenis = (event) => setJenis(event.target.value); 
-  const handlePenasihat = (event) => setPenasihat(event.target.value); 
+  
+  const handlePenasihat = (event) => {
+    console.log("pilih data");
+    let id = event.target.value;
+    // array 
+    setPilihPenasihat(prevArray => [...prevArray, newItem]);
+   
+    setPenasihat(event.target.value);
+  };
+
   const handlePendamping = (event) => setAstPendamping(event.target.value); 
   const handleDeskripsi = (event) => setDeskripsi(event.target.value); 
   const handleNamaTergugat = (event) => setNamaTergugat(event.target.value); 
@@ -62,13 +78,13 @@ const CaseSetting = () => {
 
 
   useEffect(  () => {
-    // fetch("https://www.tangkapdata2.my.id/get_assistant")
-    //     .then( response => response.json() )
-    //     .then(
-    //         data => {
-    //         setDataTable(data);
-    //         }
-    //     )
+    fetch(process.env.NEXT_PUBLIC_SERVER_HOST+"/get_penasihat")
+        .then( response => response.json() )
+        .then(
+            data => {
+              setDataTablePenasihat(data);
+            }
+        )
   });
 
   const handleMandiri = ()=>{
@@ -308,11 +324,26 @@ const CaseSetting = () => {
 
                       {dataTablePenasihat.map((item, index) => {
                             return (
-                              <option key={index} value={item.id}>{item.nama}</option>
+                              <option key={index} value={item.id} >{item.nama}</option>
                             )
                         })}
                     
                     </Form.Select>
+                  </Col>
+                </Row>
+                
+                <Row className="mb-3">
+
+                <Col sm={4}/>
+                <Col md={8} xs={12}>
+                  <ul>
+                      {pilihPenasihat.forEach((item) => {
+                          return (
+                            <li>{item}</li>        
+                          )
+                      })}
+                    
+                  </ul>
                   </Col>
                 </Row>
                 
