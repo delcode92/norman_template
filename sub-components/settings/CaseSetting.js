@@ -60,12 +60,17 @@ const CaseSetting = () => {
   const handleRegID = (event) => setRegID(event.target.value); 
   const handleJudul = (event) => setJudul(event.target.value); 
   const handleJenis = (event) => setJenis(event.target.value); 
-  
+  let arrBuff = [];
+
   const handlePenasihat = (event) => {
-    console.log("pilih data");
-    let id = event.target.value;
+    const selectedOption = event.target.selectedOptions[0];
+    const id = selectedOption.value;
+    const name = selectedOption.dataset.name;
+
+    
+    // console.log(val);
     // array 
-    setPilihPenasihat(prevArray => [...prevArray, newItem]);
+    // setPilihPenasihat(prevArray => [...prevArray, newItem]);
    
     setPenasihat(event.target.value);
   };
@@ -324,7 +329,7 @@ const CaseSetting = () => {
 
                       {dataTablePenasihat.map((item, index) => {
                             return (
-                              <option key={index} value={item.id} >{item.nama}</option>
+                              <option key={index} value={item.id} data-name={item.nama} >{item.nama}</option>
                             )
                         })}
                     
