@@ -69,10 +69,20 @@ const CaseSetting = () => {
 
     
     // console.log(val);
-    // array 
-    // setPilihPenasihat(prevArray => [...prevArray, newItem]);
-   
+    
     setPenasihat(event.target.value);
+
+    console.log("up");
+    setPilihPenasihat(prevArray => {
+      // Check if the name is already in the array to avoid duplicates
+      if (!prevArray.includes(name)) {
+        console.log("masuk sini 1 ==>: ", prevArray, name);
+        return [...prevArray, name];
+      }
+      console.log("masuk sini 2 ==>:", prevArray);
+      return prevArray;
+    });
+
   };
 
   const handlePendamping = (event) => setAstPendamping(event.target.value); 
@@ -342,12 +352,11 @@ const CaseSetting = () => {
                 <Col sm={4}/>
                 <Col md={8} xs={12}>
                   <ul>
-                      {pilihPenasihat.forEach((item) => {
+                      {pilihPenasihat.map((item, index) => {
                           return (
-                            <li>{item}</li>        
+                            <li key={index}>{item}</li>        
                           )
                       })}
-                    
                   </ul>
                   </Col>
                 </Row>
