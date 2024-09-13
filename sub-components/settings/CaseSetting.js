@@ -41,15 +41,15 @@ const CaseSetting = () => {
   const [penghubung, setPenghubung] = useState(false);
   
   const [dataTablePenasihat, setDataTablePenasihat] = useState(
-    [
-      {id:'1',  nama: 'andi', email: '', hp: '', addr: '' },
-      {id:'2',  nama: 'budi', email: '', hp: '', addr: '' }
-    ]
+    [ {id:'1',  nama: '', email: '', hp: '', addr: '' } ]
   );
   const [pilihPenasihat, setPilihPenasihat] = useState([]);
   
-  const [dataTable, setDataTable] = useState([{id:'', id_user: '', nama: '', email: '', hp: '', addr: '' }]);
+  const [dataTablePendamping, setDataTablePendamping] = useState([{id:'', id_user: '', nama: '', email: '', hp: '', addr: '' }]);
+  const [pilihPendamping, setPilihPendamping] = useState([]);
  
+
+
   const handleNIK = (event) => setNIK(event.target.value); 
   const handleKTP = (event) => setKTP(event.target.value); 
   const handleNamaPenggugat = (event) => setNamaPenggugat(event.target.value); 
@@ -60,47 +60,61 @@ const CaseSetting = () => {
   const handleRegID = (event) => setRegID(event.target.value); 
   const handleJudul = (event) => setJudul(event.target.value); 
   const handleJenis = (event) => setJenis(event.target.value); 
-  let arrBuff = [];
 
   const handlePenasihat = (event) => {
     const selectedOption = event.target.selectedOptions[0];
     const id = selectedOption.value;
     const name = selectedOption.dataset.name;
+    // setPenasihat(event.target.value);
 
-    
-    // console.log(val);
-    
-    setPenasihat(event.target.value);
-
-    console.log("up");
     setPilihPenasihat(prevArray => {
       // Check if the name is already in the array to avoid duplicates
       if (!prevArray.includes(name)) {
-        console.log("masuk sini 1 ==>: ", prevArray, name);
         return [...prevArray, name];
       }
-      console.log("masuk sini 2 ==>:", prevArray);
       return prevArray;
     });
 
   };
+  
+  const handlePendamping = (event) => {
+    const selectedOption = event.target.selectedOptions[0];
+    const id = selectedOption.value;
+    const name = selectedOption.dataset.name;
 
-  const handlePendamping = (event) => setAstPendamping(event.target.value); 
+    setPilihPendamping(prevArray => {
+      // Check if the name is already in the array to avoid duplicates
+      if (!prevArray.includes(name)) {
+        return [...prevArray, name];
+      }
+      return prevArray;
+    });
+
+  };
+  
   const handleDeskripsi = (event) => setDeskripsi(event.target.value); 
   const handleNamaTergugat = (event) => setNamaTergugat(event.target.value); 
-  
-
-
 
   useEffect(  () => {
+    // fetch penasihat
     fetch(process.env.NEXT_PUBLIC_SERVER_HOST+"/get_penasihat")
         .then( response => response.json() )
         .then(
             data => {
               setDataTablePenasihat(data);
             }
-        )
-  });
+        );
+    
+    // fetch pendamping
+    fetch(process.env.NEXT_PUBLIC_SERVER_HOST+"/get_pendamping")
+        .then( response => response.json() )
+        .then(
+            data => {
+              setDataTablePendamping(data);
+            }
+        );
+
+  },[]);
 
   const handleMandiri = ()=>{
     setPenghubung(false)
@@ -110,13 +124,16 @@ const CaseSetting = () => {
     setPenghubung(true)
   }
 
-  const handleSave = async () => {
-    console.log(perkaraOrder);
-    /*
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     var idClient = '';
 
     // save data to client table
-    const responseClient = await fetch('https://www.tangkapdata2.my.id/save_client', {
+    /*
+    const responseClient = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST+'/save_client', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -126,9 +143,52 @@ const CaseSetting = () => {
     
     const data = await responseClient.json();
     idClient = data['lastClientID'];
+    */
 
+
+    // ======== upload file to cloudinary ============
+
+    // Get the file input element
+    const fileInput = document.getElementById('file_ktp');
+    const file = fileInput.files ? fileInput.files[0] : null;
+    const formData = new FormData();
+
+    if (file) {
+      // File exists, append it to FormData
+      formData.append('file', file);
+      
+      // SEND TO CLOUDINARY
+      setIsLoading(true);
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      const { fileUrl } = await res.json();
+      console.log(fileUrl);
+      
+    }
+    
+    /* 
+    else {
+      console.log('No file selected.');
+
+      // SAVE TO DATABASE
+      setIsLoading(true);
+      var fileUrl = "";
+      const response = await fetch('https://www.tangkapdata2.my.id:8080/save_petani', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ kecamatan, desa, kelompok, namaPetambak, kusuka, luasLahan, tahunBantuan, fileUrl, ket }),
+      });
+      setIsLoading(false);
+    }
+    */
+  
     // save data to perkara table
-    const responsePerkara = await fetch('https://www.tangkapdata2.my.id/save_perkara', {
+    /*
+    const responsePerkara = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST+'/save_perkara', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -137,8 +197,7 @@ const CaseSetting = () => {
             }).then(
                 setinsertStat(true)
             );
-  */
-
+    */
 
   }
 
@@ -255,7 +314,7 @@ const CaseSetting = () => {
               </div>
               
               {/* START FORM */}
-              <Form>
+              <Form onSubmit={handleSubmit}>
 
                 {/* Reg ID */}
                 <Row className="mb-3">
@@ -325,12 +384,12 @@ const CaseSetting = () => {
                     <Form.Control type="text" placeholder="tergugat" id="nm_tergugat" onChange={handleNamaTergugat} required />
                   </Col>
                 </Row>
-
                 
                 <div className="mt-8 mb-6">
                   <h4 className="mb-1">Tim Kuasa Hukum</h4>
                 </div>
 
+                {/* pilih penasehat hukum */}
                 <Row className="mb-3">
                   <Form.Label className="col-sm-4" htmlFor="penasihat_hukum">Penasihat Hukum</Form.Label>
                   <Col md={8} xs={12}>
@@ -348,28 +407,29 @@ const CaseSetting = () => {
                 </Row>
                 
                 <Row className="mb-3">
-
-                <Col sm={4}/>
-                <Col md={8} xs={12}>
-                  <ul>
-                      {pilihPenasihat.map((item, index) => {
-                          return (
-                            <li key={index}>{item}</li>        
-                          )
-                      })}
-                  </ul>
-                  </Col>
+                  <Col sm={4}/>
+                  <Col md={8} xs={12}>
+                    <ul>
+                        {pilihPenasihat.map((item, index) => {
+                            return (
+                              <li key={index}>{item}</li>        
+                            )
+                        })}
+                    </ul>
+                    </Col>
                 </Row>
-                
+                {/* END */}
+
+                {/* pilih asisten pendamping */}
                 <Row className="mb-3">
                   <Form.Label className="col-sm-4" htmlFor="pendamping">Pendamping</Form.Label>
                   <Col md={8} xs={12}>
                     <Form.Select onChange={handlePendamping}>
                       <option>-- pilih asisten --</option>
 
-                      {dataTable.map((item, index) => {
+                      {dataTablePendamping.map((item, index) => {
                             return (
-                              <option key={index} value={item.id}>{item.nama}</option>
+                              <option key={index} value={item.id} data-name={item.nama}>{item.nama}</option>
                             )
                         })}
                     
@@ -377,11 +437,24 @@ const CaseSetting = () => {
                   </Col>
                 </Row>
 
+                <Row className="mb-3">
+                  <Col sm={4}/>
+                  <Col md={8} xs={12}>
+                    <ul>
+                        {pilihPendamping.map((item, index) => {
+                            return (
+                              <li key={index}>{item}</li>        
+                            )
+                        })}
+                    </ul>
+                    </Col>
+                </Row>
+                {/* END */}
 
                 {/* Button Save */}
                 <Row className="align-items-center">
                   <Col md={{ offset: 4, span: 8 }} xs={12} className="mt-4">
-                    <Button variant="primary" type="button" onClick={handleSave}>
+                    <Button variant="primary" type="submit">
                       Save Changes
                     </Button>
                   </Col>
