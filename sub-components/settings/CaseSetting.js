@@ -158,11 +158,12 @@ const CaseSetting = () => {
       formData.append('file', file);
       
       // SEND TO CLOUDINARY
-      setIsLoading(true);
-      const res = await fetch('/api/upload', {
+      // setIsLoading(true);
+      const res = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST+"/upload_ktp", {
         method: 'POST',
         body: formData,
       });
+      console.log("====here=====");
       const { fileUrl } = await res.json();
       console.log(fileUrl);
       
