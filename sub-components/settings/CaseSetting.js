@@ -28,14 +28,21 @@ const CaseSetting = () => {
   const [HP, setHP] = useState('');
   const [Email, setEmail] = useState('');
   const [Alamat, setAlamat] = useState('');
+  const [PenghubungVal, setPenghubungVal] = useState('false');
+  const [NamaPenghubung, setNamaPenghubung] = useState('');
+  const [KontakPenghubung, setKontakPenghubung] = useState('');
+
   const [NoPerkara, setNoPerkara] = useState('');
+  const [NoLpPol, setNoLpPol] = useState('');
+  const [NoLainnya, setNoLainnya] = useState('');
   const [RegID, setRegID] = useState('');
   const [Judul, setJudul] = useState('');
   const [Jenis, setJenis] = useState('');
+  const [Deskripsi, setDeskripsi] = useState('');
+  const [Tergugat, setTergugat] = useState('');
+
   const [IdPenasihat, setPenasihat] = useState('');
   const [IdPendamping, setAstPendamping] = useState('');
-  const [Deskripsi, setDeskripsi] = useState('');
-  const [NamaTergugat, setNamaTergugat] = useState('');
 
   const [mandiri, setMandiri] = useState(false);
   const [penghubung, setPenghubung] = useState(false);
@@ -57,6 +64,9 @@ const CaseSetting = () => {
   const handleEmail = (event) => setEmail(event.target.value); 
   const handleAlamat = (event) => setAlamat(event.target.value); 
   const handleNoPerkara = (event) => setNoPerkara(event.target.value); 
+  const handleNoLpPol = (event) => setNoLpPol(event.target.value);
+  const handleNoLainnya = (event) => setNoLainnya(event.target.value);
+
   const handleRegID = (event) => setRegID(event.target.value); 
   const handleJudul = (event) => setJudul(event.target.value); 
   const handleJenis = (event) => setJenis(event.target.value); 
@@ -93,7 +103,7 @@ const CaseSetting = () => {
   };
   
   const handleDeskripsi = (event) => setDeskripsi(event.target.value); 
-  const handleNamaTergugat = (event) => setNamaTergugat(event.target.value); 
+  const handleTergugat = (event) => setTergugat(event.target.value); 
 
   useEffect(  () => {
     // fetch penasihat
@@ -116,22 +126,41 @@ const CaseSetting = () => {
 
   },[]);
 
-  const handleMandiri = ()=>{
+  const handleMandiri = (e)=>{
+    console.log("handleMandiri:", e.target.value);
     setPenghubung(false)
+    setPenghubungVal(e.target.value)
   }
-
-  const handlePenghubung = ()=>{
+  
+  const handlePenghubung = (e)=>{
+    console.log("handlePenghubung:", e.target.value);
     setPenghubung(true)
   }
 
+  const handleNamaPenghubung = (e) => {
+    setNamaPenghubung(e.target.value);
+  }
 
+  const handleKontakPenghubung = (e) => {
+    setKontakPenghubung(e.target.value);
+  }
 
   const handleSubmit = async (e) => {
+    
+    // 1. save client information
+    console.log(NIK, NamaPenggugat, HP, Email, Alamat, PenghubungVal, NamaPenghubung, KontakPenghubung);
+    
+    // 2. save perkara info
+    console.log(NoPerkara, NoLpPol, NoLainnya, Judul, Jenis, Deskripsi, Tergugat);
+
+    // 3. save tim kuasa hukum 
+
     e.preventDefault();
 
     var idClient = '';
 
     // save data to client table
+    
     /*
     const responseClient = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST+'/save_client', {
             method: 'POST',
@@ -149,6 +178,7 @@ const CaseSetting = () => {
     // ======== upload file to cloudinary ============
 
     // Get the file input element
+    /*
     const fileInput = document.getElementById('file_ktp');
     const file = fileInput.files ? fileInput.files[0] : null;
     const formData = new FormData();
@@ -163,12 +193,14 @@ const CaseSetting = () => {
         method: 'POST',
         body: formData,
       });
+
       console.log("====here=====");
       const { fileUrl } = await res.json();
       console.log(fileUrl);
       
     }
-    
+    */
+
     /* 
     else {
       console.log('No file selected.');
@@ -219,7 +251,7 @@ const CaseSetting = () => {
             <div>
 
               <div className="mb-6">
-                  <h4 className="mb-1">Client information</h4>
+                  <h4 className="mb-1">Klien Info:</h4>
                 </div>
 
                 {/* NIK */}
@@ -286,11 +318,11 @@ const CaseSetting = () => {
                   <Col md={8} xs={12}>
 
                     <Form.Check id="customRadioInline1" className="form-check-inline" >
-                      <Form.Check.Input type="radio" name="stat_tahu" onChange={handleMandiri} />
+                      <Form.Check.Input type="radio" name="stat_tahu" value="true" onChange={handleMandiri} />
                       <Form.Check.Label>mandiri</Form.Check.Label>
                     </Form.Check>
                     <Form.Check id="customRadioInline2" className="form-check-inline"  >
-                      <Form.Check.Input type="radio" name="stat_tahu" onChange={handlePenghubung}/>
+                      <Form.Check.Input type="radio" name="stat_tahu" value="true" onChange={handlePenghubung}/>
                       <Form.Check.Label>penghubung</Form.Check.Label>
                     </Form.Check>
 
@@ -298,11 +330,11 @@ const CaseSetting = () => {
                       <Row className="mt-2" id="row_penghubung">
                         <Col xs={6}>
                           <Form.Label className="col-form-label">nama:</Form.Label>
-                          <Form.Control type="text" id="nm_penghubung" />
+                          <Form.Control type="text" id="nm_penghubung" onChange={handleNamaPenghubung} />
                         </Col>
                         <Col xs={6}>
                           <Form.Label className="col-form-label">no kontak:</Form.Label>
-                          <Form.Control type="text" id="kontak_penghubung" />
+                          <Form.Control type="text" id="kontak_penghubung" onChange={handleKontakPenghubung}/>
                         </Col>
                       </Row>
                     )}
@@ -311,25 +343,44 @@ const CaseSetting = () => {
                 </Row>
 
               <div className="mt-8 mb-6">
-                <h4 className="mb-1">Perkara Info</h4>
+                <h4 className="mb-1">Perkara Info:</h4>
               </div>
               
               {/* START FORM */}
               <Form onSubmit={handleSubmit}>
 
                 {/* Reg ID */}
+                
+                {/*}
                 <Row className="mb-3">
                 <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="reg_id">Reg ID</Form.Label>
                   <Col md={8} xs={12}>
                       <RegistrasiID/>
                   </Col>
                 </Row>
+                */}
                 
                 {/* NO PERKARA */}
                 <Row className="mb-3">
                 <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="no_perkara">No Perkara</Form.Label>
                   <Col md={8} xs={12}>
                     <Form.Control type="text" placeholder="no perkara" id="no_perkara" onChange={handleNoPerkara} required />
+                  </Col>
+                </Row>
+                
+                {/* NO LP POLISI */}
+                <Row className="mb-3">
+                <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="no_lp_pol">No Lap.Polisi</Form.Label>
+                  <Col md={8} xs={12}>
+                    <Form.Control type="text" placeholder="no perkara" id="no_lp_pol" onChange={handleNoLpPol} required />
+                  </Col>
+                </Row>
+                
+                {/* NO/KODE LAINNYA */}
+                <Row className="mb-3">
+                <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="no_lainnya">No/Kode Lainnya</Form.Label>
+                  <Col md={8} xs={12}>
+                    <Form.Control type="text" placeholder="no perkara" id="no_lainnya" onChange={handleNoLainnya} required />
                   </Col>
                 </Row>
                 
@@ -380,14 +431,14 @@ const CaseSetting = () => {
 
                 {/* NAMA TERGUGAT */}
                 <Row className="mb-3">
-                <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="nm_tergugat">Nama Tergugat</Form.Label>
+                <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="nm_tergugat">Para Pihak(Tergugat)</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="text" placeholder="tergugat" id="nm_tergugat" onChange={handleNamaTergugat} required />
+                    <Form.Control type="text" placeholder="tergugat" id="tergugat" onChange={handleTergugat} required />
                   </Col>
                 </Row>
                 
                 <div className="mt-8 mb-6">
-                  <h4 className="mb-1">Tim Kuasa Hukum</h4>
+                  <h4 className="mb-1">Tim Kuasa Hukum:</h4>
                 </div>
 
                 {/* pilih penasehat hukum */}
