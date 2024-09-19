@@ -241,6 +241,7 @@ const JnsPerkara = ({perkaraOrder, setPerkaraOrder}) => {
           checked={selected === option.id}
           onChange={() => onChange(level, option.id)}
           className="me-2"
+          required
         />
         {option.label}
       </label>

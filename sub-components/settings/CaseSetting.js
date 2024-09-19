@@ -28,7 +28,7 @@ const CaseSetting = () => {
   const [HP, setHP] = useState('');
   const [Email, setEmail] = useState('');
   const [Alamat, setAlamat] = useState('');
-  const [PenghubungVal, setPenghubungVal] = useState('false');
+  const [ViaMandiri, setViaMandiri] = useState('false');
   const [NamaPenghubung, setNamaPenghubung] = useState('');
   const [KontakPenghubung, setKontakPenghubung] = useState('');
 
@@ -37,9 +37,14 @@ const CaseSetting = () => {
   const [NoLainnya, setNoLainnya] = useState('');
   const [RegID, setRegID] = useState('');
   const [Judul, setJudul] = useState('');
-  const [Jenis, setJenis] = useState('');
+  // const [Jenis, setJenis] = useState('');
   const [Deskripsi, setDeskripsi] = useState('');
-  const [Tergugat, setTergugat] = useState('');
+
+  const [Tergugat1, setTergugat1] = useState('');
+  const [Tergugat2, setTergugat2] = useState('');
+  const [Tergugat3, setTergugat3] = useState('');
+  const [Tergugat4, setTergugat4] = useState('');
+  const [Tergugat5, setTergugat5] = useState('');
 
   const [IdPenasihat, setPenasihat] = useState('');
   const [IdPendamping, setAstPendamping] = useState('');
@@ -69,7 +74,7 @@ const CaseSetting = () => {
 
   const handleRegID = (event) => setRegID(event.target.value); 
   const handleJudul = (event) => setJudul(event.target.value); 
-  const handleJenis = (event) => setJenis(event.target.value); 
+  // const handleJenis = (event) => setJenis(event.target.value); 
 
   const handlePenasihat = (event) => {
     const selectedOption = event.target.selectedOptions[0];
@@ -103,7 +108,11 @@ const CaseSetting = () => {
   };
   
   const handleDeskripsi = (event) => setDeskripsi(event.target.value); 
-  const handleTergugat = (event) => setTergugat(event.target.value); 
+  const handleTergugat1 = (event) => setTergugat1(event.target.value); 
+  const handleTergugat2 = (event) => setTergugat2(event.target.value); 
+  const handleTergugat3 = (event) => setTergugat3(event.target.value); 
+  const handleTergugat4 = (event) => setTergugat4(event.target.value); 
+  const handleTergugat5 = (event) => setTergugat5(event.target.value); 
 
   useEffect(  () => {
     // fetch penasihat
@@ -129,12 +138,13 @@ const CaseSetting = () => {
   const handleMandiri = (e)=>{
     console.log("handleMandiri:", e.target.value);
     setPenghubung(false)
-    setPenghubungVal(e.target.value)
+    setViaMandiri(e.target.value)
   }
   
   const handlePenghubung = (e)=>{
     console.log("handlePenghubung:", e.target.value);
     setPenghubung(true)
+    setViaMandiri('false')
   }
 
   const handleNamaPenghubung = (e) => {
@@ -147,38 +157,28 @@ const CaseSetting = () => {
 
   const handleSubmit = async (e) => {
     
+    e.preventDefault();
+    
     // 1. save client information
-    console.log(NIK, NamaPenggugat, HP, Email, Alamat, PenghubungVal, NamaPenghubung, KontakPenghubung);
+    console.log("info client:");
+    console.log(NIK, NamaPenggugat, HP, Email, Alamat, ViaMandiri, NamaPenghubung, KontakPenghubung, "\n");
     
     // 2. save perkara info
-    console.log(NoPerkara, NoLpPol, NoLainnya, Judul, Jenis, Deskripsi, Tergugat);
-
+    console.log("info perkara:");
+    console.log(NoPerkara, NoLpPol, NoLainnya, Judul, perkaraOrder, Deskripsi, Tergugat1, Tergugat2, Tergugat3, Tergugat4, Tergugat5, "\n");
+    
     // 3. save tim kuasa hukum 
+    console.log("tim penasihat:");
+    console.log(pilihPenasihat, pilihPendamping, "\n");
 
-    e.preventDefault();
 
     var idClient = '';
-
-    // save data to client table
-    
-    /*
-    const responseClient = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST+'/save_client', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ NIK, NamaPenggugat, HP, Alamat }),
-            });
-    
-    const data = await responseClient.json();
-    idClient = data['lastClientID'];
-    */
-
+    let client_data = {};
+    let file_url = '';
 
     // ======== upload file to cloudinary ============
 
     // Get the file input element
-    /*
     const fileInput = document.getElementById('file_ktp');
     const file = fileInput.files ? fileInput.files[0] : null;
     const formData = new FormData();
@@ -196,10 +196,31 @@ const CaseSetting = () => {
 
       console.log("====here=====");
       const { fileUrl } = await res.json();
-      console.log(fileUrl);
+      // console.log(fileUrl);
       
+      file_url = fileUrl
     }
-    */
+    
+    // save data to client table
+    if(NamaPenghubung=="" || KontakPenghubung==""){
+      client_data = {NIK, NamaPenggugat, HP, Email, Alamat, ViaMandiri, file_url}
+    }else{
+      client_data = {NIK, NamaPenggugat, HP, Email, Alamat, NamaPenghubung, KontakPenghubung, file_url}
+    }
+
+    const responseClient = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST+'/save_client', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify( client_data ),
+    });
+    
+    const data = await responseClient.json();
+    idClient = data['lastClientID'];
+    
+
+    
 
     /* 
     else {
@@ -246,6 +267,8 @@ const CaseSetting = () => {
         <Card>
           {/* card body */}
           <Card.Body>
+          
+          {uploadFileStat && <Alert variant="success">FILE UPLOADED!</Alert>}
           {insertStat && <Alert variant="success">DATA SAVED!</Alert>}
             
             <div>
@@ -258,7 +281,7 @@ const CaseSetting = () => {
                 <Row className="mb-3">
                   <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="nik">NIK</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="text" placeholder="nik" id="nik" onChange={handleNIK} required />
+                    <Form.Control type="text" placeholder="..." id="nik" onChange={handleNIK} required />
                   </Col>
                 </Row>
                 
@@ -266,7 +289,7 @@ const CaseSetting = () => {
                 <Row className="mb-3">
                   <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="ktp">File KTP</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="file"  id="file_ktp" onChange={handleKTP} required />
+                    <Form.Control type="file"  id="file_ktp" onChange={handleKTP} />
                   </Col>
                 </Row>
 
@@ -274,7 +297,7 @@ const CaseSetting = () => {
                 <Row className="mb-3">
                   <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="nm_penggugat">Nama Penggugat</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="text" placeholder="penggugat" id="nm_penggugat" onChange={handleNamaPenggugat} required />
+                    <Form.Control type="text" placeholder="..." id="nm_penggugat" onChange={handleNamaPenggugat} required />
                   </Col>
                 </Row>
 
@@ -282,7 +305,7 @@ const CaseSetting = () => {
                 <Row className="mb-3">
                   <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="hp_penggugat">HP</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="text" placeholder="hp" id="hp_penggugat" onChange={handleHP} required />
+                    <Form.Control type="text" placeholder="..." id="hp_penggugat" onChange={handleHP} required />
                   </Col>
                 </Row>
 
@@ -290,7 +313,7 @@ const CaseSetting = () => {
                 <Row className="mb-3">
                   <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="email_penggugat">Email</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="text" placeholder="hp" id="hp_penggugat" onChange={handleEmail} required />
+                    <Form.Control type="text" placeholder="user@email.com" id="hp_penggugat" onChange={handleEmail} />
                   </Col>
                 </Row>
 
@@ -298,7 +321,7 @@ const CaseSetting = () => {
                 <Row className="mb-3">
                   <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="alamat_penggugat">Alamat</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="text" placeholder="alamat" id="alamat_penggugat" onChange={handleAlamat} required />
+                    <Form.Control type="text" placeholder="..." id="alamat_penggugat" onChange={handleAlamat} required />
                   </Col>
                 </Row>
                 
@@ -364,7 +387,7 @@ const CaseSetting = () => {
                 <Row className="mb-3">
                 <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="no_perkara">No Perkara</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="text" placeholder="no perkara" id="no_perkara" onChange={handleNoPerkara} required />
+                    <Form.Control type="text" placeholder="..." id="no_perkara" onChange={handleNoPerkara} />
                   </Col>
                 </Row>
                 
@@ -372,7 +395,7 @@ const CaseSetting = () => {
                 <Row className="mb-3">
                 <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="no_lp_pol">No Lap.Polisi</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="text" placeholder="no perkara" id="no_lp_pol" onChange={handleNoLpPol} required />
+                    <Form.Control type="text" placeholder="..." id="no_lp_pol" onChange={handleNoLpPol} />
                   </Col>
                 </Row>
                 
@@ -380,7 +403,7 @@ const CaseSetting = () => {
                 <Row className="mb-3">
                 <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="no_lainnya">No/Kode Lainnya</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="text" placeholder="no perkara" id="no_lainnya" onChange={handleNoLainnya} required />
+                    <Form.Control type="text" placeholder="..." id="no_lainnya" onChange={handleNoLainnya} />
                   </Col>
                 </Row>
                 
@@ -418,9 +441,10 @@ const CaseSetting = () => {
                     <FloatingLabel controlId="deskripsi_perkara" label="deskripsi">
                       <Form.Control
                         as="textarea"
-                        placeholder="deskripsi perkara"
+                        placeholder="...."
                         onChange={handleDeskripsi}
                         style={{ height: '100px' }}
+                        required
                       />
                     </FloatingLabel>
 
@@ -433,7 +457,11 @@ const CaseSetting = () => {
                 <Row className="mb-3">
                 <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="nm_tergugat">Para Pihak(Tergugat)</Form.Label>
                   <Col md={8} xs={12}>
-                    <Form.Control type="text" placeholder="tergugat" id="tergugat" onChange={handleTergugat} required />
+                    <Form.Control className="mb-3" type="text" placeholder="1 ..." id="tergugat1" onChange={handleTergugat1} required />
+                    <Form.Control className="mb-3" type="text" placeholder="2 ..." id="tergugat2" onChange={handleTergugat2} />
+                    <Form.Control className="mb-3" type="text" placeholder="3 ..." id="tergugat3" onChange={handleTergugat3} />
+                    <Form.Control className="mb-3" type="text" placeholder="4 ..." id="tergugat4" onChange={handleTergugat4} />
+                    <Form.Control className="mb-3" type="text" placeholder="5 ..." id="tergugat5" onChange={handleTergugat5} />
                   </Col>
                 </Row>
                 
