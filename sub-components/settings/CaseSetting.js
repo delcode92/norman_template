@@ -1,6 +1,6 @@
 // import node module libraries
 import React, { useState, useEffect } from "react";
-import { Col, Row, Form, Card, Button, FloatingLabel, Alert } from 'react-bootstrap';
+import { Col, Row, Form, Card, Button, FloatingLabel, Alert, Modal } from 'react-bootstrap';
 
 // import JnsPerkara from '../../app/(dashboard)/components/jns_perkara/page';
 
@@ -20,6 +20,7 @@ import RegistrasiID from 'sub-components/reg_id/reg_id';
 const CaseSetting = () => {
 
   const [perkaraOrder, setPerkaraOrder] = useState('');
+  const [modalStat, setmodalStat] = useState(false);
   const [insertStat, setinsertStat] = useState(false);
 
   const [NIK, setNIK] = useState('');
@@ -202,11 +203,8 @@ const CaseSetting = () => {
     }
     
     // save data to client table
-    if(NamaPenghubung=="" || KontakPenghubung==""){
-      client_data = {NIK, NamaPenggugat, HP, Email, Alamat, ViaMandiri, file_url}
-    }else{
-      client_data = {NIK, NamaPenggugat, HP, Email, Alamat, NamaPenghubung, KontakPenghubung, file_url}
-    }
+    table_name = "client"
+    client_data = {NIK, NamaPenggugat, HP, Email, Alamat, ViaMandiri, NamaPenghubung, KontakPenghubung, file_url, table_name}
 
     const responseClient = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST+'/save_client', {
         method: 'POST',
@@ -217,7 +215,8 @@ const CaseSetting = () => {
     });
     
     const data = await responseClient.json();
-    idClient = data['lastClientID'];
+    console.log("====> returning id: ", data);
+    // idClient = data['lastClientID'];
     
 
     
@@ -256,7 +255,30 @@ const CaseSetting = () => {
   }
 
   return (
+    
+    
     <Row className="mb-8">
+
+      {/* MODAL PROCESS */}
+      {
+        modalStat &&
+        <div
+          className="modal show"
+          style={{ display: 'block', position: 'fixed', top:'40%' }}
+        >
+          <Modal.Dialog>
+            <Modal.Header>
+              <Modal.Title>Modal title</Modal.Title>
+            </Modal.Header>
+
+            <Modal.Body>
+              <p>Modal body text goes here.</p>
+            </Modal.Body>
+
+          </Modal.Dialog>
+        </div>
+      }
+
       <Col xl={3} lg={4} md={12} xs={12}>
         <div className="mb-4 mb-lg-0">
           <h4 className="mb-1">Data Perkara</h4>
@@ -268,7 +290,6 @@ const CaseSetting = () => {
           {/* card body */}
           <Card.Body>
           
-          {uploadFileStat && <Alert variant="success">FILE UPLOADED!</Alert>}
           {insertStat && <Alert variant="success">DATA SAVED!</Alert>}
             
             <div>
