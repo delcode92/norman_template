@@ -199,13 +199,15 @@ const CaseSetting = () => {
 
       console.log("====here=====");
       const { fileUrl } = await res.json();
-      // console.log(fileUrl);
+      console.log(fileUrl);
       
+      setmodalStat(false);
+
       file_url = fileUrl
     }
     
     // save data to client table
-    table_name = "client"
+    let table_name = "client"
     client_data = {NIK, NamaPenggugat, HP, Email, Alamat, ViaMandiri, NamaPenghubung, KontakPenghubung, file_url, table_name}
 
     const responseClient = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST+'/save_client', {
@@ -270,11 +272,11 @@ const CaseSetting = () => {
         >
           <Modal.Dialog>
             <Modal.Header>
-              <Modal.Title>Modal title</Modal.Title>
+              <Modal.Title>Saving Progress</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
-              <h2>{savingState}</h2>
+              <h4>{savingState}</h4>
             </Modal.Body>
 
           </Modal.Dialog>
