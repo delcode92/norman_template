@@ -22,6 +22,7 @@ const CaseSetting = () => {
   const [perkaraOrder, setPerkaraOrder] = useState('');
   const [modalStat, setmodalStat] = useState(false);
   const [insertStat, setinsertStat] = useState(false);
+  const [savingState, setSavingState] = useState('');
 
   const [NIK, setNIK] = useState('');
   const [KTP, setKTP] = useState('');
@@ -189,7 +190,8 @@ const CaseSetting = () => {
       formData.append('file', file);
       
       // SEND TO CLOUDINARY
-      // setIsLoading(true);
+      setmodalStat(true);
+      setSavingState('Uploading KTP File ... ');
       const res = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST+"/upload_ktp", {
         method: 'POST',
         body: formData,
@@ -272,7 +274,7 @@ const CaseSetting = () => {
             </Modal.Header>
 
             <Modal.Body>
-              <p>Modal body text goes here.</p>
+              <h2>{savingState}</h2>
             </Modal.Body>
 
           </Modal.Dialog>
