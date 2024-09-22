@@ -221,40 +221,18 @@ const CaseSetting = () => {
     const data = await responseClient.json();
     console.log("====> returning id: ", data);
     // idClient = data['lastClientID'];
-    
-
-    
-
-    /* 
-    else {
-      console.log('No file selected.');
-
-      // SAVE TO DATABASE
-      setIsLoading(true);
-      var fileUrl = "";
-      const response = await fetch('https://www.tangkapdata2.my.id:8080/save_petani', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ kecamatan, desa, kelompok, namaPetambak, kusuka, luasLahan, tahunBantuan, fileUrl, ket }),
-      });
-      setIsLoading(false);
-    }
-    */
   
     // save data to perkara table
-    /*
+    // id | id_client | id_penasehat_hukum | id_asisten | no_perkara | no_laporan_polisi | no_dll | reg_id | judul | deskripsi | para_pihak_tergugat |
     const responsePerkara = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST+'/save_perkara', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ idClient, IdPendamping, NoPerkara, Judul, Jenis, Deskripsi, NamaPenggugat, NamaTergugat }),
-            }).then(
-                setinsertStat(true)
-            );
-    */
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ idClient, IdPendamping, NoPerkara, Judul, Jenis, Deskripsi, NamaPenggugat, NamaTergugat }),
+    }).then(
+        setinsertStat(true)
+    );
 
   }
 
