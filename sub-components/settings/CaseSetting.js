@@ -48,8 +48,12 @@ const CaseSetting = () => {
   const [Tergugat4, setTergugat4] = useState('');
   const [Tergugat5, setTergugat5] = useState('');
 
-  const [IdPenasihat, setPenasihat] = useState('');
-  const [IdPendamping, setAstPendamping] = useState('');
+  // const [IdPenasihat, setPenasihat] = useState([]);
+  // const [IdPendamping, setAstPendamping] = useState([]);
+
+  let IdPenasihat = [];
+  let IdPendamping = [];
+  let ParaPihakTergugat = [];
 
   const [mandiri, setMandiri] = useState(false);
   const [penghubung, setPenghubung] = useState(false);
@@ -84,6 +88,9 @@ const CaseSetting = () => {
     const name = selectedOption.dataset.name;
     // setPenasihat(event.target.value);
 
+    // add penasihat id to array
+    IdPenasihat.push(id);
+
     setPilihPenasihat(prevArray => {
       // Check if the name is already in the array to avoid duplicates
       if (!prevArray.includes(name)) {
@@ -99,6 +106,9 @@ const CaseSetting = () => {
     const id = selectedOption.value;
     const name = selectedOption.dataset.name;
 
+    // add penasihat id to array
+    IdPendamping.push(id);
+
     setPilihPendamping(prevArray => {
       // Check if the name is already in the array to avoid duplicates
       if (!prevArray.includes(name)) {
@@ -109,12 +119,12 @@ const CaseSetting = () => {
 
   };
   
-  const handleDeskripsi = (event) => setDeskripsi(event.target.value); 
-  const handleTergugat1 = (event) => setTergugat1(event.target.value); 
-  const handleTergugat2 = (event) => setTergugat2(event.target.value); 
-  const handleTergugat3 = (event) => setTergugat3(event.target.value); 
-  const handleTergugat4 = (event) => setTergugat4(event.target.value); 
-  const handleTergugat5 = (event) => setTergugat5(event.target.value); 
+  const handleDeskripsi = (event) => setDeskripsi( event.target.value); 
+  const handleTergugat1 = (event) => setTergugat1( ParaPihakTergugat.push(event.target.value) ); 
+  const handleTergugat2 = (event) => setTergugat2( ParaPihakTergugat.push(event.target.value) ); 
+  const handleTergugat3 = (event) => setTergugat3( ParaPihakTergugat.push(event.target.value) ); 
+  const handleTergugat4 = (event) => setTergugat4( ParaPihakTergugat.push(event.target.value) ); 
+  const handleTergugat5 = (event) => setTergugat5( ParaPihakTergugat.push(event.target.value) ); 
 
   useEffect(  () => {
     // fetch penasihat
@@ -219,17 +229,17 @@ const CaseSetting = () => {
     });
     
     const data = await responseClient.json();
-    console.log("====> returning id: ", data);
-    // idClient = data['lastClientID'];
+    console.log("====> returning id: ", data[0]['id']);
+    idClient = data[0]['id'];
   
     // save data to perkara table
-    // id | id_client | id_penasehat_hukum | id_asisten | no_perkara | no_laporan_polisi | no_dll | reg_id | judul | deskripsi | para_pihak_tergugat |
+    table_name = "perkara"
     const responsePerkara = await fetch(process.env.NEXT_PUBLIC_SERVER_HOST+'/save_perkara', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ idClient, IdPendamping, NoPerkara, Judul, Jenis, Deskripsi, NamaPenggugat, NamaTergugat }),
+    body: JSON.stringify({ idClient, IdPenasihat, IdPendamping, NoPerkara, NoLpPol, NoLainnya, perkaraOrder, Judul, Deskripsi, ParaPihakTergugat, table_name}),
     }).then(
         setinsertStat(true)
     );
