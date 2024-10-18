@@ -51,9 +51,9 @@ const CaseSetting = () => {
   // const [IdPenasihat, setPenasihat] = useState([]);
   // const [IdPendamping, setAstPendamping] = useState([]);
 
-  let IdPenasihat = [];
-  let IdPendamping = [];
-  let ParaPihakTergugat = [];
+  var IdPenasihat = [];
+  var IdPendamping = [];
+  var ParaPihakTergugat = [];
 
   const [mandiri, setMandiri] = useState(false);
   const [penghubung, setPenghubung] = useState(false);
@@ -88,8 +88,20 @@ const CaseSetting = () => {
     const name = selectedOption.dataset.name;
     // setPenasihat(event.target.value);
 
+    console.log("======== IdPenasihat before push ========");
+    console.log(IdPenasihat)
+    console.log("=========================================");
+    
     // add penasihat id to array
-    IdPenasihat.push(id);
+    if(!IdPenasihat.includes(id) && id!="-- pilih penasihat hukum --"){ 
+      IdPenasihat.push(id);
+     }
+    
+
+    console.log("======== IdPenasihat after push ========");
+    console.log(IdPenasihat)
+    console.log("========================================");
+
 
     setPilihPenasihat(prevArray => {
       // Check if the name is already in the array to avoid duplicates
@@ -181,7 +193,7 @@ const CaseSetting = () => {
     
     // 3. save tim kuasa hukum 
     console.log("tim penasihat:");
-    console.log(pilihPenasihat, pilihPendamping, "\n");
+    console.log(IdPenasihat, IdPendamping, "\n");
 
 
     var idClient = '';
@@ -239,6 +251,7 @@ const CaseSetting = () => {
     headers: {
         'Content-Type': 'application/json',
     },
+    // body: JSON.stringify({ idClient, IdPenasihat, IdPendamping, NoPerkara, NoLpPol, NoLainnya, perkaraOrder, Judul, Deskripsi, ParaPihakTergugat, table_name}),
     body: JSON.stringify({ idClient, IdPenasihat, IdPendamping, NoPerkara, NoLpPol, NoLainnya, perkaraOrder, Judul, Deskripsi, ParaPihakTergugat, table_name}),
     }).then(
         setinsertStat(true)
