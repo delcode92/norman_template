@@ -25,7 +25,7 @@ const CaseTable = () => {
             data => {
             // console.log("data ===>");
             console.log(data);
-            // setDataTable(data);
+            setDataTable(data);
             }
         )
 
@@ -127,6 +127,71 @@ const CaseTable = () => {
     </Pagination>)
   }
 
+//   const getNamaPenggugat = (id) => {
+//     var nm_penggugat = "";
+
+//     // fetch(process.env.NEXT_PUBLIC_SERVER_HOST+"/get_nama_client?id_client="+id)
+//     //     .then( response => response.json() )
+//     //     .then(
+//     //         data => {
+//     //             nm_penggugat = data[0].nm_client;
+                
+//     //             // this is show data
+//     //             console.log("nm_penggugat: ", nm_penggugat);
+                
+//     //         }
+//     //     );
+
+//     // // but this is empty
+//     // console.log("nm_penggugat: ", nm_penggugat);
+//     return id
+//   }
+
+  const NamaPenggugatCell = ({ id_client }) => {
+    const [namaPenggugat, setNamaPenggugat] = useState("");
+  
+    if(id_client){
+    useEffect(() => {
+      const fetchNamaPenggugat = async () => {
+        try {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_HOST}/get_nama_client?id_client=${id_client}`);
+          const data = await response.json();
+          setNamaPenggugat(data[0].nm_client);
+        } catch (error) {
+            console.log("")
+            //   console.error("Error fetching nama penggugat:", error);
+            //   setNamaPenggugat("Error");
+        }
+      };
+  
+      fetchNamaPenggugat();
+    }, [id_client]);
+  
+    return <td className="align-middle">{namaPenggugat}</td>;
+    }
+    else{
+        return <td className="align-middle"></td>;
+    }
+  };  
+
+const getNamaTergugat = (arr_tergugat) => {
+    let str_nama = "";
+
+    console.log("===== arr tergugat =====");
+    console.log(arr_tergugat);
+
+    if(arr_tergugat){
+        arr_tergugat.map((item, index) => {
+            if(item){
+                str_nama = str_nama + item + " ,";
+            }
+        });
+    }
+    
+
+    return str_nama
+}
+
   return (
     <Row className="mt-6">
             <Col md={12} xs={12}>
@@ -162,21 +227,46 @@ const CaseTable = () => {
                         <tbody>
                             {dataTable.map((item, index) => {
                                 return (
-                                    <tr>
-                                        <td>no</td>
-                                    </tr>
+
+                                    /*
+                                    deskripsi: "test deskripsi"
+                                        ​​
+                                        id: 10
+                                        ​​
+                                        id_client: 22
+                                        ​​
+                                        jns_perkara_order: "->pengadilan-negeri->perdata-umum->perdata-gugatan->perbuatan-melawan-hukum"
+                                        ​​
+                                        judul: "terst judul"
+                                        ​​
+                                        no_perkara: "12"
+                                        ​​
+                                        tgl_dibuat_perkara: "2024-10-18T11:07:14.231Z"
+
+                                    */
                                     // <tr key={index}>
-                                    //     <td className="align-middle"> {index+1} </td>
-                                    //     <td className="align-middle"><span className="badge bg-info bg-purple p-2">{item.no_perkara}</span></td>
-                                    //     <td className="align-middle">{item.jns_perkara}</td>
-                                    //     <td className="align-middle">{item.judul}</td>
-                                    //     <td className="align-middle text-dark">{item.nm_penggugat}</td>
-                                    //     <td className="align-middle">{item.nm_tergugat}</td>
-                                    //     <td className="align-middle">{item.deskripsi}</td>
-                                    //     <td className="align-middle">{item.tgl_dibuat_perkara}</td>
-                                    //     <td className="align-middle">{item.tgl_selesai_perkara}</td>
-                                    //     <td className="align-middle"> <ActionMenu idLog={item.id}/> </td>
+                                    //     <td>data</td>
                                     // </tr>
+
+                                    <tr key={index}>
+                                        <td className="align-middle"> {index+1} </td>
+                                        <td className="align-middle"><span className="badge bg-info bg-purple p-2">{item.no_perkara}</span></td>
+                                        <td className="align-middle">{item.jns_perkara_order}</td>
+                                        <td className="align-middle">{item.judul}</td>
+
+                                        {/* <td className="align-middle text-dark">{item.nm_penggugat}</td>
+                                        <td className="align-middle">{item.nm_tergugat}</td> */}
+                                        
+                                        {/* <td className="align-middle">{getNamaPenggugat(item.id_client)}</td> */}
+                                        <NamaPenggugatCell id_client={item.id_client} />
+                                        {/* <td className="align-middle">{item.para_pihak_tergugat[0]}</td> */}
+                                        <td className="align-middle">{getNamaTergugat(item.para_pihak_tergugat)}</td>
+                                        
+                                        <td className="align-middle">{item.deskripsi}</td>
+                                        <td className="align-middle">{item.tgl_dibuat_perkara}</td>
+                                        <td className="align-middle">--</td>
+                                        <td className="align-middle"> <ActionMenu idLog={item.id}/> </td>
+                                    </tr>
                                 )
                             })}
                         </tbody>
