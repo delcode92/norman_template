@@ -12,7 +12,9 @@ import { MoreVertical, Filter } from 'react-feather';
 
 const CaseTable = () => {
 
-  const [dataTable, setDataTable] = useState([{id:'', id_client: '', no_perkara: '',  jns_perkara: '', judul: '', deskripsi: '', nm_penggugat:'', nm_tergugat:'', tgl_dibuat_perkara:'', tgl_selesai_perkara:'-'}]);
+  const [dataTable, setDataTable] = useState(
+    [{id:'', id_client: '', no_perkara: '',  jns_perkara: '', judul: '', deskripsi: '', nm_penggugat:'', nm_tergugat:'', tgl_dibuat_perkara:'', tgl_selesai_perkara:'-'}]
+    );
   
   // const hasMounted = useMounted();
   useEffect(  () => {
@@ -22,8 +24,8 @@ const CaseTable = () => {
         .then(
             data => {
             // console.log("data ===>");
-            // console.log(data);
-            setDataTable(data);
+            console.log(data);
+            // setDataTable(data);
             }
         )
 
@@ -160,18 +162,21 @@ const CaseTable = () => {
                         <tbody>
                             {dataTable.map((item, index) => {
                                 return (
-                                    <tr key={index}>
-                                        <td className="align-middle"> {index+1} </td>
-                                        <td className="align-middle"><span className="badge bg-info bg-purple p-2">{item.no_perkara}</span></td>
-                                        <td className="align-middle">{item.jns_perkara}</td>
-                                        <td className="align-middle">{item.judul}</td>
-                                        <td className="align-middle text-dark">{item.nm_penggugat}</td>
-                                        <td className="align-middle">{item.nm_tergugat}</td>
-                                        <td className="align-middle">{item.deskripsi}</td>
-                                        <td className="align-middle">{item.tgl_dibuat_perkara}</td>
-                                        <td className="align-middle">{item.tgl_selesai_perkara}</td>
-                                        <td className="align-middle"> <ActionMenu idLog={item.id}/> </td>
+                                    <tr>
+                                        <td>no</td>
                                     </tr>
+                                    // <tr key={index}>
+                                    //     <td className="align-middle"> {index+1} </td>
+                                    //     <td className="align-middle"><span className="badge bg-info bg-purple p-2">{item.no_perkara}</span></td>
+                                    //     <td className="align-middle">{item.jns_perkara}</td>
+                                    //     <td className="align-middle">{item.judul}</td>
+                                    //     <td className="align-middle text-dark">{item.nm_penggugat}</td>
+                                    //     <td className="align-middle">{item.nm_tergugat}</td>
+                                    //     <td className="align-middle">{item.deskripsi}</td>
+                                    //     <td className="align-middle">{item.tgl_dibuat_perkara}</td>
+                                    //     <td className="align-middle">{item.tgl_selesai_perkara}</td>
+                                    //     <td className="align-middle"> <ActionMenu idLog={item.id}/> </td>
+                                    // </tr>
                                 )
                             })}
                         </tbody>

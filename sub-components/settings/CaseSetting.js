@@ -118,8 +118,18 @@ const CaseSetting = () => {
     const id = selectedOption.value;
     const name = selectedOption.dataset.name;
 
+    console.log("======== IdPendamping before push ========");
+    console.log(IdPendamping)
+    console.log("=========================================");
+
     // add penasihat id to array
-    IdPendamping.push(id);
+    if(!IdPendamping.includes(id) && id!="-- pilih asisten --"){
+      IdPendamping.push(id);
+    }
+
+    console.log("======== IdPendamping before push ========");
+    console.log(IdPendamping)
+    console.log("=========================================");
 
     setPilihPendamping(prevArray => {
       // Check if the name is already in the array to avoid duplicates
@@ -131,12 +141,12 @@ const CaseSetting = () => {
 
   };
   
-  const handleDeskripsi = (event) => setDeskripsi( event.target.value); 
-  const handleTergugat1 = (event) => setTergugat1( ParaPihakTergugat.push(event.target.value) ); 
-  const handleTergugat2 = (event) => setTergugat2( ParaPihakTergugat.push(event.target.value) ); 
-  const handleTergugat3 = (event) => setTergugat3( ParaPihakTergugat.push(event.target.value) ); 
-  const handleTergugat4 = (event) => setTergugat4( ParaPihakTergugat.push(event.target.value) ); 
-  const handleTergugat5 = (event) => setTergugat5( ParaPihakTergugat.push(event.target.value) ); 
+  const handleDeskripsi = (event) => setDeskripsi( event.target.value ); 
+  const handleTergugat1 = (event) => setTergugat1( event.target.value );  
+  const handleTergugat2 = (event) => setTergugat2( event.target.value ); 
+  const handleTergugat3 = (event) => setTergugat3( event.target.value ); 
+  const handleTergugat4 = (event) => setTergugat4( event.target.value ); 
+  const handleTergugat5 = (event) => setTergugat5( event.target.value ); 
 
   useEffect(  () => {
     // fetch penasihat
@@ -200,6 +210,10 @@ const CaseSetting = () => {
     let client_data = {};
     let file_url = '';
 
+
+    ParaPihakTergugat = [Tergugat1, Tergugat2, Tergugat3, Tergugat4, Tergugat5]
+    console.log("para tergugat: ", ParaPihakTergugat)
+    
     // ======== upload file to cloudinary ============
 
     // Get the file input element
