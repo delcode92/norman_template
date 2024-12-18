@@ -153,9 +153,15 @@ export const DashboardMenu = [
 	},
 	{
 		id: uuid(),
-		title: 'Case',
+		title: 'Add Case',
 		icon: 'briefcase',
 		link: '/pages/addcase'
+	},
+	{
+		id: uuid(),
+		title: 'Case List',
+		icon: 'briefcase',
+		link: '/pages/caselist'
 	},
 	{
 		id: uuid(),

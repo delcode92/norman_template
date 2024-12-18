@@ -22,16 +22,15 @@ const JnsPerkara = ({perkaraOrder, setPerkaraOrder}) => {
     setPerkaraOrder(po);
     console.log(perkaraOrder);
 
-    setSelectedOptions(prevState => {
-
-      
-      
+    setSelectedOptions(prevState => {      
       const newState = { ...prevState, [level]: value };
       const levels = ['court', 'category', 'subCategory', 'case', 'subCase'];
       const index = levels.indexOf(level);
+      
       for (let i = index + 1; i < levels.length; i++) {
         newState[levels[i]] = '';
       }
+
       return newState;
     });
   };

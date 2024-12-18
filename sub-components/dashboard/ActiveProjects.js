@@ -31,7 +31,7 @@ const ActiveProjects =  () => {
     useEffect(() => {
         const intervalId = setInterval( async () => {
             
-              await fetch(process.env.NEXT_PUBLIC_SERVER_HOST + "/get_log/102")
+              await fetch(process.env.NEXT_PUBLIC_SERVER_HOST + "/get_active_logs")
               .then(
                 // must I use response code below ?
                 response => response.json()
