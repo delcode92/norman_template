@@ -22,12 +22,88 @@ const ActiveProjects =  () => {
     // }
 
     const [show, setShow] = useState(false);
-    const [dataTable, setDataTable] = useState([{id:'', log_time: '', no_perkara: '', namaAsisten: 'John', log_text: '', status: 'Active'}]);
+    // const [dataTable, setDataTable] = useState([{id:'', log_time: '', no_perkara: '', namaAsisten: 'John', log_text: '', status: 'Active'}]);
     // const [text, setText] = useState('');
     const [logID, setLogID] = useState('');
     const [logTxt, setLogTxt] = useState('');
     const [updateStat, setUpdateStat] = useState(false);
 
+    const initialData = [{
+        id: '',
+        log_time: '',
+        no_perkara: '',
+        namaAsisten: 'John',
+        log_text: '',
+        status: 'Active'
+      }];
+
+    const useSSE = (initialData) => {
+        const [dataTable, setDataTable] = useState(initialData);
+        const [error, setError] = useState(null);
+        const [status, setStatus] = useState('disconnected');
+      
+        useEffect(() => {
+          let eventSource = null;
+      
+          const connect = () => {
+            try {
+              // Close existing connection if any
+              if (eventSource) {
+                eventSource.close();
+              }
+      
+              // Create new EventSource connection
+              eventSource = new EventSource(`${process.env.NEXT_PUBLIC_SERVER_HOST}/get_active_logs`);
+      
+              // Connection opened
+              eventSource.onopen = () => {
+                setStatus('connected');
+                console.log('Connected to SSE');
+              };
+      
+              // Listen for 'update' events
+              eventSource.addEventListener('update', (event) => {
+                try {
+                  const data = JSON.parse(event.data);
+                  // Assuming the data structure matches your table requirements
+                  setDataTable(data.message || initialData);
+                } catch (err) {
+                  setError(err);
+                  setDataTable(initialData);
+                }
+              });
+      
+              // Error handling
+              eventSource.onerror = (err) => {
+                console.error('SSE Error:', err);
+                setStatus('error');
+                setError(err);
+                setStatus('reconnecting');
+              };
+            } catch (err) {
+              setError(err);
+              setStatus('error');
+            }
+          };
+      
+          // Initial connection
+          connect();
+      
+          // Cleanup on component unmount
+          return () => {
+            if (eventSource) {
+              eventSource.close();
+              setStatus('disconnected');
+            }
+          };
+        }, []); // Empty dependency array means this runs once on mount
+      
+        return { dataTable, error, status };
+    };
+    
+    const { dataTable, error, status } = useSSE(initialData);
+
+    /*
     useEffect(() => {
         const intervalId = setInterval( async () => {
             
@@ -46,6 +122,7 @@ const ActiveProjects =  () => {
                  
                 }, 5000);
         }, []);
+    */
 
     const handleClose = () => {
         setUpdateStat(false);
