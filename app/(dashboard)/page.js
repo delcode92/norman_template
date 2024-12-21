@@ -3,14 +3,16 @@
 import { Fragment } from "react";
 import Link from 'next/link';
 import { Container, Col, Row, Image } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
 
 // import widget/custom components
 import { StatRightTopIcon } from "widgets";
+import { ActiveProjects} from "sub-components";
 
 // import sub components
-import { ActiveProjects, Teams, 
-    TasksPerformance 
-} from "sub-components";
+// import { ActiveProjects, Teams, 
+//     TasksPerformance 
+// } from "sub-components";
 
 // import required data files
 import ProjectsStatsData from "data/dashboard/ProjectsStatsData";
@@ -18,6 +20,32 @@ import ProjectsStatsData from "data/dashboard/ProjectsStatsData";
 // import { loadComponents } from "next/dist/server/load-components";
 
 const Home = () => {
+    
+    const [messages, setMessages] = useState([]);
+    const [dataTable, setDataTable] = useState([{id:'', log_time: '', no_perkara: '', namaAsisten: 'John', log_text: '', status: 'Active'}]);
+
+    // useEffect(() => {
+    //     const eventSource = new EventSource('http://localhost:8082/get_active_logs');
+    
+    //     eventSource.onmessage = (event) => {
+    //       const data = JSON.parse(event.data);
+    //       // setMessages((prev) => [...prev, `${data.timestamp}: ${data.message}`]);
+    //       console.log(data);
+    //       setDataTable(data)
+    
+    //     };
+    
+    //     eventSource.onerror = (error) => {
+    //       console.error('SSE error:', error);
+    //       eventSource.close();
+    //     };
+    
+    //     return () => {
+    //       eventSource.close();
+    //     };
+    //   }, []);
+
+      
     return (
         <Fragment>
             <div className="bg-cobalt-blue pt-10 pb-21"></div>
