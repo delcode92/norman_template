@@ -39,7 +39,9 @@ const ActiveProjects =  () => {
 
       useEffect(() => {
         // const eventSource = new EventSource(`${process.env.NEXT_PUBLIC_SERVER_HOST}/get_active_logs`);
-        const eventSource = new EventSource('/api/logs-stream');
+        const eventSource = new EventSource('/api/logs-stream',{
+            withCredentials: true,
+          });
     
         eventSource.onmessage = (event) => {
           const data = JSON.parse(event.data);
