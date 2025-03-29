@@ -65,7 +65,7 @@ const GeneralSetting = props => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ Name, Email, Phone, Addr, table_name }),
+            body: JSON.stringify({ Name, Email, Phone, Addr, Username, Pass, table_name }),
             });
 
     if(response.ok){
@@ -118,7 +118,7 @@ const GeneralSetting = props => {
               <Col md={9}>
                 <div className="d-flex align-items-center">
                   <div className="me-3">
-                    <Image src="/images/avatar/avatar-5.jpg" className="rounded-circle avatar avatar-lg" alt="" />
+                    <Image src="/images/avatar/avatar.jpg" className="rounded-circle avatar avatar-lg" alt="" />
                   </div>
                   <div>
                     <Button variant="outline-white" className="me-2" type="submit">Change </Button>
@@ -196,28 +196,28 @@ const GeneralSetting = props => {
                 </div> */}
 
                 {/* USERNAME */}
-                {/* <Row className="mb-3">
+                <Row className="mb-3">
                   <Form.Label className="col-sm-4" htmlFor="uname">User Name</Form.Label>
                   <Col md={8} xs={12}>
                     <Form.Control type="text" placeholder="username" id="uname" onChange={handleUsername} required />
                   </Col>
-                </Row> */}
+                </Row>
 
                 {/* PASS */}
-                {/* <Row className="mb-3">
+                <Row className="mb-3">
                   <Form.Label className="col-sm-4" htmlFor="pass">Password</Form.Label>
                   <Col md={8} xs={12}>
                     <Form.Control type="password" placeholder="password" id="pass" onChange={handlePass} required />
                   </Col>
-                </Row> */}
+                </Row>
                 
                 {/* RETYPE PASS */}
-                {/* <Row className="mb-3">
+                <Row className="mb-3">
                   <Form.Label className="col-sm-4" htmlFor="repass">Retype Password</Form.Label>
                   <Col md={8} xs={12}>
                     <Form.Control type="password" placeholder="retype password" id="repass" onChange={handleRetypePass} required />
                   </Col>
-                </Row> */}
+                </Row>
 
                 {/* <div className="mt-8 mb-6">
                   <h4 className="mb-1">Case Assignment</h4>

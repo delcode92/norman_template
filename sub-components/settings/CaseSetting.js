@@ -51,8 +51,8 @@ const CaseSetting = () => {
   // const [IdPenasihat, setPenasihat] = useState([]);
   // const [IdPendamping, setAstPendamping] = useState([]);
 
-  var IdPenasihat = [];
-  var IdPendamping = [];
+  const [IdPenasihat, setIdPenasihat] = useState([]);
+  const [IdPendamping, setIdPendamping] = useState([]);
   var ParaPihakTergugat = [];
 
   const [mandiri, setMandiri] = useState(false);
@@ -88,19 +88,20 @@ const CaseSetting = () => {
     const name = selectedOption.dataset.name;
     // setPenasihat(event.target.value);
 
-    console.log("======== IdPenasihat before push ========");
-    console.log(IdPenasihat)
-    console.log("=========================================");
+    // console.log("======== IdPenasihat before push ========");
+    // console.log(IdPenasihat)
+    // console.log("=========================================");
     
     // add penasihat id to array
     if(!IdPenasihat.includes(id) && id!="-- pilih penasihat hukum --"){ 
-      IdPenasihat.push(id);
+      // IdPenasihat.push(id);
+      setIdPenasihat(prevIds => [...prevIds, id]);
      }
     
 
-    console.log("======== IdPenasihat after push ========");
-    console.log(IdPenasihat)
-    console.log("========================================");
+    // console.log("======== IdPenasihat after push ========");
+    // console.log(IdPenasihat)
+    // console.log("========================================");
 
 
     setPilihPenasihat(prevArray => {
@@ -118,18 +119,20 @@ const CaseSetting = () => {
     const id = selectedOption.value;
     const name = selectedOption.dataset.name;
 
-    console.log("======== IdPendamping before push ========");
-    console.log(IdPendamping)
-    console.log("=========================================");
+    // console.log("======== IdPendamping before push ========");
+    // console.log(IdPendamping)
+    // console.log("=========================================");
 
     // add penasihat id to array
     if(!IdPendamping.includes(id) && id!="-- pilih asisten --"){
-      IdPendamping.push(id);
+      // IdPendamping.push(id);
+      console.log("\n\n==>inside set id pendamping: ", id);
+      setIdPendamping(prevIds => [...prevIds, id]);
     }
 
-    console.log("======== IdPendamping before push ========");
-    console.log(IdPendamping)
-    console.log("=========================================");
+    // console.log("======== IdPendamping after push ========");
+    // console.log(IdPendamping)
+    // console.log("=========================================");
 
     setPilihPendamping(prevArray => {
       // Check if the name is already in the array to avoid duplicates
@@ -203,7 +206,7 @@ const CaseSetting = () => {
     
     // 3. save tim kuasa hukum 
     console.log("tim penasihat:");
-    console.log(IdPenasihat, IdPendamping, "\n");
+    console.log(IdPenasihat, IdPendamping, "\n"); // the result is empty array
 
 
     var idClient = '';

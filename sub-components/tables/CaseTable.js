@@ -1,7 +1,7 @@
 // import node module libraries
 import React, { useState, useEffect } from "react";
 import Link from 'next/link';
-import {  Col, Row, Card, Table, Dropdown, Pagination, Form, Button } from 'react-bootstrap';
+import {  Col, Row, Card, Table, Dropdown, Pagination, Form, Modal, Button } from 'react-bootstrap';
 import { MoreVertical, Filter } from 'react-feather';
 
 // import required data files
@@ -12,6 +12,7 @@ import { MoreVertical, Filter } from 'react-feather';
 
 const CaseTable = () => {
 
+  const [show, setShow] = useState(false);
   const [dataTable, setDataTable] = useState(
     [{id:'', id_client: '', no_perkara: '',  jns_perkara: '', judul: '', deskripsi: '', nm_penggugat:'', nm_tergugat:'', tgl_dibuat_perkara:'', tgl_selesai_perkara:'-'}]
     );
@@ -19,7 +20,7 @@ const CaseTable = () => {
   // const hasMounted = useMounted();
   useEffect(  () => {
     // fetch data from table perkara here
-    fetch(process.env.NEXT_PUBLIC_SERVER_HOST+"/get_perkara")
+    fetch(process.env.NEXT_PUBLIC_SERVER_HOST+"/get_all_perkara")
         .then( response => response.json() )
         .then(
             data => {
@@ -30,6 +31,21 @@ const CaseTable = () => {
         )
 
   }, []);
+
+  const handleConfirm = () => {
+    setShow(false); // Close the modal
+    // console.log("id===>", id_log['idLog']); // Replace id_log with your actual variable
+    // console.log("Selected event key:", selectedEventKey);
+    
+    // Execute your code here
+    console.log("executed MEEEE");
+  };
+
+  const handleCancel = () => {
+    console.log("cancle 1");
+    setShow(false); // Close the modal without executing anything
+  };
+
 
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     (<Link
@@ -91,12 +107,21 @@ const CaseTable = () => {
   };
   
   const ActionMenu = (id_log) => {
-      
+    
+    
     const handleSelect = (eventKey) => {
         console.log("id===>", id_log['idLog']);
         console.log("Selected event key:", eventKey);
-      };
-  
+
+        // show alert , if yes execute code below
+        if(eventKey==4){
+            console.log("executed MEEEE");
+            setShow(true);
+        }
+        
+    };
+
+    
     return (
         <Dropdown onSelect={handleSelect}>
             <Dropdown.Toggle as={CustomToggle}>
@@ -111,6 +136,9 @@ const CaseTable = () => {
                 </Dropdown.Item>
                 <Dropdown.Item eventKey="3">
                     Delete
+                </Dropdown.Item>
+                <Dropdown.Item eventKey="4">
+                    Tandai Selesai
                 </Dropdown.Item>
             </Dropdown.Menu>
         </Dropdown>
@@ -193,8 +221,26 @@ const getNamaTergugat = (arr_tergugat) => {
 }
 
   return (
+    
     <Row className="mt-6">
+            {/* React-Bootstrap Modal */}
+            <Modal show={show} onHide={handleCancel}>
+                <Modal.Header closeButton>
+                <Modal.Title>Confirmation</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Are you sure you want to proceed?</Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleCancel}>
+                    Cancel
+                </Button>
+                <Button variant="primary" onClick={handleConfirm}>
+                    Yes
+                </Button>
+                </Modal.Footer>
+            </Modal>
+
             <Col md={12} xs={12}>
+                
                 <Card>
                     <Card.Header className="bg-white  py-4">
                         <div className="row">

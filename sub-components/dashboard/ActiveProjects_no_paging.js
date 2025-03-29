@@ -3,9 +3,8 @@
 // import node module libraries
 import React, { useState, useEffect } from "react";
 import Link from 'next/link';
-import { Col, Row, Card, Table, Modal , Dropdown, Pagination, Form, Button, FloatingLabel, Alert, Spinner } from 'react-bootstrap';
+import { Col, Row, Card, Table, Modal , Dropdown, Pagination, Form, Button, FloatingLabel, Alert } from 'react-bootstrap';
 import { MoreVertical, Filter } from 'react-feather';
-
 // import { useRouter } from 'next/router';
 
 
@@ -23,24 +22,11 @@ const ActiveProjects =  () => {
     // }
 
     const [show, setShow] = useState(false);
-    const [dataTable, setDataTable] = useState([{id:'', log_time: '', no_perkara: '', nama_asisten: 'John', log_text: '', status: 'Active'}]);
-    const [totalRecords, setTotalRecords] = useState(0);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [limit] = useState(10); 
-    
+    const [dataTable, setDataTable] = useState([{id:'', log_time: '', no_perkara: '', namaAsisten: 'John', log_text: '', status: 'Active'}]);
     // const [text, setText] = useState('');
     const [logID, setLogID] = useState('');
     const [logTxt, setLogTxt] = useState('');
     const [updateStat, setUpdateStat] = useState(false);
-
-    const [loading, setLoading] = useState(false);
-
-    const spinnerStyle = {
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-      };
 
     // const initialData = [{
     //     id: '',
@@ -51,64 +37,28 @@ const ActiveProjects =  () => {
     //     status: 'Active'
     //   }];
 
-    //   useEffect(() => {
-    //     // const eventSource = new EventSource(`${process.env.NEXT_PUBLIC_SERVER_HOST}/get_active_logs`);
-    //     const eventSource = new EventSource(`/api/get_active_logs`);
-    //     // const eventSource = new EventSource('/api/logs-stream',{
-    //     //     withCredentials: true,
-    //     //   });
-    
-    //     eventSource.onmessage = (event) => {
-    //       const data = JSON.parse(event.data);
-    //       console.log(data);
-    //       setDataTable(data);
-    //     };
-    
-    //     eventSource.onerror = (error) => {
-    //       console.error('SSE error:', error);
-    //       eventSource.close();
-    //     };
-    
-    //     return () => {
-    //       eventSource.close();
-    //     };
-    //   }, []);
-
       useEffect(() => {
-        const offset = (currentPage - 1) * limit;
-        setLoading(true);
-
-        const eventSource = new EventSource(
-          `/api/get_active_logs?limit=${limit}&offset=${offset}`
-        );
+        // const eventSource = new EventSource(`${process.env.NEXT_PUBLIC_SERVER_HOST}/get_active_logs`);
+        const eventSource = new EventSource(`/api/get_active_logs`);
+        // const eventSource = new EventSource('/api/logs-stream',{
+        //     withCredentials: true,
+        //   });
     
-        // const eventSource = new EventSource(`/api/get_active_logs`);
-        
         eventSource.onmessage = (event) => {
-          
-          console.log("JSON data: ", JSON.parse(event.data) );
-
-          const { data, totalRecords } = JSON.parse(event.data);
-          
-          console.log("======================");
-          console.log("data: ", data);
-          console.log("totalRecords: ", totalRecords);
-          console.log("======================");
-          
+          const data = JSON.parse(event.data);
+          console.log(data);
           setDataTable(data);
-          setTotalRecords(totalRecords);
-          setLoading(false);
         };
     
-        eventSource.onerror = () => {
+        eventSource.onerror = (error) => {
+          console.error('SSE error:', error);
           eventSource.close();
-          setLoading(false);
         };
     
         return () => {
           eventSource.close();
         };
-      }, [currentPage, limit]);
+      }, []);
 
     // useEffect(() => {
     //     let eventSource;
@@ -408,49 +358,16 @@ const ActiveProjects =  () => {
         );
     };
     
-    // const Paginations = () => {
-    //     return (<Pagination className="justify-content-end">
-    //         <Pagination.Prev disabled>Previous</Pagination.Prev> 
-    //         <Pagination.Item>{1}</Pagination.Item>
-    //         <Pagination.Item active>{2}</Pagination.Item>                                
-    //         <Pagination.Item>{3}</Pagination.Item>      
-    //         <Pagination.Next>Next</Pagination.Next>
-    //     </Pagination>)
-    // }
+    const Paginations = () => {
+        return (<Pagination className="justify-content-end">
+            <Pagination.Prev disabled>Previous</Pagination.Prev> 
+            <Pagination.Item>{1}</Pagination.Item>
+            <Pagination.Item active>{2}</Pagination.Item>                                
+            <Pagination.Item>{3}</Pagination.Item>      
+            <Pagination.Next>Next</Pagination.Next>
+        </Pagination>)
+    }
     
-    const Paginations = ({ totalRecords, limit, currentPage, onPageChange }) => {
-        console.log("paging clicked ...");
-        const totalPages = Math.ceil(totalRecords / limit);
-        console.log("totalPaages: ", totalPages);
-        
-        return (
-          <Pagination className="justify-content-end">
-            <Pagination.Prev
-              disabled={currentPage === 1}
-              onClick={() => onPageChange(currentPage - 1)}
-            >
-              Previous
-            </Pagination.Prev>
-            {[...Array(totalPages)].map((_, i) => (
-              <Pagination.Item
-                key={i + 1}
-                active={i + 1 === currentPage}
-                onClick={() => onPageChange(i + 1)}
-              >
-                {i + 1}
-              </Pagination.Item>
-            ))}
-            <Pagination.Next
-              disabled={currentPage === totalPages}
-              onClick={() => onPageChange(currentPage + 1)}
-            >
-              Next
-            </Pagination.Next>
-          </Pagination>
-        );
-      };
-    
-
     // console.log(dataTable);
 
     // MODAL HANDLE TEXTAREA
@@ -515,15 +432,6 @@ const ActiveProjects =  () => {
                         </div>
 
                     </Card.Header>
-                    {loading && (
-                        <div style={spinnerStyle}>
-                            <Spinner animation="border" role="status" variant="primary">
-                            <span className="visually-hidden">Loading...</span>
-                            </Spinner>
-                        </div>
-                        )}
-
-
                     <Table responsive className="text-nowrap mb-0">
                         <thead className="table-light">
                             <tr>
@@ -544,7 +452,7 @@ const ActiveProjects =  () => {
                                         <td className="align-middle"><span className="badge bg-info bg-purple p-2">{item.no_perkara}</span></td>
                                         <td className="align-middle">
                                             <div className="avatar-group">
-                                                {item.nama_asisten}
+                                                ...
                                                 {/* {item.members.map((avatar, avatarIndex) => {
                                                     return (
                                                         <span className="avatar avatar-sm" key={avatarIndex}>
@@ -572,12 +480,7 @@ const ActiveProjects =  () => {
                     </Table>
                     
                     <Card.Footer className="bg-white">
-                        <Paginations
-                            totalRecords={totalRecords}
-                            limit={limit}
-                            currentPage={currentPage}
-                            onPageChange={setCurrentPage}
-                        />
+                        <Paginations/>
                         {/* <Link href="#" className="link-primary">View All Projects</Link> */}
                     </Card.Footer>
 

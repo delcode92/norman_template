@@ -18,7 +18,7 @@ const AssistantTable = () => {
   // const hasMounted = useMounted();
   useEffect(  () => {
     // fetch data from table perkara here
-    fetch(process.env.NEXT_PUBLIC_SERVER_HOST+"/get_assistant")
+    fetch(process.env.NEXT_PUBLIC_SERVER_HOST+"/get_pendamping")
         .then( response => response.json() )
         .then(
             data => {
